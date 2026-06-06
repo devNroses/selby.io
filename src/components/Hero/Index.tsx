@@ -1,8 +1,8 @@
 import { useState, useEffect, useLayoutEffect } from 'react'
 import { motion } from "motion/react"
-import styles from './AnimatedNav.module.css'
+import styles from './Hero.module.css'
 
-export const AnimatedNav = () => {
+export const Hero = () => {
     const [scrollY, setScrollY] = useState(0);
     // Prevent scroll restoration on page load and reload
     useLayoutEffect(() => {
@@ -36,7 +36,7 @@ export const AnimatedNav = () => {
         <motion.div 
           className={styles.mainLogo}
           initial={{ scale: 1 }}
-          animate={{ scale: logoScale > 0.5 ? logoScale : 0.5, transition: { duration: 0.2 } }}
+          animate={{ scale: logoScale > 0.5 ? logoScale : 0.5, transition: { duration: 0.8 } }}
         >
           Main Logo
         </motion.div>

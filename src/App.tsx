@@ -1,5 +1,5 @@
 // import { useMainStore } from './store/mainStore'
-import { AnimatedNav } from './components/AnimatedNav/Index'
+import { Hero } from './components/Hero/Index'
 
 function App() {
   // const count = useMainStore((state) => state.count)
@@ -9,7 +9,7 @@ function App() {
  
   return (
       <section className="pageSection">
-        <AnimatedNav />
+        <Hero />
         <div className="pageContentSpacer" />
         {/* <div>
           <p>Count: {count}</p>
