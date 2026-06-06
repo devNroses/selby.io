@@ -12,6 +12,7 @@ export const AnimatedNav = () => {
         }
     }, []);
 
+    // Handles scroll event to update scrollY state
     useEffect(() => {
         const handleScroll = () => {
             setScrollY(window.scrollY);
@@ -25,6 +26,8 @@ export const AnimatedNav = () => {
         }
     }, []);
 
+    const logoScale = Math.max(0.6, 1 - scrollY / 1000);
+
   return (
     <div className={styles.headerContainer}>
       <div className={styles.header}>
@@ -32,8 +35,8 @@ export const AnimatedNav = () => {
       </div>
         <motion.div 
           className={styles.mainLogo}
-          initial={{ scale: 0 }}
-          animate={{ scale: 1, transition: { duration: .8, delay: 1 } }}
+          initial={{ scale: 1 }}
+          animate={{ scale: logoScale, transition: { duration: 0.2 } }}
         >
           Main Logo
         </motion.div>

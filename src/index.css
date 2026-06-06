@@ -112,10 +112,17 @@ code {
 
 .pageSection {
   padding-top: 0;
-  padding-bottom: 0;
+  padding-bottom: 6rem;
+}
+
+@media (max-width: 768px) {
+  .pageSection {
+    padding-bottom: 42rem;
+    border: 2px dashed hotpink;
+  }
 }
 
 .pageContentSpacer {
-  min-height: 100vh;
+  min-height: 160vh;
 }
 
