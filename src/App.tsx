@@ -10,6 +10,7 @@ function App() {
   return (
       <section className="pageSection">
         <AnimatedNav />
+        <div className="pageContentSpacer" />
         {/* <div>
           <p>Count: {count}</p>
           <button onClick={increment}>Increment</button>

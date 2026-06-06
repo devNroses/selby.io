@@ -33,7 +33,7 @@
     height: 4em;
     display: flex;
     justify-content: center;
-    align-items: top center;
+    align-items: center;
     text-align: center;
     white-space: nowrap;
     font-size: clamp(4em, 12vw, 20rem);

@@ -112,6 +112,10 @@ code {
 
 .pageSection {
   padding-top: 0;
-  padding-bottom: 150vh;
+  padding-bottom: 0;
+}
+
+.pageContentSpacer {
+  min-height: 100vh;
 }
 
