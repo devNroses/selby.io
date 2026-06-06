@@ -1,5 +1,6 @@
 import { useState, useEffect, useLayoutEffect } from 'react'
 import { motion } from "motion/react"
+import { Button } from '../Global/Button'
 import styles from './Hero.module.css'
 
 export const Hero = () => {
@@ -40,6 +41,7 @@ export const Hero = () => {
         >
           Main Logo
         </motion.div>
+        <Button />
       <div className={styles.spacer} aria-hidden="true" />
     </div>
   )

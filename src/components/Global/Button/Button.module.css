@@ -1,0 +1,14 @@
+.button{
+    width: 250px;
+    height: 50px;
+    background: var(--primary);
+    color: var(--text);
+}
+
+
+@media (max-width: 820px) {
+    .button{
+        width: 100%;
+        margin: 0 auto;
+    }
+}
