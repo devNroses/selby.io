@@ -36,7 +36,7 @@ export const AnimatedNav = () => {
         <motion.div 
           className={styles.mainLogo}
           initial={{ scale: 1 }}
-          animate={{ scale: logoScale, transition: { duration: 0.2 } }}
+          animate={{ scale: logoScale > 0.5 ? logoScale : 0.5, transition: { duration: 0.2 } }}
         >
           Main Logo
         </motion.div>
