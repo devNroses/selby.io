@@ -1,7 +1,11 @@
 import {motion} from "motion/react"
 import styles from './Button.module.css'
 
-export const Button = () => {
+interface ButtonProps {
+    buttonAction: () => void;
+}
+
+export const Button = ({ buttonAction }: ButtonProps) => {
     return (
         <motion.button 
             className={`${styles.button} ${styles.glitchButton}`} 
@@ -10,13 +14,13 @@ export const Button = () => {
                 transition: { duration: 0.45 },
                 backgroundColor: '#111111',
                 color: '#fff',
-                boxShadow: '0 0 10px #ff008c, 0 0 20px #ff008c, 0 0 30px #ff008c'
+                boxShadow: '0 0 4px #ff008c, 0 0 8px #ff008c, 0 0 12px #ff008c'
             }} 
             whileTap={{ 
                 scale: 1,
                 transition: { duration: 0.45 },
             }} 
-            onTapStart={(e) => console.log('Tab started', e)}
+            onTapStart={() => buttonAction()}
         >
             <span data-text="Enter" className={styles.glitch}>
                 Enter
