@@ -15,6 +15,11 @@
     z-index: 1;
 }
 
+.glitchButton{
+    border: 1px solid #111111;
+    animation: glitch-it 0.45s both infinite;
+}
+
 .glitch::before,
 .glitch::after {
     display: block;
@@ -39,16 +44,17 @@
 
 @keyframes glitch-it {
    0% { transform: translate(0); }
-   20% { transform: translate(-2px, 2px); }
-   40% { transform: translate(-2px, -2px); }
-   60% { transform: translate(2px, 2px); }
-   80% { transform: translate(2px, -2px); }
+   20% { transform: translate(-1px, 2px); }
+   40% { transform: translate(-1px, -1px); }
+   60% { transform: translate(1px, 1px); }
+   80% { transform: translate(1px, -1px); }
    to { transform: translate(0); }
 }
 
 .button:hover .glitch::before,
-.button:hover .glitch::after {
-    animation: none;
+.button:hover .glitch::after,
+.glitchButton:hover {
+    animation: none !important;
 }
 
 @media (max-width: 820px) {

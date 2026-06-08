@@ -37,7 +37,7 @@ export const Hero = () => {
         <motion.div 
           className={styles.mainLogo}
           initial={{ scale: 1 }}
-          animate={{ scale: logoScale > 0.5 ? logoScale : 0.5, transition: { duration: 0.8 } }}
+          animate={{ scale: logoScale > 0.5 ? logoScale : 0.5, transition: { duration: 0.65 } }}
         >
           Main Logo
         </motion.div>
