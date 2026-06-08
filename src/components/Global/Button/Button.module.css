@@ -3,6 +3,7 @@
     height: 50px;
     background: var(--primary);
     color: var(--text);
+    border-radius: 6px;
 }
 
 .glitch{
