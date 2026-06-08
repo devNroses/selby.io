@@ -41,7 +41,11 @@ export const Hero = () => {
         >
           Main Logo
         </motion.div>
-        <Button />
+        <motion.div
+          style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}
+        >
+          <Button />
+        </motion.div>
       <div className={styles.spacer} aria-hidden="true" />
     </div>
   )
