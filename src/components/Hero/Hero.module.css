@@ -65,7 +65,20 @@
 }
 
 .dashboardContent {
-    border: 2px dashed yellow;
-    display: flex;
+    border: 1px dashed yellow;
+    /* display: block; */
+    display: grid;
+    grid-auto-rows: 1fr;
     width: 100%;
+}
+
+.dashboardContent > * {
+    padding:1rem;
+    border: 1px dashed cyan;
+}
+
+@media (min-width: 768px) {
+    .dashboardContent {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
 }

@@ -79,7 +79,9 @@ export const Hero = () => {
       {showDashboard && (
         <motion.div className={styles.dashboard} initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { duration: 0.5 } }}>
           <div className={styles.dashboardContent}>
-            <h2>Dashboard</h2>
+            <div>panel 1</div>
+            <div>panel 2</div>
+            <div>panel 3</div>
           </div>
         </motion.div>
       )}
