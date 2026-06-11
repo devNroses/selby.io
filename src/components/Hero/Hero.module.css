@@ -40,7 +40,7 @@
     white-space: nowrap;
     font-family: 'Delarge';
     color: var(--text-h);
-    font-size: clamp(4em, 12vw, 20rem);
+    font-size: clamp(10em, 18vw, 26rem);
     line-height: 1;
     padding: .5em 0em;
 }
