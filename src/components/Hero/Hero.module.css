@@ -82,3 +82,19 @@
         grid-template-columns: 1fr 1fr 1fr;
     }
 }
+
+.profileSection {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border: 2px dashed hotpink;
+    min-height: 80%;
+}
+
+.skillsSection {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border: 2px dashed hotpink;
+    min-height: 20%;
+}

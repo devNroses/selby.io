@@ -77,11 +77,41 @@ export const Hero = () => {
         </motion.div>
       <div className={styles.spacer} aria-hidden="true" />
       {showDashboard && (
-        <motion.div className={styles.dashboard} initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { duration: 0.5 } }}>
+        <motion.div className={styles.dashboard} initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { duration: 0.25 } }}>
           <div className={styles.dashboardContent}>
-            <div>panel 1</div>
-            <div>panel 2</div>
-            <div>panel 3</div>
+            <motion.div
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.25 } }}
+              style={{ background: '#04d4fd', padding: '1rem'}}
+            >
+              panel 1
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.35 } }}
+              style={{ background: '#04f94d', padding: '1rem'}}
+            >
+              panel 2
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.45 } }}
+              style={{ transformOrigin: 'bottom', background: '#f62900', padding: '1rem'}}
+            >
+              <div className={styles.profileSection}>
+                [Profile] 
+                <div className={styles.profileResume}>
+                  [ Resume CTA ]
+                </div>
+                <div className={styles.profileSocials}>
+                  [ Socials CTA Container ]
+                </div>
+              </div>
+
+               <div className={styles.skillsSection}>
+               [ Skills ]
+              </div>
+            </motion.div>
           </div>
         </motion.div>
       )}
