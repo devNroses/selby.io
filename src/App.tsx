@@ -1,22 +1,12 @@
 // import { useMainStore } from './store/mainStore'
 import { Hero } from './components/Hero/Index'
+import './index.css';
 
 function App() {
-  // const count = useMainStore((state) => state.count)
-  // const increment = useMainStore((state) => state.increment)
-  // const decrement = useMainStore((state) => state.decrement)
-  // const reset = useMainStore((state) => state.reset)
- 
   return (
       <section className="pageSection">
         <Hero />
         <div className="pageContentSpacer" />
-        {/* <div>
-          <p>Count: {count}</p>
-          <button onClick={increment}>Increment</button>
-          <button onClick={decrement}>Decrement</button>
-          <button onClick={reset}>Reset</button>
-        </div> */}
       </section>
   )
 }

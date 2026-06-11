@@ -61,14 +61,14 @@ export const Hero = () => {
   return (
     <div className={styles.headerContainer}>
       <div className={styles.header}>
-        <div className={styles.headerWrapper}>header [ScrollY: {scrollY}]</div>
+        {/* <div className={styles.headerWrapper}>header [ScrollY: {scrollY}]</div> */}
       </div>
         <motion.div 
           className={styles.mainLogo}
           initial={{ scale: 1 }}
-          animate={{ scale: logoScale > 0.5 ? logoScale : 0.5, transition: { duration: 0.65 } }}
+          animate={{ scale: logoScale > 0.5 ? logoScale : 0.5, transition: { duration: 0.25 } }}
         >
-          Main Logo
+          SELBY
         </motion.div>
         <motion.div
           style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}
@@ -96,21 +96,33 @@ export const Hero = () => {
             <motion.div
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.45 } }}
-              style={{ transformOrigin: 'bottom', background: '#f62900', padding: '1rem'}}
+              style={{ transformOrigin: 'bottom', display: 'flex', flexDirection: 'column', background: '#f62900', padding: '1rem', gap: '1em' }}
             >
-              <div className={styles.profileSection}>
+              <motion.div 
+              className={styles.profileSection}
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.55 } }}
+              >
                 [Profile] 
-                <div className={styles.profileResume}>
+                <motion.div 
+                className={styles.profileResume}
+                initial={{ opacity: 0, y: 25 }}
+                animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.6 } }}
+                >
                   [ Resume CTA ]
-                </div>
-                <div className={styles.profileSocials}>
+                </motion.div>
+                <motion.div 
+                className={styles.profileSocials}
+                initial={{ opacity: 0, y: 25 }}
+                animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.65 } }}
+                >
                   [ Socials CTA Container ]
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
 
-               <div className={styles.skillsSection}>
+               <motion.div className={styles.skillsSection}>
                [ Skills ]
-              </div>
+              </motion.div>
             </motion.div>
           </div>
         </motion.div>
