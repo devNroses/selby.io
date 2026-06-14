@@ -88,13 +88,12 @@
 
 .pageSection {
   padding-top: 0;
-  padding-bottom: 2rem;
+  padding-bottom: 2 rem;
 }
 
 @media (max-width: 768px) {
   .pageSection {
-    padding-bottom: 42rem;
-    border: 2px dashed hotpink;
+    padding-bottom: 15rem;
   }
 }
 

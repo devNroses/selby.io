@@ -1,12 +1,17 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useLayoutEffect } from 'react'
+import gsap from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
 import { motion } from "motion/react"
 import { Button } from '../Global/Button'
 import styles from './Hero.module.css'
 
 export const Hero = () => {
-    const [scrollY, setScrollY] = useState(0);
+    gsap.registerPlugin(ScrollTrigger);
+    const heroRef = useRef<HTMLDivElement | null>(null);
+    const logoRef = useRef<HTMLDivElement | null>(null);
+    const dashboardRef = useRef<HTMLDivElement | null>(null);
+    const introTextRef = useRef<HTMLDivElement | null>(null);
     const [showDashboard, setShowDashboard] = useState(false);
-    const savedScrollY = useRef(0);
     const hasMounted = useRef(false);
 
     useEffect(() => {
@@ -17,69 +22,166 @@ export const Hero = () => {
             window.scrollTo(0, 0);
             hasMounted.current = true;
         }
+    }, []);
 
-        const handleScroll = () => {
-            setScrollY(window.scrollY);
+    // gsap animation for hero and intro elements on mount + scroll
+    useLayoutEffect(() => {
+  if (!heroRef.current || !logoRef.current || !introTextRef.current) return;
+
+  console.log("intro ref:", introTextRef.current);
+  const ctx = gsap.context(() => {
+
+    // Initial states
+    gsap.set(logoRef.current, {
+      scale: 0.4,
+      y: 0,
+      transformOrigin: "center center",
+    });
+
+    gsap.set(introTextRef.current, {
+      opacity: 0,
+      y: 60,
+      scale: 0.98,
+    });
+
+    // ONE timeline controls everything
+   const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: heroRef.current,
+        start: "top top",
+        end: "+=80%",
+        scrub: true,
+        pin: true,
+        invalidateOnRefresh: true,
+      }
+    });
+
+// LOGO (strong movement)
+tl.to(logoRef.current, {
+  scale: 1.6,
+  y: -90,
+  ease: "none",
+}, 0);
+
+ gsap.fromTo(
+      introTextRef.current,
+      {
+        opacity: 0,
+        y: 40,
+        scale: 0.98,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top+=20% top",
+          toggleActions: "play none none reverse",
+        },
+      }
+    );
+
+  }, heroRef);
+
+  return () => ctx.revert();
+}, []);
+
+    useEffect(() => {
+      if (!showDashboard || !dashboardRef.current) return;
+      
+      // Kill scroll triggers when dashboard shows
+      ScrollTrigger.getAll().forEach(trigger => {
+        trigger.kill();
+      });
+      
+      const ctx = gsap.context(() => {
+        gsap.fromTo(
+          dashboardRef.current,
+          {
+            opacity: 0,
+          },
+          {
+            opacity: 1,
+            duration: 0.4,
+            ease: "power2.out",
+          }
+        );
+      }, dashboardRef);
+
+      return () => ctx.revert();
+    }, [showDashboard])
+
+    // gsap button animation 
+    const handleEnter = (): void => {
+      if (!heroRef.current) return;
+
+      const exitTL = gsap.timeline({
+        onComplete: () => {
+          // Kill all scroll triggers to allow normal page scroll
+          ScrollTrigger.getAll().forEach(trigger => {
+            trigger.kill();
+          });
+          setShowDashboard(true);
         }
+      });
 
-        window.addEventListener('scroll', handleScroll);
-        handleScroll();
-
-        if (showDashboard) {
-            savedScrollY.current = window.scrollY;
-            document.body.style.position = 'fixed';
-            document.body.style.top = `-${savedScrollY.current}px`;
-            document.body.style.left = '0';
-            document.body.style.right = '0';
-            document.body.style.overflow = 'hidden';
-            document.body.style.width = '100%';
-        } else {
-            document.body.style.position = '';
-            document.body.style.top = '';
-            document.body.style.left = '';
-            document.body.style.right = '';
-            document.body.style.overflow = '';
-            document.body.style.width = '';
-            if (savedScrollY.current) {
-                window.scrollTo(0, savedScrollY.current);
-            }
-        }
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-            document.body.style.position = '';
-            document.body.style.top = '';
-            document.body.style.left = '';
-            document.body.style.right = '';
-            document.body.style.overflow = '';
-            document.body.style.width = '';
-        }
-    }, [showDashboard]);
-
-    const logoScale = Math.max(0.6, 1 - scrollY / 1000);
+      exitTL
+      .to(logoRef.current, {
+        scale: 0.6,
+        opacity: 0, 
+        duration: 0.6,
+        ease: "power2.inOut",
+      })
+      .to(
+        introTextRef.current,
+        {
+          y: -20,
+          opacity: 0,
+          duration: 0.4,
+          ease: "power2.inOut",
+        },
+        "-=0.3"
+      );
+    }
 
   return (
-    <div className={styles.headerContainer}>
+    <div ref={heroRef} className={styles.headerContainer}>
       <div className={styles.header}>
         {/* <div className={styles.headerWrapper}>header [ScrollY: {scrollY}]</div> */}
       </div>
-        <motion.div 
-          className={styles.mainLogo}
-          initial={{ scale: 1 }}
-          animate={{ scale: logoScale > 0.5 ? logoScale : 0.5, transition: { duration: 0.25 } }}
-        >
-          SELBY
-        </motion.div>
-        <motion.div
-          style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}
-        >
-          <Button buttonAction={() => setShowDashboard(true)} />
-        </motion.div>
-      <div className={styles.spacer} aria-hidden="true" />
+      <div
+        ref={logoRef}
+        className={styles.mainLogo}
+      >
+        SELBY
+      </div>
+      <div
+        ref={introTextRef}
+        className={styles.introText}
+      >
+        <p>
+          Design Engineer blending frontend, systems, and color-driven storytelling.
+
+          Multidisciplinary design engineer crafting scalable, expressive digital experiences.
+
+          Where design systems, frontend engineering, and color storytelling meet.
+
+          Building thoughtful digital products through design, code, and color.
+
+          Bridging design and engineering to create impactful, scalable experiences.         
+        </p>
+       
+        <Button buttonAction={handleEnter} />
+      </div>
+    <div className={styles.spacer} aria-hidden="true" />
       {showDashboard && (
-        <motion.div className={styles.dashboard} initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { duration: 0.25 } }}>
+        <div ref={dashboardRef} className={styles.dashboard}>
           <div className={styles.dashboardContent}>
             <motion.div
+              className='panel'
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.25 } }}
               style={{ background: '#04d4fd', padding: '1rem'}}
@@ -87,6 +189,7 @@ export const Hero = () => {
               panel 1
             </motion.div>
             <motion.div
+              className='panel'
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.35 } }}
               style={{ background: '#04f94d', padding: '1rem'}}
@@ -94,6 +197,7 @@ export const Hero = () => {
               panel 2
             </motion.div>
             <motion.div
+              className='panel'
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.45 } }}
               style={{ transformOrigin: 'bottom', display: 'flex', flexDirection: 'column', background: '#f62900', padding: '1rem', gap: '1em' }}
@@ -125,7 +229,7 @@ export const Hero = () => {
               </motion.div>
             </motion.div>
           </div>
-        </motion.div>
+        </div>
       )}
     </div>
   )
