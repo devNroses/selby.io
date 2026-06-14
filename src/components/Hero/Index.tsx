@@ -55,33 +55,18 @@ export const Hero = () => {
         invalidateOnRefresh: true,
       }
     });
-
 tl.to(logoRef.current, {
   scale: 1.6,
   y: -90,
   ease: "none",
 }, 0);
 
- gsap.fromTo(
-      introTextRef.current,
-      {
-        opacity: 0,
-        y: 40,
-        scale: 0.98,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.8,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: "top+=20% top",
-          toggleActions: "play none none reverse",
-        },
-      }
-    );
+tl.to(introTextRef.current, {
+  opacity: 1,
+  y: 0,
+  scale: 1,
+  ease: "none",
+}, 0.2);
 
   }, heroRef);
 
@@ -167,31 +152,27 @@ useEffect(() => {
       <div className={styles.header}>
         {/* <div className={styles.headerWrapper}>header [ScrollY: {scrollY}]</div> */}
       </div>
-      <div
-        ref={logoRef}
-        className={styles.mainLogo}
-      >
-        SELBY
+      <div className={styles.heroContainer}>
+
+        <div ref={logoRef} className={styles.mainLogo}>
+          SELBY
+        </div>
+        <div ref={introTextRef} className={styles.introText}>
+          <p>
+            Design Engineer blending frontend, systems, and color-driven storytelling.
+
+            Multidisciplinary design engineer crafting scalable, expressive digital experiences.
+
+            Where design systems, frontend engineering, and color storytelling meet.
+
+            Building thoughtful digital products through design, code, and color.
+
+            Bridging design and engineering to create impactful, scalable experiences.         
+          </p>
+        
+          <Button buttonAction={handleEnter} />
+        </div>
       </div>
-      <div
-        ref={introTextRef}
-        className={styles.introText}
-      >
-        <p>
-          Design Engineer blending frontend, systems, and color-driven storytelling.
-
-          Multidisciplinary design engineer crafting scalable, expressive digital experiences.
-
-          Where design systems, frontend engineering, and color storytelling meet.
-
-          Building thoughtful digital products through design, code, and color.
-
-          Bridging design and engineering to create impactful, scalable experiences.         
-        </p>
-       
-        <Button buttonAction={handleEnter} />
-      </div>
-    <div className={styles.spacer} aria-hidden="true" />
       {showDashboard && (
         <div ref={dashboardRef} className={styles.dashboard}>
           <div className={styles.dashboardContent}>
