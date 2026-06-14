@@ -20,18 +20,6 @@
     padding: 0.5rem 0;
 }
 
-/* .spacer{
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 6rem;
-    visibility: hidden;
-    pointer-events: none;
-    z-index: 1;
-} */
-
 .mainLogo{
      width: 100%;
     height: 100vh;
@@ -46,7 +34,7 @@
     font-family: 'Delarge';
     color: var(--text-h);
 
-    font-size: clamp(4rem, 10vw, 12rem); /* IMPORTANT CHANGE */
+    font-size: clamp(4rem, 10vw, 12rem);
     line-height: 1;
     padding: .5em 0em;
 }

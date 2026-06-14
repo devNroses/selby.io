@@ -44,7 +44,6 @@ export const Hero = () => {
       scale: 0.98,
     });
 
-    // ONE timeline controls everything
    const tl = gsap.timeline({
       scrollTrigger: {
         trigger: heroRef.current,
@@ -56,7 +55,6 @@ export const Hero = () => {
       }
     });
 
-// LOGO (strong movement)
 tl.to(logoRef.current, {
   scale: 1.6,
   y: -90,
