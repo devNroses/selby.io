@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useLayoutEffect } from 'react'
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
-import { motion } from "motion/react"
+import { Dashboard } from '../Dashboard';
 import { Button } from '../Global/Button'
 import styles from './Hero.module.css'
 
@@ -148,12 +148,8 @@ useEffect(() => {
     }
 
   return (
-    <div ref={heroRef} className={styles.headerContainer}>
-      <div className={styles.header}>
-        {/* <div className={styles.headerWrapper}>header [ScrollY: {scrollY}]</div> */}
-      </div>
+    <div ref={heroRef} className={styles.container}>
       <div className={styles.heroContainer}>
-
         <div ref={logoRef} className={styles.mainLogo}>
           SELBY
         </div>
@@ -174,58 +170,7 @@ useEffect(() => {
         </div>
       </div>
       {showDashboard && (
-        <div ref={dashboardRef} className={styles.dashboard}>
-          <div className={styles.dashboardContent}>
-            <motion.div
-              className='panel'
-              initial={{ opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.25 } }}
-              style={{ background: '#04d4fd', padding: '1rem'}}
-            >
-              panel 1
-            </motion.div>
-            <motion.div
-              className='panel'
-              initial={{ opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.35 } }}
-              style={{ background: '#04f94d', padding: '1rem'}}
-            >
-              panel 2
-            </motion.div>
-            <motion.div
-              className='panel'
-              initial={{ opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.45 } }}
-              style={{ transformOrigin: 'bottom', display: 'flex', flexDirection: 'column', background: '#f62900', padding: '1rem', gap: '1em' }}
-            >
-              <motion.div 
-              className={styles.profileSection}
-              initial={{ opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.55 } }}
-              >
-                [Profile] 
-                <motion.div 
-                className={styles.profileResume}
-                initial={{ opacity: 0, y: 25 }}
-                animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.6 } }}
-                >
-                  [ Resume CTA ]
-                </motion.div>
-                <motion.div 
-                className={styles.profileSocials}
-                initial={{ opacity: 0, y: 25 }}
-                animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.65 } }}
-                >
-                  [ Socials CTA Container ]
-                </motion.div>
-              </motion.div>
-
-               <motion.div className={styles.skillsSection}>
-               [ Skills ]
-              </motion.div>
-            </motion.div>
-          </div>
-        </div>
+        <Dashboard dashboardPropRef={dashboardRef} />
       )}
     </div>
   )
