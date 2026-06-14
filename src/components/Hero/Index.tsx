@@ -49,7 +49,7 @@ export const Hero = () => {
       scrollTrigger: {
         trigger: heroRef.current,
         start: "top top",
-        end: "+=80%",
+        end: "+=50%",
         scrub: true,
         pin: true,
         invalidateOnRefresh: true,
@@ -63,10 +63,10 @@ tl.to(logoRef.current, {
 
 tl.to(introTextRef.current, {
   opacity: 1,
-  y: 0,
+  y: -10,
   scale: 1,
   ease: "none",
-}, 0.2);
+}, 0.05);
 
   }, heroRef);
 

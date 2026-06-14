@@ -26,8 +26,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    gap: .5em;
-    border: 2px dashed yellow;
+    gap: 1em;
 }
 
 .mainLogo{
