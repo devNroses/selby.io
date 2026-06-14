@@ -11,6 +11,8 @@ export const Hero = () => {
     const logoRef = useRef<HTMLDivElement | null>(null);
     const dashboardRef = useRef<HTMLDivElement | null>(null);
     const introTextRef = useRef<HTMLDivElement | null>(null);
+    const heroCtx = useRef<gsap.Context | null>(null);
+    const dashboardCtx = useRef<gsap.Context | null>(null);
     const [showDashboard, setShowDashboard] = useState(false);
     const hasMounted = useRef(false);
 
@@ -28,7 +30,6 @@ export const Hero = () => {
     useLayoutEffect(() => {
   if (!heroRef.current || !logoRef.current || !introTextRef.current) return;
 
-  console.log("intro ref:", introTextRef.current);
   const ctx = gsap.context(() => {
 
     // Initial states
@@ -88,29 +89,45 @@ tl.to(logoRef.current, {
 }, []);
 
     useEffect(() => {
-      if (!showDashboard || !dashboardRef.current) return;
-      
-      // Kill scroll triggers when dashboard shows
-      ScrollTrigger.getAll().forEach(trigger => {
-        trigger.kill();
-      });
-      
-      const ctx = gsap.context(() => {
-        gsap.fromTo(
-          dashboardRef.current,
-          {
-            opacity: 0,
-          },
-          {
-            opacity: 1,
-            duration: 0.4,
-            ease: "power2.out",
-          }
-        );
-      }, dashboardRef);
+  if (!showDashboard || !dashboardRef.current) return;
 
-      return () => ctx.revert();
-    }, [showDashboard])
+  dashboardCtx.current = gsap.context(() => {
+
+    gsap.fromTo(
+      dashboardRef.current,
+      { opacity: 0 },
+      {
+        opacity: 1,
+        duration: 0.4,
+        ease: "power2.out",
+      }
+    );
+
+  }, dashboardRef);
+
+  return () => dashboardCtx.current?.revert();
+}, [showDashboard]);
+
+useEffect(() => {
+  if (!showDashboard) return;
+
+  const scrollY = window.scrollY;
+
+  document.body.style.position = "fixed";
+  document.body.style.top = `-${scrollY}px`;
+  document.body.style.width = "100%";
+
+  // ONLY kill hero context (not everything globally)
+  heroCtx.current?.revert();
+
+  return () => {
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.width = "";
+
+    window.scrollTo(0, scrollY);
+  };
+}, [showDashboard]);
 
     // gsap button animation 
     const handleEnter = (): void => {
