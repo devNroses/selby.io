@@ -1,0 +1,11 @@
+.socialPanel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    background: #454545;
+    background: linear-gradient(0deg,rgba(69, 69, 69, 1) 0%, rgba(64, 64, 64, 1) 51%, rgba(59, 59, 59, 1) 100%);
+}
