@@ -1,15 +1,55 @@
 import { useState, useEffect, useRef, useLayoutEffect } from 'react'
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
-import { Canvas } from '@react-three/fiber';
-import { Environment, OrbitControls, Center, Bounds } from '@react-three/drei'
-import { ACESFilmicToneMapping } from 'three'
+import { Canvas, useThree, useFrame } from '@react-three/fiber';
+import { Environment, Center, Bounds } from '@react-three/drei'
+import { ACESFilmicToneMapping, Group } from 'three'
 import { Dashboard } from '../Dashboard';
 import { Button } from '../Global/Button'
 import { SelbyText } from '../Global/Logo';
 import styles from './Hero.module.css'
 
 gsap.ticker.lagSmoothing(0);
+
+const ResponsiveCamera = () => {
+  const { camera, size } = useThree()
+
+  useEffect(() => {
+    if (size.width < 768) {
+      camera.position.set(0, 0, 20)
+    } else if (size.width < 1024) {
+      camera.position.set(0, 0, 10)
+    } else {
+      camera.position.set(0, 0, 7)
+    }
+    camera.lookAt(0, 0, 0)
+    camera.updateProjectionMatrix()
+  }, [size.width, camera])
+
+  return null
+}
+
+const RotatingText = () => {
+  const groupRef = useRef<Group>(null)
+
+  useFrame((_, delta) => {
+    if (!groupRef.current) return
+    groupRef.current.rotation.y += delta * 0.4
+  })
+
+  return (
+    <group ref={groupRef}>
+      <Center rotation={[0, 0, 0]} position={[0, 0.2, 0]}>
+        <SelbyText
+          metalness={0.85}
+          roughness={0.22}
+          envMapIntensity={2}
+          color="#c0c0c0"
+        />
+      </Center>
+    </group>
+  )
+}
 
 export const Hero = () => {
   gsap.registerPlugin(ScrollTrigger);
@@ -46,7 +86,7 @@ export const Hero = () => {
         end: "+=50%",
         scrub: true,
         pin: true,
-        pinSpacing: true,  // restored
+        pinSpacing: true,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           gsap.set(introTextRef.current, {
@@ -111,37 +151,25 @@ export const Hero = () => {
 
         <div className={styles.mainLogo}>
           <Canvas
-            camera={{ position: [0, 0, 10], fov: 50 }}
+            camera={{ position: [0, 0, 7], fov: 50 }}
             gl={{ antialias: true, toneMapping: ACESFilmicToneMapping }}
             frameloop="always"
           >
+            <ResponsiveCamera />
             <Environment
               files="/THAZERO-WORLD-TEXTURE.hdr"
               background={false}
             />
             <Bounds fit clip observe margin={0.65}>
-              <Center position={[0, 0.2, 0]}>
-                <SelbyText
-                  metalness={.85}
-                  roughness={0.22}
-                  envMapIntensity={2}
-                  color="#c0c0c0"
-                />
-              </Center>
+              <RotatingText />
             </Bounds>
-            <OrbitControls
-              enableZoom={false}
-              enablePan={false}
-              autoRotate
-              autoRotateSpeed={0.8}
-            />
           </Canvas>
         </div>
 
         <div ref={introTextRef} className={styles.introText}>
           <p>
             Design Engineer. Creative Technologist.<br />
-            Blending frontend systems, and color-driven storytelling.
+            Blending frontend systems, and color-driven storytelling.<br />
             Building thoughtful digital products through design, code, and color.
           </p>
           <Button buttonAction={handleEnter} />
