@@ -11,7 +11,7 @@ import styles from './Hero.module.css'
 
 gsap.ticker.lagSmoothing(0);
 
-const ResponsiveCamera = () => {
+export const ResponsiveCamera = () => {
   const { camera, size } = useThree()
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const ResponsiveCamera = () => {
   return null
 }
 
-const RotatingText = () => {
+export const RotatingText = () => {
   const groupRef = useRef<Group>(null)
 
   useFrame((_, delta) => {
