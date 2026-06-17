@@ -1,7 +1,7 @@
 import type { RefObject } from 'react';
 import { motion } from "motion/react"
 import { Profile } from './Profile';
-import { SocialPanel } from './Social';
+// import { SocialPanel } from './Social';
 import styles from './Dashboard.module.css';
 
 interface DashbaordProps {
