@@ -24,6 +24,14 @@
   align-items: start;
 }
 
+@media (min-width: 1280px) {
+  .dashboardContent {
+    grid-template-columns: 1.45fr 1.45fr 1fr;
+    grid-template-rows: 1fr;
+    align-items: stretch;
+  }
+}
+
 .socialsWrapper{
   display: flex;
   justify-content: space-around;
@@ -33,14 +41,6 @@
 .dashboardContent > * {
   padding: 1rem;
   border-radius: .6rem;
-}
-
-@media (min-width: 768px) {
-  .dashboardContent {
-    grid-template-columns: 1.45fr 1.45fr 1fr;
-    grid-template-rows: 1fr;
-    align-items: stretch;
-  }
 }
 
 .profileSection {
