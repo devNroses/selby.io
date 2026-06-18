@@ -71,36 +71,29 @@ export const Hero = () => {
     }
   }, []);
 
-  useLayoutEffect(() => {
-    if (!heroRef.current || !introTextRef.current) return;
+useLayoutEffect(() => {
+  if (!heroRef.current || !introTextRef.current) return;
 
-    const ctx = gsap.context(() => {
-      gsap.set(introTextRef.current, {
-        opacity: 0,
-        y: 40,
-      });
+  const introEl = introTextRef.current 
 
-      ScrollTrigger.create({
-        trigger: heroRef.current,
-        start: "top top",
-        end: "+=50%",
-        scrub: true,
-        pin: true,
-        pinSpacing: true,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          gsap.set(introTextRef.current, {
-            opacity: self.progress,
-            y: 40 - self.progress * 50,
-          });
-        }
-      });
+  const ctx = gsap.context(() => {
+    gsap.fromTo(
+      introEl.querySelectorAll('p, button'),
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.85,
+        delay: 1.25,
+        stagger: 0.35,
+        ease: "power2.out",
+      }
+    );
+  }, heroRef);
 
-    }, heroRef);
-
-    heroCtx.current = ctx;
-    return () => ctx.revert();
-  }, []);
+  heroCtx.current = ctx;
+  return () => ctx.revert();
+}, []);
 
   useEffect(() => {
     if (!showDashboard || !dashboardRef.current) return;
@@ -108,44 +101,49 @@ export const Hero = () => {
       gsap.fromTo(
         dashboardRef.current,
         { opacity: 0 },
-        { opacity: 1, duration: 0.4, ease: "power2.out" }
+        {
+          opacity: 1,
+          duration: 0.5,
+          ease: "power2.out"
+        }
       );
     }, dashboardRef);
     return () => dashboardCtx.current?.revert();
   }, [showDashboard]);
 
-  useEffect(() => {
-    if (!showDashboard) return;
-    const scrollY = window.scrollY;
-    document.body.style.position = "fixed";
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.width = "100%";
-    heroCtx.current?.revert();
-    return () => {
-      document.body.style.position = "";
-      document.body.style.top = "";
-      document.body.style.width = "";
-      window.scrollTo(0, scrollY);
-    };
-  }, [showDashboard]);
+useEffect(() => {
+  if (!showDashboard) return;
+  const scrollY = window.scrollY;
+  document.body.style.position = "fixed";
+  document.body.style.top = `-${scrollY}px`;
+  document.body.style.width = "100%";
+  heroCtx.current?.revert();
+  return () => {
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.width = "";
+    window.scrollTo(0, scrollY);
+  };
+}, [showDashboard]);
 
-  const handleEnter = (): void => {
-    if (!heroRef.current) return;
-    const exitTL = gsap.timeline({
-      onComplete: () => {
-        ScrollTrigger.getAll().forEach(t => t.kill());
-        setShowDashboard(true);
-      }
-    });
-    exitTL.to(introTextRef.current, {
-      y: -20,
-      opacity: 0,
-      duration: 0.4,
-      ease: "power2.inOut",
-    });
-  }
+const handleEnter = (): void => {
+  if (!heroRef.current) return;
+
+  ScrollTrigger.getAll().forEach(t => t.kill());
+  heroCtx.current?.revert();
+
+  gsap.to(heroRef.current, {
+    opacity: 0,
+    duration: 0.6,
+    ease: "power2.inOut",
+    onComplete: () => {
+      setShowDashboard(true)
+    },
+  })
+}
 
   return (
+    <>
     <div ref={heroRef} className={styles.container}>
       <div className={styles.heroContainer}>
 
@@ -176,7 +174,8 @@ export const Hero = () => {
         </div>
 
       </div>
-      {showDashboard && <Dashboard dashboardPropRef={dashboardRef} />}
     </div>
+      {showDashboard && <Dashboard dashboardPropRef={dashboardRef} />}
+    </>
   )
 }
