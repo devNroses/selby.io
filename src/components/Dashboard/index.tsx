@@ -46,12 +46,13 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
               className={`panel ${styles.panel1}`}
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.25 } }}
-              style={{ 
+              style={{
                 background: 'transparent',
                 padding: '0',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '0.5rem'
+                gap: '0.5rem',
+                minHeight: '450px',
               }}
             >
               <FeaturePanel images={featuredImgs}/>
