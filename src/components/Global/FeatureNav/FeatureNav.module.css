@@ -1,0 +1,58 @@
+.hoverOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 2rem;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0.2) 40%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.viewProject {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: white;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 0.5rem 1.25rem;
+  border-radius: 2rem;
+  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.featureNav {
+    display: flex;
+    width: auto;
+    max-width: 380px;
+    height: 35px;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 2rem;
+    backdrop-filter: blur(4px);
+    background: rgba(255, 255, 255, 0.1);
+    justify-content: center;
+}
+
+.featureNavItmes{
+    display: inline-flex;
+    width: 100%;
+    max-height: 35px;
+    height: auto;
+    justify-content: space-evenly;
+    padding: 0.5rem 1.25rem;
+    gap: 40px;
+}
+
+.featureNavItem{
+    width: 35px;
+    height: 35px;
+    border: 1px solid hotpink;
+}

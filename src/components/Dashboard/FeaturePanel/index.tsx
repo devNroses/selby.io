@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from "motion/react"
+import { FeatureNav } from '../../Global/FeatureNav'
 import styles from './FeaturePanel.module.css'
 
 export interface FeatureImage {
@@ -63,23 +64,7 @@ export const FeaturePanel = ({ images, interval = 4000 }: FeaturePanelProps) => 
       {/* hover overlay */}
       <AnimatePresence>
         {hovered && (
-          <motion.div
-            className={styles.hoverOverlay}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-          >
-            <motion.span
-              className={styles.viewProject}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 10 }}
-              transition={{ duration: 0.3, delay: 0.1, ease: 'easeOut' }}
-            >
-              View Project
-            </motion.span>
-          </motion.div>
+         <FeatureNav />
         )}
       </AnimatePresence>
     </motion.div>
