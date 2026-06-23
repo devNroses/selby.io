@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import { ReactComponent as InfoIcon } from '../../../assets/icons/infoIcon.svg'
 import styles from './FeatureNav.module.css'
 
 export const FeatureNav = () => {
@@ -19,7 +20,7 @@ export const FeatureNav = () => {
             >
               <div className={styles.featureNavItmes}>
                 <div className={styles.featureNavItem}>
-                    <img src="./ifoIcon.svg" alt="about the project" />
+                    <InfoIcon></InfoIcon>
                 </div>
                 <div className={styles.featureNavItem}>
                 </div>
