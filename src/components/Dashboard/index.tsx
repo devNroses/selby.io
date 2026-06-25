@@ -18,25 +18,25 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
       src: './portfolioImg/features/bron.jpg'
     },
     {
-      label: 'Booker_All_Star_26',
-      alt: 'Booker in Nike All Star Jacket',
-      src: './portfolioImg/features/booker.jpg'
+      label: 'Vomero18',
+      alt: 'Vomero 18 Silver Bullet Concept',
+      src: './portfolioImg/features/vomero18_silverBullet.jpg'
     },
-    {
-      label: 'Maxi_All_Star_26',
-      alt: 'Maxi in Nike All Star Warm Up',
-      src: './portfolioImg/features/maxi.jpg'
-    },
-    {
-      label: 'Shai_All_Star_26',
-      alt: 'Shai in Nike All Star Shooting shirt',
-      src: './portfolioImg/features/shai.jpg'
-    },
-    {
-      label: 'Steph_All_Star_26',
-      alt: 'Steph in Nike All Star Warm up and Shooting shirt',
-      src: './portfolioImg/features/steph.jpg'
-    },
+    // {
+    //   label: 'Maxi_All_Star_26',
+    //   alt: 'Maxi in Nike All Star Warm Up',
+    //   src: './portfolioImg/features/maxi.jpg'
+    // },
+    // {
+    //   label: 'Shai_All_Star_26',
+    //   alt: 'Shai in Nike All Star Shooting shirt',
+    //   src: './portfolioImg/features/shai.jpg'
+    // },
+    // {
+    //   label: 'Steph_All_Star_26',
+    //   alt: 'Steph in Nike All Star Warm up and Shooting shirt',
+    //   src: './portfolioImg/features/steph.jpg'
+    // },
   ] 
   
   return (
