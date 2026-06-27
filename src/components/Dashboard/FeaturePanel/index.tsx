@@ -1,30 +1,71 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from "motion/react"
 import { FeatureNav } from '../../Global/FeatureNav'
 import styles from './FeaturePanel.module.css'
 
-export interface FeatureImage {
+export interface FeatureMedia {
   label: string
-  alt: string
+  alt?: string
   src: string
+  type?: 'image' | 'video'
+  playbackRate?: number
 }
 
 interface FeaturePanelProps {
-  images: FeatureImage[]
+  images: FeatureMedia[]
   interval?: number
 }
 
-export const FeaturePanel = ({ images, interval = 4000 }: FeaturePanelProps) => {
+const MediaItem = ({ item }: { item: FeatureMedia }) => {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const isVideo = item.type === 'video' || item.src.endsWith('.mp4') || item.src.endsWith('.webm')
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = item.playbackRate ?? 1.85
+    }
+  }, [item.playbackRate])
+
+  if (isVideo) {
+    return (
+      <video
+        ref={videoRef}
+        src={item.src}
+        autoPlay
+        loop
+        muted
+        playsInline
+        className={styles.media}
+      />
+    )
+  }
+
+  return (
+    <img
+      src={item.src}
+      alt={item.alt ?? item.label}
+      className={styles.media}
+    />
+  )
+}
+
+export const FeaturePanel = ({ images, interval = 2000 }: FeaturePanelProps) => {
   const [current, setCurrent] = useState(0)
   const [hovered, setHovered] = useState(false)
 
+  const currentItem = images[current]
+  const isCurrentVideo =
+    currentItem.type === 'video' ||
+    currentItem.src.endsWith('.mp4') ||
+    currentItem.src.endsWith('.webm')
+
   useEffect(() => {
-    if (hovered) return
+    if (hovered || isCurrentVideo) return
     const timer = setInterval(() => {
       setCurrent(prev => (prev + 1) % images.length)
     }, interval)
     return () => clearInterval(timer)
-  }, [images.length, interval, hovered])
+  }, [images.length, interval, hovered, isCurrentVideo])
 
   return (
     <motion.div
@@ -36,36 +77,30 @@ export const FeaturePanel = ({ images, interval = 4000 }: FeaturePanelProps) => 
     >
       <AnimatePresence mode="sync">
         <motion.div
-            key={current}
-            className={styles.slide}
-            initial={{ opacity: 0, zIndex: 2 }}
-            animate={{
+          key={current}
+          className={styles.slide}
+          initial={{ opacity: 0, zIndex: 2 }}
+          animate={{
             opacity: 1,
-            scale: 1.03,
+            scale: isCurrentVideo ? 1 : 1.03,
             zIndex: 2,
             transition: {
-                opacity: { duration: 1.5, ease: 'easeInOut' },
-                scale: { duration: interval / 1000, ease: 'linear' }
+              opacity: { duration: 1.5, ease: 'easeInOut' },
+              scale: { duration: interval / 1000, ease: 'linear' }
             }
-            }}
-            exit={{
+          }}
+          exit={{
             opacity: 0,
             zIndex: 1,
             transition: { duration: 1.5, ease: 'easeInOut' }
-            }}
+          }}
         >
-          <img
-            src={images[current].src}
-            alt={images[current].alt}
-          />
+          <MediaItem item={currentItem} />
         </motion.div>
       </AnimatePresence>
 
-      {/* hover overlay */}
       <AnimatePresence>
-        {hovered && (
-         <FeatureNav />
-        )}
+        {hovered && <FeatureNav />}
       </AnimatePresence>
     </motion.div>
   )

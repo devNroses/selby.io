@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { InfoIcon } from "../../../assets/icons/infoIcon";
 import { GalleryIcon } from '../../../assets/icons/galleryIcon'
 import { ExpandIcon } from '../../../assets/icons/expandIcon'
@@ -68,19 +68,25 @@ export const FeatureNav = () => {
         exit={{ opacity: 0, y: 10 }}
         transition={{ duration: 0.3, delay: 0.1, ease: 'easeOut' }}
       >
-        {NAV_ITEMS.map((item) => (
-          <div
-            key={item.id}
-            className={`${styles.featureNavItem} ${activeTooltip === item.id ? styles.featureNavItemActive : ''}`}
-            onMouseEnter={() => setActiveTooltip(item.id)}
-            onMouseLeave={() => setActiveTooltip(null)}
-            onTouchStart={() => handleTouchStart(item.id)}
-            onTouchEnd={handleTouchEnd}
-            onTouchCancel={handleTouchEnd}
-          >
-            {item.icon}
-          </div>
-        ))}
+        <AnimatePresence>
+          {NAV_ITEMS.map((item, index) => (
+              <motion.div
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 5 }}
+                transition={{ duration: 0.45, delay: index * 0.1, ease: 'easeInOut' }}
+                key={item.id}
+                className={`${styles.featureNavItem} ${activeTooltip === item.id ? styles.featureNavItemActive : ''}`}
+                onMouseEnter={() => setActiveTooltip(item.id)}
+                onMouseLeave={() => setActiveTooltip(null)}
+                onTouchStart={() => handleTouchStart(item.id)}
+                onTouchEnd={handleTouchEnd}
+                onTouchCancel={handleTouchEnd}
+                >
+                  {item.icon}
+                </motion.div>
+              ))}
+          </AnimatePresence>
       </motion.div>
     </motion.div>
   )

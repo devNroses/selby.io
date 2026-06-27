@@ -2,7 +2,7 @@ import type { RefObject } from 'react';
 import { motion } from "motion/react"
 import { Profile } from './Profile';
 // import { SocialPanel } from './Social';
-import { FeaturePanel, type FeatureImage } from './FeaturePanel';
+import { FeaturePanel, type FeatureMedia } from './FeaturePanel';
 import styles from './Dashboard.module.css';
 
 interface DashbaordProps {
@@ -11,16 +11,18 @@ interface DashbaordProps {
 }
 
 export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
-  const featuredImgs: FeatureImage[] = [
+  const featuredImgs: FeatureMedia[] = [
     {
       label: 'Bron_All_Star_26',
       alt: 'Bron in Nike All Star Shooting shirt',
-      src: './portfolioImg/features/bron.jpg'
+      src: './portfolioImg/features/lebronCover.mp4',
+      type: 'video'
     },
     {
       label: 'Vomero18',
       alt: 'Vomero 18 Silver Bullet Concept',
-      src: './portfolioImg/features/vomero18_silverBullet.jpg'
+      src: './portfolioImg/features/vomero18_silverBullet.jpg',
+      type: 'image'
     },
     // {
     //   label: 'Maxi_All_Star_26',
