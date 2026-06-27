@@ -82,6 +82,10 @@ export const FeatureNav = () => {
                 onTouchStart={() => handleTouchStart(item.id)}
                 onTouchEnd={handleTouchEnd}
                 onTouchCancel={handleTouchEnd}
+                whileTap={{ 
+                  scale: .85,
+                  transition: { duration: 0.45 },
+                }} 
                 >
                   {item.icon}
                 </motion.div>
