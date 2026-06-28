@@ -58,6 +58,13 @@
   }
 }
 
+.sectionPanel{
+  display: flex;
+  padding: 0;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 .panel1 {
   display: flex;
   flex-direction: column;
@@ -91,9 +98,9 @@
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  padding: 1em;
-  /* height: 400px; */
-  height: auto;
+  padding: .5em;
+  height: 220px;
+  /* height: auto; */
   background-color: #FFFFD6;
   border-radius: 6px;
   color: #111;
@@ -103,17 +110,24 @@
 .aboutWrapper h3 {
   font-size: 1em;
   padding-bottom: 0;
-  margin-bottom: 0;
+  margin: 0;
 }
 
 .aboutWrapper p {
   font-size: .8em;
-  line-height: 1.15;
+  line-height: 1.25;
   padding-bottom: 0;
 }
 
 .aboutPanel{
   display: flex;
-  border: 2px dashed hotpink;
-  height: 350px;
+  height: 330px;
+}
+
+.personalProjects {
+  display: flex;
+  height: 255px;
+  background-color: #2D2E2E;
+  border-radius: .6rem;
+  /* border: 2px dashed hotpink; */
 }

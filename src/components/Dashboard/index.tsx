@@ -25,6 +25,33 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
       type: 'image'
     }
   ] 
+
+  const aboutMedia: FeatureMedia[] = [
+        {
+          label: 'selby_about_red',
+          alt: 'Selby about profile - R',
+          src: './imgs/selbyAboutPanel_3.png',
+          type: 'image'
+        },
+        {
+          label: 'selby_about_green',
+          alt: 'Selby about profile - G',
+          src: './imgs/selbyAboutPanel_2.png',
+          type: 'image'
+        },
+        {
+          label: 'selby_about_blue',
+          alt: 'Selby about profile - B',
+          src: './imgs/selbyAboutPanel_1.png',
+          type: 'image'
+        },
+        {
+          label: 'selby_about_yellow',
+          alt: 'Selby about profile - Y',
+          src: './imgs/selbyAboutPanel_4.png',
+          type: 'image'
+        },
+      ]
   
   return (
          <div ref={dashboardPropRef} className={styles.dashboard}>
@@ -48,13 +75,16 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
               </div>
             </motion.div>
             <motion.div
-              className='panel'
+              className={`panel ${styles.sectionPanel}`}
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.35 } }}
-              style={{ background: '#04f94d', padding: '.25rem'}}
+              style={{ padding: '.15rem'}}
             >
-              <motion.div className={styles.aboutPanel}>
-                About Panel
+              <motion.div className={styles.aboutPanel}> 
+                <FeaturePanel images={aboutMedia} interval={8000}/>
+              </motion.div>
+              <motion.div className={styles.personalProjects}>
+                UX/UI Panel
               </motion.div>
             </motion.div>
             <motion.div
@@ -77,15 +107,12 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
                 >
                   <h3>Introduction</h3>
                   <p>
-                    Raised in North Carolina and shaped by years living abroad, my creative perspective was 
-                    formed through contrast, culture, and curiosity, beginning with sketching sports logos 
-                    and studying sneaker ads. Over time, this evolved into a deeper interest in visual 
-                    systems, storytelling, color, and the emotional impact of design, shaping how I 
-                    balance structure with exploration. As my career developed, design and software 
-                    engineering became complementary disciplines, forming a layered practice that 
-                    blends visual design, branding, color, and front-end development. Today, my work 
-                    focuses less on singular outputs and more on crafting thoughtful, evolving 
-                    experiences built with purpose and refined through collaboration.
+                    Raised in North Carolina and shaped by years abroad, my creative perspective 
+                    was built on contrast, culture, and curiosity—starting with sketching sports 
+                    logos and studying sneaker ads. That foundation evolved into a deeper focus 
+                    on visual systems, storytelling, color, and the emotional impact of design. 
+                    Today, I focus on crafting thoughtful, evolving experiences built 
+                    with purpose and refined through collaboration.
                   </p>
 
                   {/* <div>

@@ -88,7 +88,7 @@ export const FeaturePanel = ({ images, interval = 4000 }: FeaturePanelProps) => 
             zIndex: 2,
             transition: {
               opacity: { duration: 1.4, ease: 'easeInOut' },
-              scale: { duration: interval / 1000, ease: 'linear' }
+              scale: { duration: interval / 4000, ease: 'linear' }
             }
           }}
           exit={{
