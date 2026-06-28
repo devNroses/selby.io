@@ -111,3 +111,9 @@
   line-height: 1.15;
   padding-bottom: 0;
 }
+
+.aboutPanel{
+  display: flex;
+  border: 2px dashed hotpink;
+  height: 350px;
+}

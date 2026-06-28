@@ -23,22 +23,7 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
       alt: 'Vomero 18 Silver Bullet Concept',
       src: './portfolioImg/features/vomero18_silverBullet.jpg',
       type: 'image'
-    },
-    // {
-    //   label: 'Maxi_All_Star_26',
-    //   alt: 'Maxi in Nike All Star Warm Up',
-    //   src: './portfolioImg/features/maxi.jpg'
-    // },
-    // {
-    //   label: 'Shai_All_Star_26',
-    //   alt: 'Shai in Nike All Star Shooting shirt',
-    //   src: './portfolioImg/features/shai.jpg'
-    // },
-    // {
-    //   label: 'Steph_All_Star_26',
-    //   alt: 'Steph in Nike All Star Warm up and Shooting shirt',
-    //   src: './portfolioImg/features/steph.jpg'
-    // },
+    }
   ] 
   
   return (
@@ -68,7 +53,9 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
               animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.35 } }}
               style={{ background: '#04f94d', padding: '.25rem'}}
             >
-              panel 2
+              <motion.div className={styles.aboutPanel}>
+                About Panel
+              </motion.div>
             </motion.div>
             <motion.div
               className='panel'

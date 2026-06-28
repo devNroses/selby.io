@@ -16,17 +16,21 @@ interface FeaturePanelProps {
   interval?: number
 }
 
+const isVideoSrc = (item: FeatureMedia) =>
+  item.type === 'video' ||
+  item.src.endsWith('.mp4') ||
+  item.src.endsWith('.webm')
+
 const MediaItem = ({ item }: { item: FeatureMedia }) => {
   const videoRef = useRef<HTMLVideoElement>(null)
-  const isVideo = item.type === 'video' || item.src.endsWith('.mp4') || item.src.endsWith('.webm')
 
-  useEffect(() => {
+  const handleVideoLoad = () => {
     if (videoRef.current) {
-      videoRef.current.playbackRate = item.playbackRate ?? 1.85
+      videoRef.current.playbackRate = item.playbackRate ?? 4.5
     }
-  }, [item.playbackRate])
+  }
 
-  if (isVideo) {
+  if (isVideoSrc(item)) {
     return (
       <video
         ref={videoRef}
@@ -36,6 +40,7 @@ const MediaItem = ({ item }: { item: FeatureMedia }) => {
         muted
         playsInline
         className={styles.media}
+        onLoadedMetadata={handleVideoLoad}
       />
     )
   }
@@ -49,18 +54,15 @@ const MediaItem = ({ item }: { item: FeatureMedia }) => {
   )
 }
 
-export const FeaturePanel = ({ images, interval = 2000 }: FeaturePanelProps) => {
+export const FeaturePanel = ({ images, interval = 4000 }: FeaturePanelProps) => {
   const [current, setCurrent] = useState(0)
   const [hovered, setHovered] = useState(false)
 
   const currentItem = images[current]
-  const isCurrentVideo =
-    currentItem.type === 'video' ||
-    currentItem.src.endsWith('.mp4') ||
-    currentItem.src.endsWith('.webm')
+  const isCurrentVideo = isVideoSrc(currentItem)
 
   useEffect(() => {
-    if (hovered || isCurrentVideo) return
+    if (hovered) return
     const timer = setInterval(() => {
       setCurrent(prev => (prev + 1) % images.length)
     }, interval)
@@ -85,7 +87,7 @@ export const FeaturePanel = ({ images, interval = 2000 }: FeaturePanelProps) => 
             scale: isCurrentVideo ? 1 : 1.03,
             zIndex: 2,
             transition: {
-              opacity: { duration: 1.5, ease: 'easeInOut' },
+              opacity: { duration: 1.4, ease: 'easeInOut' },
               scale: { duration: interval / 1000, ease: 'linear' }
             }
           }}
