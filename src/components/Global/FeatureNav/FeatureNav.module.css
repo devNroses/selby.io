@@ -3,8 +3,9 @@
   inset: 0;
   z-index: 10;
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
   padding-bottom: 2rem;
   background: linear-gradient(
     to top,
@@ -28,84 +29,36 @@
   background: rgba(255, 255, 255, 0.1);
 }
 
-.featureNav {
+.tooltipAnchor {
   display: flex;
-  flex-direction: row;
-  align-items: center;
   justify-content: center;
-  width: fit-content;
-  height: 52px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 2rem;
-  backdrop-filter: blur(8px);
-  background: rgba(0, 0, 0, 0.35);
-  padding: 0 1.5rem;
+  margin-bottom: 8px;
+  pointer-events: none;
 }
 
-.featureNavItems {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
-  height: 100%;
-}
-
-.gooContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  filter: url('#goo');
-  overflow: visible;
-}
-
-.featureNavItemWrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.featureNavItem {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border: none;
-  background: rgba(255, 255, 255, 0.15);
-  cursor: pointer;
-  border-radius: 50%;
-  padding: 0;
-  flex-shrink: 0;
-  transition: background 0.2s ease;
-}
-
-.featureNavItem:hover {
-  background: rgba(255, 255, 255, 0.25);
-}
-
-.tooltip {
-  position: absolute;
-  bottom: calc(100% + 12px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(255, 255, 255, 0.12);
+.tooltipContainer {
+  background: rgba(0, 0, 0, 0.65);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  min-width: 100px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.tooltipText {
+  display: block;
   color: white;
   font-family: 'Roboto', sans-serif;
   font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 0.35rem 0.75rem;
-  border-radius: 2rem;
   white-space: nowrap;
-  pointer-events: none;
-  z-index: 20;
 }
+
 .featureNav {
   display: flex;
   flex-direction: row;
@@ -119,4 +72,52 @@
   background: rgba(0, 0, 0, 0.35);
   padding: 0 1.5rem;
   gap: 0.5rem;
+}
+
+.featureNavItemWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.featureNavItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  /* background: rgba(255, 255, 255, 0.15); */
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 0;
+  flex-shrink: 0;
+  transition: background 0.2s ease;
+}
+
+.featureNavItemActive {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.featureNavItem:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.tooltipContainer {
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  min-width: 100px;
+  text-align: center;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.tooltipVisible {
+  opacity: 1;
 }

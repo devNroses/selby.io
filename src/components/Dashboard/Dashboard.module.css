@@ -8,41 +8,57 @@
   background: linear-gradient(174deg, rgba(17, 17, 17, 1) 32%, rgba(68, 82, 75, 1) 82%, rgba(150, 147, 138, 1) 100%);
   backdrop-filter: blur(20px);
   position: fixed;
-  padding: 2em;
+  padding: 1em;
   inset: 0;
   z-index: 20;
   overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+@media (min-width: 1280px) {
+  .dashboard {
+    padding: 2em;
+    overflow: hidden;
+  }
 }
 
 .dashboardContent {
   border-radius: .6rem;
   display: grid;
   width: 100%;
-  gap: .5rem;
+  gap: 1rem;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
   align-items: start;
+  box-sizing: border-box;
 }
 
 @media (min-width: 1280px) {
   .dashboardContent {
+    gap: .5rem;
     grid-template-columns: 1.45fr 1.45fr 1fr;
     grid-template-rows: 1fr;
     align-items: stretch;
+    height: 100%;
   }
 }
 
-.socialsWrapper{
+.socialsWrapper {
   display: flex;
   justify-content: space-around;
   gap: 2em;
+  flex-wrap: wrap;
 }
 
 .dashboardContent > * {
   padding: 1rem;
   border-radius: .6rem;
-  min-height: 0;
-  overflow: hidden;
+  min-height: 100%;
+  /* overflow: hidden; */
+  box-sizing: border-box;
+  min-width: 0;
+  position: relative;
 }
 
 .dashboardContent > *:first-child {
@@ -58,15 +74,27 @@
   }
 }
 
+.sectionPanel {
+  display: flex;
+  padding: 0;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow: hidden;
+  min-width: 0;
+}
+
 .panel1 {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   padding: 0 !important;
+  height: 500px;
+  overflow: hidden;
 }
 
 @media (min-width: 1280px) {
   .panel1 {
+    height: 100%;
     min-height: 0;
   }
 }
@@ -76,6 +104,14 @@
   flex-direction: column;
   gap: 1rem;
   border-radius: .6rem;
+  min-width: 0;
+  height: 320px;
+}
+
+@media (min-width: 1280px) {
+  .profileSection {
+    height: auto;
+  }
 }
 
 .skillsSection {
@@ -87,27 +123,66 @@
   min-height: 120px;
 }
 
-.aboutWrapper{
+.aboutWrapper {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  padding: 1em;
-  /* height: 400px; */
+  padding: .5em;
   height: auto;
+  min-height: 160px;
   background-color: #FFFFD6;
   border-radius: 6px;
   color: #111;
   gap: .5em;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+@media (min-width: 1280px) {
+  .aboutWrapper {
+    height: 100%;
+    min-height: 240px;
+  }
 }
 
 .aboutWrapper h3 {
   font-size: 1em;
   padding-bottom: 0;
-  margin-bottom: 0;
+  margin: 0;
 }
 
 .aboutWrapper p {
   font-size: .8em;
-  line-height: 1.15;
+  line-height: 1.25;
   padding-bottom: 0;
+}
+
+.aboutPanel {
+  display: flex;
+  height: 400px;
+  overflow: hidden;
+  border-radius: .6rem;
+  position: relative;
+  flex-shrink: 0;
+}
+
+@media (min-width: 1280px) {
+  .aboutPanel {
+    height: 330px;
+  }
+}
+
+.personalProjects {
+  display: flex;
+  height: 220px;
+  background-color: #2D2E2E;
+  border-radius: .6rem;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+@media (min-width: 1280px) {
+  .personalProjects {
+    height: 260px;
+  }
 }

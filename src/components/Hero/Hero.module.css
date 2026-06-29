@@ -36,6 +36,7 @@
   align-items: center;
   gap: 0.5rem;
   width: 45%;
+  white-space: unset;
   will-change: transform, opacity;
   padding-bottom: 2rem;
 }

@@ -166,9 +166,9 @@ const handleEnter = (): void => {
 
         <div ref={introTextRef} className={styles.introText}>
           <p>
-            Design Engineer. Creative Technologist.<br />
-            Blending frontend systems, and color-driven storytelling.<br />
-            Building thoughtful digital products through design, code, and color.
+           Design Engineer. Creative Technologist. <br></br>
+Operating at the intersection of frontend systems and color design for apparel and footwear.
+Building thoughtful digital experiences through design, code, and color as a narrative.
           </p>
           <Button buttonAction={handleEnter} />
         </div>

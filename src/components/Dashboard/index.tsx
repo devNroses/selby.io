@@ -2,7 +2,7 @@ import type { RefObject } from 'react';
 import { motion } from "motion/react"
 import { Profile } from './Profile';
 // import { SocialPanel } from './Social';
-import { FeaturePanel, type FeatureImage } from './FeaturePanel';
+import { FeaturePanel, type FeatureMedia } from './FeaturePanel';
 import styles from './Dashboard.module.css';
 
 interface DashbaordProps {
@@ -11,62 +11,79 @@ interface DashbaordProps {
 }
 
 export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
-  const featuredImgs: FeatureImage[] = [
+  const featuredImgs: FeatureMedia[] = [
     {
       label: 'Bron_All_Star_26',
       alt: 'Bron in Nike All Star Shooting shirt',
-      src: './portfolioImg/features/bron.jpg'
+      src: './portfolioImg/features/lebronCover.mp4',
+      type: 'video'
     },
     {
-      label: 'Booker_All_Star_26',
-      alt: 'Booker in Nike All Star Jacket',
-      src: './portfolioImg/features/booker.jpg'
-    },
-    {
-      label: 'Maxi_All_Star_26',
-      alt: 'Maxi in Nike All Star Warm Up',
-      src: './portfolioImg/features/maxi.jpg'
-    },
-    {
-      label: 'Shai_All_Star_26',
-      alt: 'Shai in Nike All Star Shooting shirt',
-      src: './portfolioImg/features/shai.jpg'
-    },
-    {
-      label: 'Steph_All_Star_26',
-      alt: 'Steph in Nike All Star Warm up and Shooting shirt',
-      src: './portfolioImg/features/steph.jpg'
-    },
+      label: 'Vomero18',
+      alt: 'Vomero 18 Silver Bullet Concept',
+      src: './portfolioImg/features/vomero18_silverBullet.jpg',
+      type: 'image'
+    }
   ] 
+
+  const aboutMedia: FeatureMedia[] = [
+        {
+          label: 'selby_about_red',
+          alt: 'Selby about profile - R',
+          src: './imgs/selbyAboutPanel_3.png',
+          type: 'image'
+        },
+        {
+          label: 'selby_about_green',
+          alt: 'Selby about profile - G',
+          src: './imgs/selbyAboutPanel_2.png',
+          type: 'image'
+        },
+        {
+          label: 'selby_about_blue',
+          alt: 'Selby about profile - B',
+          src: './imgs/selbyAboutPanel_1.png',
+          type: 'image'
+        },
+        {
+          label: 'selby_about_yellow',
+          alt: 'Selby about profile - Y',
+          src: './imgs/selbyAboutPanel_4.png',
+          type: 'image'
+        },
+      ]
   
   return (
          <div ref={dashboardPropRef} className={styles.dashboard}>
           <div className={styles.dashboardContent}>
             <motion.div
-              className={`panel ${styles.panel1}`}
-              initial={{ opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.25 } }}
-              style={{
-                background: 'transparent',
-                padding: '0',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '0.5rem',
-                minHeight: '450px',
-              }}
-            >
-              <FeaturePanel images={featuredImgs}/>
-              <div className={styles.socialPanel}>
-                {/* social media content here */}
-              </div>
-            </motion.div>
+                className={`panel ${styles.panel1}`}
+                initial={{ opacity: 0, y: 25 }}
+                animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.25 } }}
+                style={{
+                  background: 'transparent',
+                  padding: '0',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.5rem',
+                  height: '610px'
+                }}
+              >
+                <FeaturePanel images={featuredImgs} />
+                <div className={styles.socialPanel} />
+              </motion.div>
             <motion.div
-              className='panel'
+              className={`panel ${styles.sectionPanel}`}
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.35 } }}
-              style={{ background: '#04f94d', padding: '.25rem'}}
+              style={{ padding: '.15rem'}}
             >
-              panel 2
+              <motion.div className={styles.aboutPanel}> 
+                <FeaturePanel images={aboutMedia} interval={8000}/>
+              </motion.div>
+              <motion.div className={styles.personalProjects}>
+                UX/UI Panel
+              </motion.div>
             </motion.div>
             <motion.div
               className='panel'
@@ -88,15 +105,12 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
                 >
                   <h3>Introduction</h3>
                   <p>
-                    Raised in North Carolina and shaped by years living abroad, my creative perspective was 
-                    formed through contrast, culture, and curiosity, beginning with sketching sports logos 
-                    and studying sneaker ads. Over time, this evolved into a deeper interest in visual 
-                    systems, storytelling, color, and the emotional impact of design, shaping how I 
-                    balance structure with exploration. As my career developed, design and software 
-                    engineering became complementary disciplines, forming a layered practice that 
-                    blends visual design, branding, color, and front-end development. Today, my work 
-                    focuses less on singular outputs and more on crafting thoughtful, evolving 
-                    experiences built with purpose and refined through collaboration.
+                    Raised in North Carolina and shaped by years abroad, my creative perspective 
+                    was built on contrast, culture, and curiosity—starting with sketching sports 
+                    logos and studying sneaker ads. That foundation evolved into a deeper focus 
+                    on visual systems, storytelling, color, and the emotional impact of design. 
+                    Today, I focus on crafting thoughtful, evolving experiences built 
+                    with purpose and refined through collaboration.
                   </p>
 
                   {/* <div>
