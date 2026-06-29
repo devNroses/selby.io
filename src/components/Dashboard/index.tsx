@@ -1,7 +1,7 @@
 import type { RefObject } from 'react';
 import { motion } from "motion/react"
 import { Profile } from './Profile';
-// import { SocialPanel } from './Social';
+import { SocialPanel } from './Social';
 import { FeaturePanel, type FeatureMedia } from './FeaturePanel';
 import styles from './Dashboard.module.css';
 
@@ -82,7 +82,7 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
               className={`panel ${styles.sectionPanel}`}
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.45 } }}
-              style={{ display: 'flex', flexDirection: 'column', background: 'transparent', padding: '.25rem', gap: '1em'}}
+              style={{ display: 'flex', flexDirection: 'column', background: 'transparent', padding: '.25rem', height: '110%'}}
             >
                <motion.div 
               className={styles.profileSection}
@@ -106,6 +106,7 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
                     with purpose and refined through collaboration.
                   </p>
                 </motion.div>
+              <SocialPanel />
               </motion.div>
             </motion.div> 
           </div>

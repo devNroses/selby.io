@@ -99,7 +99,7 @@
 .profileSection {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: .8rem;
   border-radius: .6rem;
   min-width: 0;
   height: 320px;
