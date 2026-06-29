@@ -57,23 +57,21 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
          <div ref={dashboardPropRef} className={styles.dashboard}>
           <div className={styles.dashboardContent}>
             <motion.div
-              className={`panel ${styles.panel1}`}
-              initial={{ opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.25 } }}
-              style={{
-                background: 'transparent',
-                padding: '0',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '0.5rem',
-                minHeight: '450px',
-              }}
-            >
-              <FeaturePanel images={featuredImgs}/>
-              <div className={styles.socialPanel}>
-                {/* social media content here */}
-              </div>
-            </motion.div>
+                className={`panel ${styles.panel1}`}
+                initial={{ opacity: 0, y: 25 }}
+                animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.25 } }}
+                style={{
+                  background: 'transparent',
+                  padding: '0',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.5rem',
+                  height: '610px'
+                }}
+              >
+                <FeaturePanel images={featuredImgs} />
+                <div className={styles.socialPanel} />
+              </motion.div>
             <motion.div
               className={`panel ${styles.sectionPanel}`}
               initial={{ opacity: 0, y: 25 }}
