@@ -60,14 +60,6 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
                 className={`panel ${styles.panel1}`}
                 initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.25 } }}
-                style={{
-                  background: 'transparent',
-                  padding: '0',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '0.5rem',
-                  height: '610px'
-                }}
               >
                 <FeaturePanel images={featuredImgs} />
                 <div className={styles.socialPanel} />
@@ -85,18 +77,19 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
                 UX/UI Panel
               </motion.div>
             </motion.div>
+            
             <motion.div
-              className='panel'
+              className={`panel ${styles.sectionPanel}`}
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.45 } }}
-              style={{ transformOrigin: 'bottom', display: 'flex', flexDirection: 'column', background: 'transparent', padding: '.25rem', gap: '1em' }}
+              style={{ display: 'flex', flexDirection: 'column', background: 'transparent', padding: '.25rem', gap: '1em'}}
             >
-              <motion.div 
+               <motion.div 
               className={styles.profileSection}
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.55 } }}
               >
-                <Profile />
+               <Profile />
 
                 <motion.div 
                   className={styles.aboutWrapper}
@@ -112,33 +105,9 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
                     Today, I focus on crafting thoughtful, evolving experiences built 
                     with purpose and refined through collaboration.
                   </p>
-
-                  {/* <div>
-                    Read More
-                  </div> */}
                 </motion.div>
-
-                {/* <motion.div 
-                className={styles.socialsWrapper}
-                >
-                  <SocialPanel> [icon 1 ] </SocialPanel>
-                  <SocialPanel> [icon 2 ] </SocialPanel>
-                  <SocialPanel> [icon 3 ] </SocialPanel>
-                  <SocialPanel> [icon 3 ] </SocialPanel>
-                </motion.div> */}
-                {/* <motion.div 
-                className={styles.profileSocials}
-                initial={{ opacity: 0, y: 25 }}
-                animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.65 } }}
-                >
-                  [ Socials CTA Container ]
-                </motion.div> */}
               </motion.div>
-
-               {/* <motion.div className={styles.skillsSection}>
-               [ Skills ]
-              </motion.div> */}
-            </motion.div>
+            </motion.div> 
           </div>
         </div>
     )

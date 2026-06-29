@@ -49,6 +49,29 @@
   line-height: 1;
 }
 
+@media (max-width: 1280px) {
+  .profileWrapper{
+    height: 280px;
+    gap: 2em;
+  }
+
+  .profileTitle {
+   gap: 8em;
+  }
+
+  .profileTitle p{
+    font-size: clamp(3rem, 3vw, 3em);
+  }
+}
+@media (max-width: 580px) {
+  .profileTitle {
+    gap: 1.5em;
+  }
+  .profileTitle p{
+    font-size: clamp(2.1rem, 2vw, 2em);
+  }
+}
+
 .description{
     display: inline-flex;
     margin: 0 auto 0.5em
