@@ -13,7 +13,8 @@ export interface FeatureMedia {
 
 interface FeaturePanelProps {
   images: FeatureMedia[]
-  interval?: number
+  interval?: number,
+  showNav?: boolean,
 }
 
 const isVideoSrc = (item: FeatureMedia) =>
@@ -54,7 +55,7 @@ const MediaItem = ({ item }: { item: FeatureMedia }) => {
   )
 }
 
-export const FeaturePanel = ({ images, interval = 4000 }: FeaturePanelProps) => {
+export const FeaturePanel = ({ images, interval = 4000, showNav = false }: FeaturePanelProps) => {
   const [current, setCurrent] = useState(0)
   const [hovered, setHovered] = useState(false)
 
@@ -102,7 +103,7 @@ export const FeaturePanel = ({ images, interval = 4000 }: FeaturePanelProps) => 
       </AnimatePresence>
 
       <AnimatePresence>
-        {hovered && <FeatureNav />}
+        {showNav && <FeatureNav />}
       </AnimatePresence>
     </motion.div>
   )
