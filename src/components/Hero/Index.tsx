@@ -1,15 +1,17 @@
-import { useState, useEffect, useRef, useLayoutEffect } from 'react'
+import { useEffect, useRef, useLayoutEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import gsap from 'gsap';
+import { motion } from 'motion/react';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import { Environment, Center, Bounds } from '@react-three/drei'
 import { ACESFilmicToneMapping, Group } from 'three'
-import { Dashboard } from '../Dashboard';
 import { Button } from '../Global/Button'
 import { SelbyText } from '../Global/Logo';
 import styles from './Hero.module.css'
 
 gsap.ticker.lagSmoothing(0);
+gsap.registerPlugin(ScrollTrigger);
 
 export const ResponsiveCamera = () => {
   const { camera, size } = useThree()
@@ -52,14 +54,10 @@ export const RotatingText = () => {
 }
 
 export const Hero = () => {
-  gsap.registerPlugin(ScrollTrigger);
-
+  const navigate = useNavigate()
   const heroRef = useRef<HTMLDivElement | null>(null);
-  const dashboardRef = useRef<HTMLDivElement | null>(null);
   const introTextRef = useRef<HTMLDivElement | null>(null);
   const heroCtx = useRef<gsap.Context | null>(null);
-  const dashboardCtx = useRef<gsap.Context | null>(null);
-  const [showDashboard, setShowDashboard] = useState(false);
   const hasMounted = useRef(false);
 
   useEffect(() => {
@@ -71,111 +69,81 @@ export const Hero = () => {
     }
   }, []);
 
-useLayoutEffect(() => {
-  if (!heroRef.current || !introTextRef.current) return;
+  useLayoutEffect(() => {
+    if (!heroRef.current || !introTextRef.current) return;
 
-  const introEl = introTextRef.current 
+    const introEl = introTextRef.current
 
-  const ctx = gsap.context(() => {
-    gsap.fromTo(
-      introEl.querySelectorAll('p, button'),
-      { opacity: 0, y: 20 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.85,
-        delay: 1.25,
-        stagger: 0.35,
-        ease: "power2.out",
-      }
-    );
-  }, heroRef);
-
-  heroCtx.current = ctx;
-  return () => ctx.revert();
-}, []);
-
-  useEffect(() => {
-    if (!showDashboard || !dashboardRef.current) return;
-    dashboardCtx.current = gsap.context(() => {
+    const ctx = gsap.context(() => {
       gsap.fromTo(
-        dashboardRef.current,
-        { opacity: 0 },
+        introEl.querySelectorAll('p, button'),
+        { opacity: 0, y: 20 },
         {
           opacity: 1,
-          duration: 0.5,
-          ease: "power2.out"
+          y: 0,
+          duration: 0.85,
+          delay: 1.25,
+          stagger: 0.35,
+          ease: "power2.out",
         }
       );
-    }, dashboardRef);
-    return () => dashboardCtx.current?.revert();
-  }, [showDashboard]);
+    }, heroRef);
 
-useEffect(() => {
-  if (!showDashboard) return;
-  const scrollY = window.scrollY;
-  document.body.style.position = "fixed";
-  document.body.style.top = `-${scrollY}px`;
-  document.body.style.width = "100%";
-  heroCtx.current?.revert();
-  return () => {
-    document.body.style.position = "";
-    document.body.style.top = "";
-    document.body.style.width = "";
-    window.scrollTo(0, scrollY);
-  };
-}, [showDashboard]);
+    heroCtx.current = ctx;
+    return () => ctx.revert();
+  }, []);
 
-const handleEnter = (): void => {
-  if (!heroRef.current) return;
+  const handleEnter = (): void => {
+    if (!heroRef.current) return;
 
-  ScrollTrigger.getAll().forEach(t => t.kill());
-  heroCtx.current?.revert();
+    ScrollTrigger.getAll().forEach(t => t.kill());
+    heroCtx.current?.revert();
 
-  gsap.to(heroRef.current, {
-    opacity: 0,
-    duration: 0.6,
-    ease: "power2.inOut",
-    onComplete: () => {
-      setShowDashboard(true)
-    },
-  })
-}
+    gsap.to(heroRef.current, {
+      opacity: 0,
+      duration: 0.6,
+      ease: "power2.inOut",
+      onComplete: () => navigate('/dashboard'),
+    })
+  }
 
   return (
-    <>
-    <div ref={heroRef} className={styles.container}>
-      <div className={styles.heroContainer}>
+    <motion.section
+      className="pageSection"
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.55, ease: 'easeInOut' }}
+    >
+      <div ref={heroRef} className={styles.container}>
+        <div className={styles.heroContainer}>
 
-        <div className={styles.mainLogo}>
-          <Canvas
-            camera={{ position: [0, 0, 7], fov: 50 }}
-            gl={{ antialias: true, toneMapping: ACESFilmicToneMapping }}
-            frameloop="always"
-          >
-            <ResponsiveCamera />
-            <Environment
-              files="/THAZERO-WORLD-TEXTURE.hdr"
-              background={false}
-            />
-            <Bounds fit clip observe margin={0.65}>
-              <RotatingText />
-            </Bounds>
-          </Canvas>
+          <div className={styles.mainLogo}>
+            <Canvas
+              camera={{ position: [0, 0, 7], fov: 50 }}
+              gl={{ antialias: true, toneMapping: ACESFilmicToneMapping }}
+              frameloop="always"
+            >
+              <ResponsiveCamera />
+              <Environment
+                files="/THAZERO-WORLD-TEXTURE.hdr"
+                background={false}
+              />
+              <Bounds fit clip observe margin={0.65}>
+                <RotatingText />
+              </Bounds>
+            </Canvas>
+          </div>
+
+          <div ref={introTextRef} className={styles.introText}>
+            <p>
+              Design Engineer. Creative Technologist. <br />
+              Operating at the intersection of frontend systems and color design for apparel and footwear.
+              Building thoughtful digital experiences through design, code, and color as a narrative.
+            </p>
+            <Button buttonAction={handleEnter} />
+          </div>
+
         </div>
-
-        <div ref={introTextRef} className={styles.introText}>
-          <p>
-           Design Engineer. Creative Technologist. <br></br>
-Operating at the intersection of frontend systems and color design for apparel and footwear.
-Building thoughtful digital experiences through design, code, and color as a narrative.
-          </p>
-          <Button buttonAction={handleEnter} />
-        </div>
-
       </div>
-    </div>
-      {showDashboard && <Dashboard dashboardPropRef={dashboardRef} />}
-    </>
+    </motion.section>
   )
 }

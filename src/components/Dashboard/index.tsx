@@ -54,7 +54,14 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
       ]
   
   return (
-         <div ref={dashboardPropRef} className={styles.dashboard}>
+          <motion.div 
+            ref={dashboardPropRef} 
+            className={styles.dashboard}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.65, ease: 'easeOut'}}
+          >
           <div className={styles.dashboardContent}>
             <motion.div
                 className={`panel ${styles.panel1}`}
@@ -110,6 +117,6 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
               </motion.div>
             </motion.div> 
           </div>
-        </div>
+        </motion.div>
     )
 }
