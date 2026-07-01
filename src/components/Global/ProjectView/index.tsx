@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
+import { AllStarProject } from './Projects/Color/AllStar';
 
 export const ProjectView = () => {
     const { id } = useParams();
@@ -12,8 +13,10 @@ export const ProjectView = () => {
             exit={{ opacity: 0, scale: 0.98 }}
             transition={{ duration: 0.4, ease: 'easeOut' }}
         >
-            <button onClick={() => navigate('/dashboard')}>← Back</button>
-            <h1>Project: {id}</h1>
+            {/* <button onClick={() => navigate('/dashboard')}>← Back</button> */}
+            <div>
+                <AllStarProject />
+            </div>
         </motion.div>
     )
 }
