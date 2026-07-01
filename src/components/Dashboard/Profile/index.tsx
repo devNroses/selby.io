@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber';
 import { Environment, Bounds } from '@react-three/drei'
 import { ACESFilmicToneMapping } from 'three'
-import { RotatingText } from '../../Hero/Index';
+import { RotatingText } from '../../HeroPage';
 import styles from './Profile.module.css'
 
 export const Profile = () => {

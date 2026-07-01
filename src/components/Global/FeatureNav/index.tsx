@@ -13,8 +13,8 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   { id: 'info', icon: <InfoIcon width={24} height={24} />, tooltip: 'Project Info' },
-  { id: 'gallery', icon: <GalleryIcon width={40} height={20} />, tooltip: 'View Gallery' },
-  { id: 'expand', icon: <ExpandIcon width={20} height={20} />, tooltip: 'Expand View' },
+  { id: 'gallery', icon: <GalleryIcon width={40} height={20} />, tooltip: 'view All Projects' },
+  { id: 'expand', icon: <ExpandIcon width={20} height={20} />, tooltip: 'View Current Project' },
 ]
 
 export const FeatureNav = () => {

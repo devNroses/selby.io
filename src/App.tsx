@@ -1,13 +1,14 @@
-// import { useMainStore } from './store/mainStore'
-import { Hero } from './components/Hero/Index'
+// // import { useMainStore } from './store/mainStore'
+import { BrowserRouter } from 'react-router-dom';
+import { AnimatedRoutes } from './components/AnimatedRoutes';
+// import { Hero } from './components/Hero'
 import './index.css';
 
 function App() {
   return (
-      <section className="pageSection">
-        <Hero />
-        <div className="pageContentSpacer" />
-      </section>
+      <BrowserRouter>
+        <AnimatedRoutes />
+      </BrowserRouter>
   )
 }
 
