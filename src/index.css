@@ -73,14 +73,20 @@
   src: local("HumaneSemiBold"), url('./fonts/Humane-SemiBold.ttf') format('trueType');
 }
 
-.pageSection {
-  padding-top: 0;
-  padding-bottom: 2rem;
+
+* {
+  box-sizing: border-box;
 }
 
-@media (max-width: 768px) {
-  .pageSection {
-    padding-bottom: 15rem;
-  }
-}
+*, *::before, *::after {  
+  box-sizing: border-box;  
+  margin: 0;  
+  padding: 0;  
+}  
 
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
