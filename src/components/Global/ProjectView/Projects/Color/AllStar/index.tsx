@@ -11,79 +11,97 @@ export const AllStarProject = () => {
     const { id } = useParams()
     const allstarContainerRef = useRef<HTMLDivElement>(null)
     const allstarIntroRef = useRef<HTMLDivElement>(null)
+    const imgRef = useRef<HTMLImageElement>(null)
     const boxFeatureRef = useRef<HTMLDivElement>(null)
     const boxaRef = useRef<HTMLDivElement>(null)
     const boxbRef = useRef<HTMLDivElement>(null)
     const ctx = useRef<gsap.Context | null>(null)
+useLayoutEffect(() => {
+    if( !allstarContainerRef.current || 
+        !allstarIntroRef.current ||
+        !boxaRef.current ||
+        !boxFeatureRef.current ||
+        !boxbRef.current ||
+        !imgRef.current 
+    ) return
 
-    useLayoutEffect(() => {
-        if(!allstarContainerRef.current || 
-            !
-allstarIntroRef.current ||
-            !boxaRef.current ||
-            !boxbRef.current
-        ) return
+     // force scroll to top before GSAP initializes
+        window.scrollTo(0, 0)
+        document.documentElement.scrollTop = 0
+        document.body.scrollTop = 0
 
-        const introElement = allstarIntroRef.current
-        ctx.current = gsap.context(() => {
-            gsap.fromTo(
-                introElement.querySelectorAll('h2'),
-                { opacity: 0, y: 50 },
-                {
-                    opacity: 1, 
-                    y: 0,
-                    duration: 0.85,
-                    delay: 0.5,
-                    stagger: 0.35,
-                    ease: "circ.out",
-                }
-            );
-            gsap.fromTo(boxaRef.current, 
-                { opacity: 0, height: 0, y: 260 },
-            {
-                opacity: 1,
-                height: 400,
-                duration: 6.5,
-                y: 200,
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: allstarIntroRef.current,
-                    scroller: window,
-                    start: "top top",
-                    end: "bottom center",
-                    scrub: true,
-                    toggleActions: "restart pause reverse pause",
-                    // markers: true, // shows start/end markers in browser
-                }
+    const introElement = allstarIntroRef.current
+
+    ctx.current = gsap.context(() => {
+
+        // set initial states immediately — no flash
+        gsap.set(introElement.querySelectorAll('h2'), { opacity: 0, y: 40, visibility: 'visible' })
+        gsap.set(imgRef.current, { opacity: 0, visibility: 'visible' })
+        gsap.set(boxaRef.current, { opacity: 0, height: 0, y: 380, visibility: 'visible' })
+        gsap.set(boxbRef.current, { opacity: 0, height: 0, y: 480, visibility: 'visible' })
+
+        // then animate
+        gsap.to(introElement.querySelectorAll('h2'), {
+            opacity: 1,
+            y: 10,
+            duration: 0.65,
+            delay: .85,
+            stagger: 0.35,
+            ease: "circ.out",
+        })
+
+        gsap.to(imgRef.current, {
+            opacity: 1,
+            duration: 0.85,
+            delay: 2.85,
+            ease: "circ.inOut",
+        })
+
+        gsap.to(boxaRef.current, {
+            opacity: 1,
+            height: 400,
+            delay: .95,
+            duration: 6.5,
+            y: 350,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: allstarIntroRef.current,
+                scroller: window,
+                start: "top top",
+                end: "bottom center",
+                scrub: true,
+                toggleActions: "restart pause reverse pause",
             }
-            ),
-            gsap.fromTo(boxbRef.current,
-                { opacity: 0, height: 0, y: 200 },
-            {
-                opacity: 1,
-                height: 400,
-                duration: 6.5,
-                y: 150,
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: boxaRef.current,
-                    scroller: window,
-                    start: "top 245px",
-                    end: "top center",
-                    endTrigger: boxbRef.current,
-                    scrub: true,
-                    toggleActions: "restart pause reverse pause",
-                    // markers: true, // shows start/end markers in browser
-                }
-            }
-            )
-        }, allstarContainerRef.current)
+        })
 
-        return () => {
-            ctx.current?.revert() // cleans up on unmount
-            ScrollTrigger.getAll().forEach(trigger => trigger.kill()) // kills all ScrollTriggers
-        }
-    }, [id]) // re-run effect if id changes
+        gsap.to(boxbRef.current, {
+            opacity: 1,
+            height: 400,
+            delay: 1.05,
+            duration: 6.5,
+            y: 150,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: boxaRef.current,
+                scroller: window,
+                start: "top 260px",
+                end: "top center",
+                endTrigger: boxbRef.current,
+                scrub: true,
+                toggleActions: "restart pause reverse pause",
+            }
+        })
+
+        // recalculate after scroll reset
+        ScrollTrigger.refresh()
+
+    }, allstarContainerRef.current)
+
+    return () => {
+        ctx.current?.revert()
+        ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+    }
+}, [id])
 
     return (
         <motion.div 
@@ -99,7 +117,11 @@ allstarIntroRef.current ||
                 <div 
                 ref={boxFeatureRef}
                 className={styles.boxa1}>
-                    <img src="/portfolioImg/allStar/allstarIntroBg.jpg" alt="All Star Project" />
+                    <img 
+                        ref={imgRef}
+                        src="/portfolioImg/allStar/allstarIntroBg.jpg" 
+                        alt="All Star Project" 
+                    />
                 </div>
                 <div 
                 ref={boxaRef}
