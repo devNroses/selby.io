@@ -68,8 +68,8 @@ allstarIntroRef.current ||
                 scrollTrigger: {
                     trigger: boxaRef.current,
                     scroller: window,
-                    start: "top 345px",
-                    end: "bottom top",
+                    start: "top 245px",
+                    end: "top center",
                     endTrigger: boxbRef.current,
                     scrub: true,
                     toggleActions: "restart pause reverse pause",
@@ -89,24 +89,26 @@ allstarIntroRef.current ||
         <motion.div 
             ref={allstarContainerRef}
             className={styles.allstarContainer}>
-            {/* <motion.div 
+            <motion.div 
                 ref={allstarIntroRef}
                 className={styles.allstarIntro}
             >
                 <h2>
-                    Project All Star
+                    Court Hues
                 </h2>
                 <div 
                 ref={boxFeatureRef}
-                className={styles.boxa1} />
+                className={styles.boxa1}>
+                    <img src="/portfolioImg/allStar/allstarIntroBg.jpg" alt="All Star Project" />
+                </div>
                 <div 
                 ref={boxaRef}
                 className={styles.boxa} />
                 <div 
                 ref={boxbRef}
                 className={styles.boxb} />
-            </motion.div> */}
-            {/* <motion.div className={styles.section}>
+            </motion.div>
+            <motion.div className={styles.section}>
                 Box 1
             </motion.div>
             <motion.div className={styles.section}>
@@ -114,7 +116,7 @@ allstarIntroRef.current ||
             </motion.div>
             <motion.div className={styles.section}>
                 Box 3
-            </motion.div> */}
+            </motion.div> 
         </motion.div>
     )
 }

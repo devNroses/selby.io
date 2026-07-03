@@ -5,24 +5,47 @@
     padding: 0;
     height: 100%;
     width: 100%;
-    border: 1px solid hotpink;
-    background-color: #111;
+    border: 1px dashed hotpink;
 }
-/*
+
 .allstarIntro {
     display: flex;
     flex-direction: column;
     margin: 0;
-    padding: 0;
+    padding: 0 40px;
     width: 100%;
+    border: 2px dashed limegreen;
     height: 100vh;
     justify-content: center;
     align-items: center;
 }
 
 .allstarIntro h2 {
-    z-index: 1;
+    z-index: 0;
     color: white;
+    font-family: 'HumaneMedium';
+    font-size: clamp(22rem, 15vw, 15em);
+    letter-spacing: 0.1em;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all 0.5s ease-in-out;
+}
+
+@media (max-width: 1280px) {
+  .allstarIntro h2 {
+        font-size: clamp(18rem, 15vw, 15em);
+    }
+}
+@media (max-width: 850px) {
+  .allstarIntro h2 {
+        font-size: clamp(14rem, 15vw, 15em);
+    }
+}
+@media (max-width: 550px) {
+  .allstarIntro h2 {
+        font-size: clamp(8rem, 15vw, 15em);
+        letter-spacing: 0.14em;
+    }
 }
 
 .section{
@@ -38,13 +61,41 @@
 .boxa1 {
     display: flex;
     align-self: center;
+    justify-content: center;
     margin: 0;
     padding: 0; 
-    height: 100px;
-    width: 100px;
-    border: 1px dashed hotpink;
-    background-color: hotpink;
+    height: 400px;
+    width: 500px;
+    margin-top: -10px;
     position: absolute;
+}
+
+.boxa1 img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+    display: block;
+    transition: all 0.5s ease-in-out;
+}
+
+@media (max-width: 1280px) {
+ .boxa1 img{
+    width: 80%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+    display: block;
+}
+}
+@media (max-width: 580px) {
+ .boxa1 img{
+    width: 60%;
+    height: 80%;
+    object-fit: cover;
+    object-position: center 15%;
+    display: block;
+}
 }
 
 .boxa {
@@ -52,23 +103,21 @@
     align-self: flex-start;
     margin: 0;
     padding: 0; 
-    height: 100px;
-    width: 100px;
+    width: 300px;
     border: 1px dashed yellow;
     background-color: yellow;
     position: absolute;
-    margin-top: -200px;
+    margin-top: -180px;
 }
 
 .boxb {
     display: flex;
     align-self: flex-end;
     margin: 0;
-    margin-top: 200px;
+    margin-top: 220px;
     padding: 0; 
-    height: 100px;
-    width: 100px;
+    width: 300px;
     border: 1px dashed dodgerblue;
     background-color: dodgerblue;
     position: absolute;
-} */
+} 
