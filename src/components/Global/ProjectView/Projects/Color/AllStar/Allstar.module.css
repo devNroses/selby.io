@@ -1,11 +1,9 @@
- .allstarContainer {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    overflow-x: hidden;
+.allstarContainer {
+  display: block;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #111;
 }
 
 .allstarIntro {
@@ -126,3 +124,37 @@
     visibility: hidden;
     opacity: 0;
 } 
+
+.horizontalWrapper {
+  width: 100%;
+  position: relative;
+}
+
+.horizontalSection {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  will-change: transform;
+}
+
+.horizontalTrack {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: max-content;
+  will-change: transform;
+}
+
+.horizontalPanel {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: #1a1a1a;
+  font-size: 2rem;
+  color: white;
+}

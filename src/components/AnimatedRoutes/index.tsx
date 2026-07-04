@@ -9,20 +9,11 @@ export const AnimatedRoutes = () => {
 
     return (
         <AnimatePresence mode="wait">
-            <div
-                style={{
-                    position: "relative",
-                    width: "100%",
-                    height: "100%",
-                }}
-            >
             <Routes location={location} key={location.pathname}>
                 <Route path='/' element={<Hero />} />
                 <Route path='/dashboard' element={<Dashboard />}/>
                 <Route path='/dashboard/project/:id' element={<ProjectView />}/>
             </Routes>
-
-            </div>
         </AnimatePresence>
     )
 }
