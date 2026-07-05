@@ -37,6 +37,7 @@ export const AllStarProject = () => {
         const introElement = allstarIntroRef.current
         const track = horizontalTrackRef.current
         const section = horizontalSectionRef.current
+        const isMobile = window.innerWidth <= 768
 
         // set initial states
         gsap.set(introElement.querySelectorAll('h2'), { opacity: 0, y: 40, visibility: 'visible' })
@@ -100,29 +101,36 @@ export const AllStarProject = () => {
             console.log('track:', track.scrollWidth, track.scrollHeight)
             console.log('panels:', track.children.length)
             
-            gsap.to(track, {
-            x: () => -(track.scrollWidth - section.offsetWidth),
-            ease: "none",
-            scrollTrigger: {
-                trigger: section,
-                start: "top top",
-                end: () => `+=${track.scrollWidth - section.offsetWidth}`,
-                scrub: 1,
-                pin: true,
-                pinSpacing: true,
-                anticipatePin: 1,
-                invalidateOnRefresh: true,
-                markers: true,
+           if (!isMobile) {
+                gsap.to(track, {
+                    x: () => -(track.scrollWidth - section.offsetWidth),
+                    ease: "none",
+                    scrollTrigger: {
+                    trigger: section,
+                    start: "top top",
+                    end: () => `+=${track.scrollWidth - section.offsetWidth}`,
+                    scrub: 1,
+                    pin: true,
+                    pinSpacing: true,
+                    anticipatePin: 1,
+                    invalidateOnRefresh: true,
+                    }
+                })
             }
-            })
         }, allstarContainerRef.current)
 
-        // refresh after context is set up
-        ScrollTrigger.refresh()
+        const handleResize = () => {
+            ScrollTrigger.refresh()
+        }
+
+        window.addEventListener('resize', handleResize)
+        // // refresh after context is set up
+        // ScrollTrigger.refresh()
 
         return () => {
             ctx.current?.revert()
             ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+            window.removeEventListener('resize', handleResize)
         }
     }, [id])
 
@@ -189,10 +197,26 @@ export const AllStarProject = () => {
             <div className={styles.horizontalWrapper}>
                 <div ref={horizontalSectionRef} className={styles.horizontalSection}>
                     <div ref={horizontalTrackRef} className={styles.horizontalTrack}>
-                        <div className={styles.horizontalPanel}>Panel A</div>
-                        <div className={styles.horizontalPanel}>Panel B</div>
-                        <div className={styles.horizontalPanel}>Panel C</div>
-                        <div className={styles.horizontalPanel}>Panel D</div>
+                        <div className={styles.horizontalPanel}>
+                            <div className={styles.boxlrg}></div>
+                            <div className={styles.boxlrg}></div>
+                            <div className={styles.boxlrg}></div>
+                        </div>
+                        <div className={styles.horizontalPanel}>
+                            <div className={styles.boxlrg}></div>
+                            <div className={styles.boxlrg}></div>
+                            <div className={styles.boxlrg}></div>
+                        </div>
+                        <div className={styles.horizontalPanel}>
+                            <div className={styles.boxlrg}></div>
+                            <div className={styles.boxlrg}></div>
+                            <div className={styles.boxlrg}></div>
+                        </div>
+                        <div className={styles.horizontalPanel}>
+                            <div className={styles.boxlrg}></div>
+                            <div className={styles.boxlrg}></div>
+                            <div className={styles.boxlrg}></div>
+                        </div>
                     </div>
                 </div>
             </div>
