@@ -58,7 +58,7 @@ export const AllStarProject = () => {
             gsap.to(imgRef.current, {
                 opacity: 1,
                 duration: 0.85,
-                delay: 2.85,
+                delay: 2.5,
                 ease: "circ.inOut",
             })
 
@@ -83,12 +83,12 @@ export const AllStarProject = () => {
                 height: 400,
                 delay: 1.05,
                 duration: 6.5,
-                y: 150,
+                y: 180,
                 ease: "power2.out",
                 scrollTrigger: {
-                    trigger: boxaRef.current,
-                    start: "top 260px",
-                    end: "top center",
+                    trigger: imgRef.current,
+                    start: "top 230px",
+                    end: "top top",
                     endTrigger: boxbRef.current,
                     scrub: true,
                     toggleActions: "restart pause reverse pause",
@@ -148,7 +148,42 @@ export const AllStarProject = () => {
             </div>
 
             <motion.div className={styles.section}>
-                [ Box 1: Brief Section ]
+                <div className={styles.breifWrapper}>
+                    <div className={styles.briefContext}>
+                        <h3>The Brief</h3>
+                        <p>
+                            The All-Star Game is where the league’s elite converge,
+                            set against the energy of one of the world’s most 
+                            iconic cities.<br /><br />
+                            This wasn’t about standard issue warmups.
+                            It was about energy you could see, texture you could feel, and a color
+                            story rooted in the DNA of LA sun-faded tones, late-night glow,
+                            and the contrast of street and spotlight.
+                        </p>
+                        <p>
+                            <span>My role:</span><br />
+                            Tasked with capturing the essence of Los Angeles through color,
+                            while complementing the NBA GSA team’s jersey vision and elevating
+                            the warm-up, jackets, pants, and shooting shirts, into a more
+                            expressive, unified system.
+                        </p>
+                    </div>
+                    <div className={styles.briefInfoWrapper}>
+                        <div className={styles.briefInfo}>
+                            <h4>Company</h4>
+                            <p>Nike</p>
+                        </div>
+                        <div className={styles.briefInfo}>
+                            <h4>Industry</h4>
+                            <p>Nike Basketball: NBA License</p>
+                        </div>
+                        <div className={styles.briefInfo}>
+                            <h4>Team Role</h4>
+                            <p>Color Design Lead</p>
+                        </div>
+                        
+                    </div>
+                </div>
             </motion.div>
 
             <div className={styles.horizontalWrapper}>
