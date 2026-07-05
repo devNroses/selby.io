@@ -81,7 +81,7 @@ export const AllStarProject = () => {
 
             gsap.to(boxbRef.current, {
                 opacity: 1,
-                height: 400,
+                height: 500,
                 delay: 1.05,
                 duration: 6.5,
                 y: 180,
@@ -151,8 +151,12 @@ export const AllStarProject = () => {
                         alt="All Star Project"
                     />
                 </div>
-                <div ref={boxaRef} className={styles.boxa} />
-                <div ref={boxbRef} className={styles.boxb} />
+                <div ref={boxaRef} className={styles.boxa}>
+                    <img src="/portfolioImg/allStar/stephObamas.jpg" alt="step and obama at allstar 26"/>
+                </div>
+                <div ref={boxbRef} className={styles.boxb}>
+                    <img src="/portfolioImg/allStar/socialPost.jpg" alt="nba allstar 26 best worm ups social"/>
+                </div>
             </div>
 
             <motion.div className={styles.section}>

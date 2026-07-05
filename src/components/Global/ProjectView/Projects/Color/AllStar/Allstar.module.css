@@ -80,13 +80,18 @@
   align-self: flex-start;
   margin: 0;
   padding: 0;
-  width: 300px;
-  border: 1px dashed yellow;
-  background-color: yellow;
+  width: 400px;
   position: absolute;
   margin-top: -210px;
   visibility: hidden;
   opacity: 0;
+}
+
+.boxa img, .boxb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 @media (max-width: 768px) {
@@ -102,8 +107,6 @@
   margin-top: 160px;
   padding: 0;
   width: 300px;
-  border: 1px dashed dodgerblue;
-  background-color: dodgerblue;
   position: absolute;
   visibility: hidden;
   opacity: 0;
