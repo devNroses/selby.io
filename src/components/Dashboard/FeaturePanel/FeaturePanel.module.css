@@ -24,3 +24,50 @@
   object-position: center 15%;
   display: block;
 }
+
+.titleSection{
+  display: flex;
+  flex-direction: column;
+  gap: .5em;
+  justify-content: flex-start;
+  position: absolute;
+  z-index: 4;
+  bottom: 0;
+  left: 0;
+  padding: 0px 20px;
+  height: 200px;
+  width: 100%;
+  top: auto;
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(40px);
+
+  mask-image: linear-gradient(
+    rgba(0, 0, 0, 0) 8%,
+    rgba(0, 0, 0, 0.5) 10%,
+    rgba(0, 0, 0, 0.8) 20%,
+    rgba(0, 0, 0, 1) 30%,
+    rgb(0, 0, 0)
+  );
+
+  -webkit-mask-image: linear-gradient(
+    rgba(0, 0, 0, 0) 8%,
+    rgba(0, 0, 0, 0.5) 10%,
+    rgba(0, 0, 0, 0.094) 20%,
+    rgba(0, 0, 0, 1) 30%,
+    rgb(0, 0, 0)
+  );
+
+
+}
+
+.titleSection h4{
+  font-size: 2.5em;
+  margin-top: 78px;
+  margin-bottom: 8px;
+  font-family: 'HumaneMedium';
+}
+.titleSection p{
+  font-size: .85em;
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.25;
+}

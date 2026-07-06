@@ -8,11 +8,14 @@ export interface FeatureMedia {
   src: string
   type?: 'image' | 'video'
   playbackRate?: number
+  description?: string 
+  captionTitle?: string
 }
 
 interface FeaturePanelProps {
   images: FeatureMedia[]
   interval?: number,
+  showTitle?: boolean,
 }
 
 const isVideoSrc = (item: FeatureMedia) =>
@@ -53,7 +56,7 @@ const MediaItem = ({ item }: { item: FeatureMedia }) => {
   )
 }
 
-export const FeaturePanel = ({ images, interval = 4000 }: FeaturePanelProps) => {
+export const FeaturePanel = ({ images, showTitle = false,  interval = 4000 }: FeaturePanelProps) => {
   const [current, setCurrent] = useState(0)
   const [hovered, setHovered] = useState(false)
 
@@ -76,6 +79,15 @@ export const FeaturePanel = ({ images, interval = 4000 }: FeaturePanelProps) => 
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
+      <div>
+
+      </div>
+      {showTitle && (
+         <div className={styles.titleSection}>
+            <h4>{currentItem.captionTitle}</h4>
+            <p>{currentItem.description}</p>
+          </div>
+      )}
       <AnimatePresence mode="sync">
         <motion.div
           key={current}
