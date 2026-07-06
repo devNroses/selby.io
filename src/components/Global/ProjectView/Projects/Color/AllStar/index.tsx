@@ -81,14 +81,14 @@ export const AllStarProject = () => {
 
             gsap.to(boxbRef.current, {
                 opacity: 1,
-                height: 400,
+                height: 320,
                 delay: 1.05,
                 duration: 6.5,
-                y: 120,
+                y: 320,
                 ease: "power2.out",
                 scrollTrigger: {
                     trigger: imgRef.current,
-                    start: "top 230px",
+                    start: "top 210px",
                     end: "top top",
                     endTrigger: boxbRef.current,
                     scrub: true,

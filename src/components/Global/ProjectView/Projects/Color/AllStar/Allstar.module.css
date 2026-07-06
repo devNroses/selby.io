@@ -21,7 +21,7 @@
   z-index: 0;
   color: white;
   font-family: 'HumaneMedium';
-  font-size: clamp(8rem, 15vw, 15em);
+  font-size: clamp(20rem, 15vw, 15em);
   letter-spacing: 0.1em;
   text-align: center;
   text-transform: uppercase;
@@ -31,8 +31,16 @@
   margin-top: -20px;
 }
 
+@media (max-width: 830px) {
+  .allstarIntro h2 {
+    font-size: clamp(10rem, 15vw, 15em);
+    letter-spacing: 0.14em;
+  }
+}
+
 @media (max-width: 550px) {
   .allstarIntro h2 {
+    font-size: clamp(6rem, 15vw, 15em);
     letter-spacing: 0.14em;
   }
 }
