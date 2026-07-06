@@ -16,13 +16,18 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
       label: 'Bron_All_Star_26',
       alt: 'Bron in Nike All Star Shooting shirt',
       src: './portfolioImg/features/lebronCover.mp4',
-      type: 'video'
+      type: 'video',
+      captionTitle: 'Court Hues',
+      description: 'LA-inspired hues unite the league, turning the court into a bold 2026 All-Star showcase.',
+      route: '/dashboard/project/allStar26'
     },
     {
       label: 'Vomero18',
       alt: 'Vomero 18 Silver Bullet Concept',
       src: './portfolioImg/features/vomero18_silverBullet.jpg',
-      type: 'image'
+      type: 'image',
+      captionTitle: 'V18 Silver Bullet',
+      description: 'Silver Bullet 97 reimagined through Vomero 18—blending tech, texture, and street-ready endurance.'
     }
   ] 
 
@@ -68,7 +73,7 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
                 initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.25 } }}
               >
-                <FeaturePanel images={featuredImgs} showNav />
+                <FeaturePanel images={featuredImgs} showTitle/>
                 <div className={styles.socialPanel} />
               </motion.div>
             <motion.div
@@ -80,9 +85,9 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
               <motion.div className={styles.aboutPanel}> 
                 <FeaturePanel images={aboutMedia} interval={8000} />
               </motion.div>
-              <motion.div className={styles.personalProjects}>
-                UX/UI Panel
-              </motion.div>
+              <div className={styles.personalProjects}>
+                UX/UI work coming soon...
+              </div>
             </motion.div>
             
             <motion.div

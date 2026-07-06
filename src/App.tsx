@@ -5,6 +5,10 @@ import { AnimatedRoutes } from './components/AnimatedRoutes';
 import './index.css';
 
 function App() {
+  if (typeof window !== 'undefined') {
+  window.history.scrollRestoration = 'manual'
+}
+
   return (
       <BrowserRouter>
         <AnimatedRoutes />

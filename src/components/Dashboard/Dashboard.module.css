@@ -172,6 +172,8 @@
   height: 220px;
   background-color: #2D2E2E;
   border-radius: .6rem;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
   flex-shrink: 0;
 }
