@@ -18,7 +18,8 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
       src: './portfolioImg/features/lebronCover.mp4',
       type: 'video',
       captionTitle: 'Court Hues',
-      description: 'LA-inspired hues unite the league, turning the court into a bold 2026 All-Star showcase.'
+      description: 'LA-inspired hues unite the league, turning the court into a bold 2026 All-Star showcase.',
+      route: '/dashboard/project/allStar26'
     },
     {
       label: 'Vomero18',

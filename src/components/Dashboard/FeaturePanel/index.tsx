@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from "motion/react"
+import { ExpandIcon } from '../../../assets/icons/expandIcon'
 import styles from './FeaturePanel.module.css'
 
 export interface FeatureMedia {
@@ -8,14 +10,15 @@ export interface FeatureMedia {
   src: string
   type?: 'image' | 'video'
   playbackRate?: number
-  description?: string 
+  description?: string
   captionTitle?: string
+  route?: string
 }
 
 interface FeaturePanelProps {
   images: FeatureMedia[]
-  interval?: number,
-  showTitle?: boolean,
+  interval?: number
+  showTitle?: boolean
 }
 
 const isVideoSrc = (item: FeatureMedia) =>
@@ -56,10 +59,10 @@ const MediaItem = ({ item }: { item: FeatureMedia }) => {
   )
 }
 
-export const FeaturePanel = ({ images, showTitle = false,  interval = 4000 }: FeaturePanelProps) => {
+export const FeaturePanel = ({ images, showTitle = false, interval = 4000 }: FeaturePanelProps) => {
   const [current, setCurrent] = useState(0)
   const [hovered, setHovered] = useState(false)
-
+  const navigate = useNavigate();
   const currentItem = images[current]
   const isCurrentVideo = isVideoSrc(currentItem)
 
@@ -71,6 +74,10 @@ export const FeaturePanel = ({ images, showTitle = false,  interval = 4000 }: Fe
     return () => clearInterval(timer)
   }, [images.length, interval, hovered, isCurrentVideo])
 
+  const viewProject = (route: string) => {
+    return navigate(route)
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 25 }}
@@ -78,16 +85,34 @@ export const FeaturePanel = ({ images, showTitle = false,  interval = 4000 }: Fe
       className={styles.featureWrapper}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onTap={() => viewProject(currentItem.route as string)}
     >
-      <div>
-
-      </div>
       {showTitle && (
-         <div className={styles.titleSection}>
-            <h4>{currentItem.captionTitle}</h4>
-            <p>{currentItem.description}</p>
-          </div>
+        <motion.div
+        className={styles.viewProjectBtn}
+        animate={{
+          scale: hovered ? 1.15 : 1,
+          backgroundColor: hovered
+            ? 'rgb(226, 255, 193)'
+            : 'rgba(255, 255, 255, 0.15)',
+        }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+        >
+          <ExpandIcon
+            width={hovered ? 22 : 18}
+            height={hovered ? 22 : 18}
+            stroke={hovered ? '#111' : 'white'}
+          />
+        </motion.div>
       )}
+
+      {showTitle && (
+        <div className={styles.titleSection}>
+          <h4>{currentItem.captionTitle}</h4>
+          <p>{currentItem.description}</p>
+        </div>
+      )}
+
       <AnimatePresence mode="sync">
         <motion.div
           key={current}

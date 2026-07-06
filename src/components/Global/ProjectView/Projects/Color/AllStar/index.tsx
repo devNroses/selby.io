@@ -262,9 +262,9 @@ export const AllStarProject = () => {
                 </div>
             </div>
 
-            <motion.div className={styles.section}>
+            {/* <motion.div className={styles.section}>
                 [ Box 3: Other Projects section ]
-            </motion.div>
+            </motion.div> */}
         </div>
     )
 }
