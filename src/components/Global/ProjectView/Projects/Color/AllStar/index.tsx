@@ -84,7 +84,7 @@ export const AllStarProject = () => {
                 height: 500,
                 delay: 1.05,
                 duration: 6.5,
-                y: 180,
+                y: 120,
                 ease: "power2.out",
                 scrollTrigger: {
                     trigger: imgRef.current,
@@ -155,7 +155,7 @@ export const AllStarProject = () => {
                     <img src="/portfolioImg/allStar/stephObamas.jpg" alt="step and obama at allstar 26"/>
                 </div>
                 <div ref={boxbRef} className={styles.boxb}>
-                    <img src="/portfolioImg/allStar/socialPost.jpg" alt="nba allstar 26 best worm ups social"/>
+                    <img src="/portfolioImg/allStar/allstarShootingShirts.jpg" alt="nba allstar 26 shai and murray"/>
                 </div>
             </div>
 
@@ -202,25 +202,62 @@ export const AllStarProject = () => {
                 <div ref={horizontalSectionRef} className={styles.horizontalSection}>
                     <div ref={horizontalTrackRef} className={styles.horizontalTrack}>
                         <div className={styles.horizontalPanel}>
-                            <div className={styles.boxlrg}></div>
-                            <div className={styles.boxlrg}></div>
-                            <div className={styles.boxlrg}></div>
+                            <div className={styles.boxlrg}>
+                                 <img src="/portfolioImg/allStar/dBook.jpg" alt="Devin booker in All Star 26 Jacket"/>
+                            </div>
+                            <div className={styles.boxlrg}>
+                                 <img 
+                                    src="/portfolioImg/allStar/swatches.png" 
+                                    alt="Explored swatches for shirt and merch"
+                                    style={{ objectPosition: 'center center' }}
+                                />
+                            </div>
+                            <div className={styles.boxlrg}>
+                                 <img src="/portfolioImg/allStar/allstarMaxey.jpg" alt="Maxxey in All Star 26"/>
+                            </div>
                         </div>
                         <div className={styles.horizontalPanel}>
-                            <div className={styles.boxlrg}></div>
-                            <div className={styles.boxlrg}></div>
-                            <div className={styles.boxlrg}></div>
+                            <div className={`${styles.boxlrg} ${styles.boxlrgWide}`}>
+                                <video
+                                src={'/portfolioImg/allStar/AntManAllStar.mov'}
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                />
+                            </div>
+                            <div className={styles.boxlrg}>
+                                <img src="/portfolioImg/allStar/allstarAntMvp.jpg" alt="Anthony Edwards" />
+                            </div>
                         </div>
                         <div className={styles.horizontalPanel}>
-                            <div className={styles.boxlrg}></div>
-                            <div className={styles.boxlrg}></div>
-                            <div className={styles.boxlrg}></div>
+                            <div className={styles.boxlrg}>
+                                 <video
+                                src={'/portfolioImg/allStar/kdBronIntros.mov'}
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                />
+                            </div>
+                            <div className={styles.boxlrg}>
+                                <img src="/portfolioImg/allStar/socialPost.jpg" alt="Instagram Post reacting to all star warm ups" />
+                            </div>
+                            <div className={styles.boxlrg}>
+                                 <video
+                                src={'/portfolioImg/allStar/wambawambaclip.mov'}
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                />
+                            </div>
                         </div>
-                        <div className={styles.horizontalPanel}>
+                        {/* <div className={styles.horizontalPanel}>
                             <div className={styles.boxlrg}></div>
                             <div className={styles.boxlrg}></div>
                             <div className={styles.boxlrg}></div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
