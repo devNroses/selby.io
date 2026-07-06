@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from "motion/react"
-import { FeatureNav } from '../../Global/FeatureNav'
 import styles from './FeaturePanel.module.css'
 
 export interface FeatureMedia {
@@ -14,7 +13,6 @@ export interface FeatureMedia {
 interface FeaturePanelProps {
   images: FeatureMedia[]
   interval?: number,
-  showNav?: boolean,
 }
 
 const isVideoSrc = (item: FeatureMedia) =>
@@ -55,7 +53,7 @@ const MediaItem = ({ item }: { item: FeatureMedia }) => {
   )
 }
 
-export const FeaturePanel = ({ images, interval = 4000, showNav = false }: FeaturePanelProps) => {
+export const FeaturePanel = ({ images, interval = 4000 }: FeaturePanelProps) => {
   const [current, setCurrent] = useState(0)
   const [hovered, setHovered] = useState(false)
 
@@ -100,10 +98,6 @@ export const FeaturePanel = ({ images, interval = 4000, showNav = false }: Featu
         >
           <MediaItem item={currentItem} />
         </motion.div>
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {showNav && <FeatureNav />}
       </AnimatePresence>
     </motion.div>
   )
