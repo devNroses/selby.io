@@ -81,7 +81,7 @@ export const AllStarProject = () => {
 
             gsap.to(boxbRef.current, {
                 opacity: 1,
-                height: 500,
+                height: 400,
                 delay: 1.05,
                 duration: 6.5,
                 y: 120,
