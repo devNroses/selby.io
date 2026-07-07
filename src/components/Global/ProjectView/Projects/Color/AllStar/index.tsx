@@ -84,7 +84,7 @@ export const AllStarProject = () => {
                 height: 320,
                 delay: 1.05,
                 duration: 6.5,
-                y: 320,
+                y: 220,
                 ease: "power2.out",
                 scrollTrigger: {
                     trigger: imgRef.current,
