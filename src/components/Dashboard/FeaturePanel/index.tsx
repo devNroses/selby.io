@@ -76,6 +76,7 @@ export const FeaturePanel = ({ images, showTitle = false, showExpand=false, inte
   }, [images.length, interval, hovered, isCurrentVideo])
 
   const viewProject = (route: string) => {
+    console.log('viewProject tapped: ', route)
     return navigate(route)
   }
 

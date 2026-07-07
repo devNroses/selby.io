@@ -36,25 +36,29 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
           label: 'selby_about_red',
           alt: 'Selby about profile - R',
           src: './imgs/selbyAboutPanel_3.png',
-          type: 'image'
+          type: 'image',
+          route: '/dashboard/about'
         },
         {
           label: 'selby_about_green',
           alt: 'Selby about profile - G',
           src: './imgs/selbyAboutPanel_2.png',
-          type: 'image'
+          type: 'image',
+          route: '/dashboard/about'
         },
         {
           label: 'selby_about_blue',
           alt: 'Selby about profile - B',
           src: './imgs/selbyAboutPanel_1.png',
-          type: 'image'
+          type: 'image',
+          route: '/dashboard/about'
         },
         {
           label: 'selby_about_yellow',
           alt: 'Selby about profile - Y',
           src: './imgs/selbyAboutPanel_4.png',
-          type: 'image'
+          type: 'image',
+          route: '/dashboard/about'
         },
       ]
   
