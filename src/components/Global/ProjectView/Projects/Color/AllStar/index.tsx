@@ -81,14 +81,14 @@ export const AllStarProject = () => {
 
             gsap.to(boxbRef.current, {
                 opacity: 1,
-                height: 500,
+                height: 320,
                 delay: 1.05,
                 duration: 6.5,
-                y: 120,
+                y: 220,
                 ease: "power2.out",
                 scrollTrigger: {
                     trigger: imgRef.current,
-                    start: "top 230px",
+                    start: "top 210px",
                     end: "top top",
                     endTrigger: boxbRef.current,
                     scrub: true,
@@ -202,14 +202,38 @@ export const AllStarProject = () => {
                 <div ref={horizontalSectionRef} className={styles.horizontalSection}>
                     <div ref={horizontalTrackRef} className={styles.horizontalTrack}>
                         <div className={styles.horizontalPanel}>
-                            <div className={styles.boxlrg}>
-                                 <img src="/portfolioImg/allStar/dBook.jpg" alt="Devin booker in All Star 26 Jacket"/>
+                            <div className={styles.boxlrg} style={{maxWidth: '600px'}}>
+                                 <img src="/portfolioImg/allStar/allstarMoodboard.png" alt="Color moodboard for All Star concept"/>
                             </div>
                             <div className={styles.boxlrg}>
                                  <img 
                                     src="/portfolioImg/allStar/swatches.png" 
                                     alt="Explored swatches for shirt and merch"
                                     style={{ objectPosition: 'center center' }}
+                                />
+                            </div>
+                            <div className={`${styles.boxlrg} ${styles.boxlrgWide}`} style={{maxWidth: '400px'}}>
+                                <video
+                                src={'/portfolioImg/allStar/allstarStripes_26.mov'}
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                />
+                            </div>
+                        </div>
+                        <div className={styles.horizontalPanel}>
+                            <div className={styles.boxlrg}>
+                                 <img src="/portfolioImg/allStar/dBook.jpg" alt="Devin booker in All Star 26 Jacket"/>
+                            </div>
+                            <div className={`${styles.boxlrg}`}>
+                                <video
+                                src={'/portfolioImg/allStar/socialResponse.mp4'}
+                                autoPlay
+                                loop
+                                muted
+                                controls
+                                playsInline
                                 />
                             </div>
                             <div className={styles.boxlrg}>
