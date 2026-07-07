@@ -27,7 +27,7 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
       src: './portfolioImg/features/vomero18_silverBullet.jpg',
       type: 'image',
       captionTitle: 'V18 Silver Bullet',
-      description: 'Silver Bullet 97 reimagined through Vomero 18—blending tech, texture, and street-ready endurance.'
+      description: 'Silver Bullet 97 reimagined through Vomero 18 blending tech, texture, and street-ready endurance.'
     }
   ] 
 
@@ -73,7 +73,7 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
                 initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.25 } }}
               >
-                <FeaturePanel images={featuredImgs} showTitle/>
+                <FeaturePanel images={featuredImgs} showTitle showExpand/>
                 <div className={styles.socialPanel} />
               </motion.div>
             <motion.div
@@ -83,7 +83,7 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
               style={{ padding: '.15rem'}}
             >
               <motion.div className={styles.aboutPanel}> 
-                <FeaturePanel images={aboutMedia} interval={8000} />
+                <FeaturePanel images={aboutMedia} interval={8000} showExpand/>
               </motion.div>
               <div className={styles.personalProjects}>
                 UX/UI work coming soon...

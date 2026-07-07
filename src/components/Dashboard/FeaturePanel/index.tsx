@@ -18,7 +18,8 @@ export interface FeatureMedia {
 interface FeaturePanelProps {
   images: FeatureMedia[]
   interval?: number
-  showTitle?: boolean
+  showTitle?: boolean,
+  showExpand?: boolean,
 }
 
 const isVideoSrc = (item: FeatureMedia) =>
@@ -59,7 +60,7 @@ const MediaItem = ({ item }: { item: FeatureMedia }) => {
   )
 }
 
-export const FeaturePanel = ({ images, showTitle = false, interval = 4000 }: FeaturePanelProps) => {
+export const FeaturePanel = ({ images, showTitle = false, showExpand=false, interval = 4000 }: FeaturePanelProps) => {
   const [current, setCurrent] = useState(0)
   const [hovered, setHovered] = useState(false)
   const navigate = useNavigate();
@@ -87,13 +88,13 @@ export const FeaturePanel = ({ images, showTitle = false, interval = 4000 }: Fea
       onMouseLeave={() => setHovered(false)}
       onTap={() => viewProject(currentItem.route as string)}
     >
-      {showTitle && (
+      {showExpand && (
         <motion.div
         className={styles.viewProjectBtn}
         animate={{
-          scale: hovered ? 1.15 : 1,
+          scale: hovered ? 1.05 : 1,
           backgroundColor: hovered
-            ? 'rgb(226, 255, 193)'
+            ? '#e2ffc1'
             : 'rgba(255, 255, 255, 0.15)',
         }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
@@ -101,7 +102,7 @@ export const FeaturePanel = ({ images, showTitle = false, interval = 4000 }: Fea
           <ExpandIcon
             width={hovered ? 22 : 18}
             height={hovered ? 22 : 18}
-            stroke={hovered ? '#111' : 'white'}
+            stroke={hovered ? '#111' : '#e2ffc1'}
           />
         </motion.div>
       )}
