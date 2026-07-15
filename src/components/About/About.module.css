@@ -4,13 +4,13 @@
   width: 100%;
   min-height: 100vh;
   border: 2px dashed hotpink;
+  background-color: #262727;
 }
 
 .contentContainer {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  border: 2px dashed dodgerblue;
 }
 
 @media (max-width: 1024px) {
@@ -20,11 +20,45 @@
 }
 
 @media (max-width: 640px) {
-  .aboutWrapper {
-    grid-template-columns: 1fr;
-  }
-
   .contentContainer {
     min-height: 60vh;
   }
+}
+
+.aboutBlackWhite{
+    height: 100%;
+    display: flex;
+}
+
+.aboutBlackWhite img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+
+.aboutProfileImg{
+    display: flex; 
+    min-height: 70%;
+    width: 500px;
+    overflow: hidden;
+    background-color: #c6bcaf;
+    z-index: 3;
+}
+
+.aboutProfileImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  scale: 1.25;
+  object-position: 60% center;
+}
+
+.aboutContact{
+    display: flex;
+    min-height: 30%;
+    background-color: white;
+    z-index: 3;
 }
