@@ -15,6 +15,16 @@ export const AboutPage = () => {
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.85, ease: 'easeOut', delay: 0.325 }}
       >
+        <motion.div className={styles.aboutInfo}>
+            <h3>
+                Design Engineer // Color Design // Full Stack Developer
+            </h3>
+            <p>
+                Navigating complexity across digital and tangible experiences. a 
+                multidisciplinary creator shaped by an Army upbringing, built 
+                to adapt and deliver across mediums.
+            </p>
+        </motion.div>
         <div className={styles.aboutBlackWhite}>
             <motion.img 
                 src="/imgs/about/selbyBW.jpg" alt="selby black and white"
