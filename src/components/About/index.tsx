@@ -1,4 +1,7 @@
 import { motion } from 'motion/react'
+import { GithubIcon } from '../../assets/icons/githubIcon'
+import { InstagramIcon } from '../../assets/icons/instagramIcon'
+import { LinkedInIcon } from '../../assets/icons/linkedIn'
 import styles from './About.module.css'
 
 export const AboutPage = () => {
@@ -24,6 +27,30 @@ export const AboutPage = () => {
                 multidisciplinary creator shaped by an Army upbringing, built 
                 to adapt and deliver across mediums.
             </p>
+
+            <div className={styles.aboutSocials}>
+                <motion.a 
+                  href="https://www.instagram.com/selby.io/" 
+                  target="_blank" 
+                  aria-label='selbyio instagram'
+                >
+                  <InstagramIcon width={32} height={32} stroke='#E2FFC1'/>
+                </motion.a>
+                <motion.a 
+                  href="https://github.com/devNroses" 
+                  target="_blank" 
+                  aria-label='selbyio github'
+                >
+                  <GithubIcon width={32} height={32} stroke='#E2FFC1' />
+                </motion.a>
+                <motion.a 
+                  href="https://www.linkedin.com/in/jonathan-selby-developer/" 
+                  target="_blank" 
+                  aria-label='Selby LinkedIn'
+                >
+                  <LinkedInIcon width={32} height={32} stroke='#E2FFC1' />
+                </motion.a>
+            </div>
         </motion.div>
         <div className={styles.aboutBlackWhite}>
             <motion.img 
