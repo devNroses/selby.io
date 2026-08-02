@@ -100,20 +100,14 @@
    ---------------------------------------------------------------- */
 
 .featureWrapperPortrait {
-  /* Solid fallback so the card isn't blank once .mediaPortrait is
-     hidden below. */
+  /* Solid fallback behind the blur/mask while the image loads. */
   background: var(--ink);
 }
 
 /* The portrait images no longer have any text baked into them (the
-   quote moved to real text in .titleSectionPortrait), so no special
-   crop is needed here beyond .media's existing default — just hide
-   the image entirely below the desktop breakpoint. */
-@media (max-width: 1279px) {
-  .mediaPortrait {
-    display: none;
-  }
-}
+   quote moved to real text in .titleSectionPortrait below), so the
+   photo shows at every breakpoint now — no more hiding it below
+   1280px. .media's existing object-fit/position handles the crop. */
 
 .titleSectionPortrait {
   /* Shorter strip than the shared 200px, with real breathing room
@@ -147,31 +141,4 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-@media (max-width: 1279px) {
-  .titleSectionPortrait {
-    /* No image behind it at this size (see .mediaPortrait above) —
-       the text card becomes the entire panel instead of a strip
-       pinned to the bottom of empty space, so it's centered rather
-       than bottom-anchored. */
-    height: 100%;
-    padding: 22px 32px;
-    background: var(--ink);
-    /* .titleSection's mask-image fades its top ~30% to transparent,
-       designed to blend a blurred photo into readable text below it.
-       With no photo, that fade would just make the first line or two
-       of text unreadable — turn it off here. */
-    mask-image: none;
-    -webkit-mask-image: none;
-  }
-
-  .titleSectionPortrait p {
-    /* More room with no photo to compete with — let the headline
-       wrap and breathe instead of clipping to one line. */
-    font-size: 1.6em;
-    white-space: normal;
-    overflow: visible;
-    text-overflow: clip;
-  }
 }
