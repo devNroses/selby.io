@@ -42,8 +42,12 @@ export const AllStarProject = () => {
         // starts slightly zoomed in so the reveal has some motion to it
         // instead of a flat opacity pop — settles to scale 1 below.
         gsap.set(imgRef.current, { opacity: 0, scale: 1.08, visibility: 'visible' })
-        gsap.set(boxaRef.current, { opacity: 0, height: 0, y: 380, visibility: 'visible' })
-        gsap.set(boxbRef.current, { opacity: 0, height: 0, y: 480, visibility: 'visible' })
+        // boxa/boxb now rest at an explicit top/left in CSS (see
+        // Allstar.module.css) instead of the old negative-margin hack, so
+        // they no longer need a big compensating y-transform here — just
+        // a small settle-in-place as they grow open.
+        gsap.set(boxaRef.current, { opacity: 0, height: 0, y: 24, visibility: 'visible' })
+        gsap.set(boxbRef.current, { opacity: 0, height: 0, y: 24, visibility: 'visible' })
 
         ctx.current = gsap.context(() => {
 
@@ -75,7 +79,7 @@ export const AllStarProject = () => {
             gsap.to(boxaRef.current, {
                 opacity: 1,
                 height: 400,
-                y: 350,
+                y: 0,
                 ease: "power2.out",
                 scrollTrigger: {
                     trigger: allstarIntroRef.current,
@@ -88,7 +92,7 @@ export const AllStarProject = () => {
             gsap.to(boxbRef.current, {
                 opacity: 1,
                 height: 320,
-                y: 220,
+                y: 0,
                 ease: "power2.out",
                 scrollTrigger: {
                     trigger: imgRef.current,
@@ -184,7 +188,18 @@ export const AllStarProject = () => {
                 </div>
             </div>
 
-            <motion.div className={styles.section}>
+            {/* was a bare motion.div with no initial/animate at all — it
+                just appeared fully-formed the instant it scrolled into
+                view, the only section on the page with no reveal of its
+                own. whileInView + viewport once:true fades/slides it up
+                the first (and only) time it crosses into frame. */}
+            <motion.div
+                className={styles.section}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            >
                 <div className={styles.breifWrapper}>
                     <div className={styles.briefContext}>
                         <h3>The Brief</h3>

@@ -9,11 +9,20 @@
 .allstarIntro {
   display: flex;
   flex-direction: column;
+  position: relative; /* anchors boxa1/boxa/boxb below via top/left instead
+                          of the old align-self + negative-margin hacks */
   margin: 0;
   padding: 0 40px;
   width: 100%;
-  height: 100vh;
-  justify-content: center;
+  /* Was a flat 100vh with everything centered in it — the headline's
+     display-font glyphs render far taller than its line-box (a ~360px
+     font size on a ~26px line box), so anything placed "below" it in
+     the layout still visually collided with it, and boxa/boxb had no
+     room to sit clear of both the headline and the viewport edge.
+     Taller + top-aligned gives the reveal somewhere to land. */
+  min-height: 160vh;
+  padding-top: 14vh;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -57,13 +66,15 @@
 
 .boxa1 {
   display: flex;
-  align-self: center;
   justify-content: center;
   margin: 0;
   padding: 0;
   height: 400px;
   width: 500px;
   position: absolute;
+  top: 20vh;
+  left: 50%;
+  transform: translateX(-50%);
   overflow: hidden;
 }
 
@@ -71,6 +82,7 @@
   .boxa1 {
     width: 85vw;
     height: 300px;
+    top: 16vh;
   }
 }
 
@@ -85,12 +97,15 @@
 
 .boxa {
   display: flex;
-  align-self: flex-start;
   margin: 0;
   padding: 0;
   width: 400px;
   position: absolute;
-  margin-top: -210px;
+  /* Sits clear below the hero image (top: 20vh, 400px tall) and the
+     headline's oversized glyphs instead of overlapping them — was a
+     negative margin fighting the flex layout for a guess at a position. */
+  top: 78vh;
+  left: 6%;
   visibility: hidden;
   opacity: 0;
 }
@@ -105,17 +120,20 @@
 @media (max-width: 768px) {
   .boxa {
     width: 160px;
+    top: 66vh;
+    left: 5%;
   }
 }
 
 .boxb {
   display: flex;
-  align-self: flex-end;
   margin: 0;
-  margin-top: 160px;
   padding: 0;
   width: 300px;
   position: absolute;
+  /* Staggered a little lower than .boxa for rhythm, same idea as above. */
+  top: 92vh;
+  right: 6%;
   visibility: hidden;
   opacity: 0;
 }
@@ -123,6 +141,8 @@
 @media (max-width: 768px) {
   .boxb {
     width: 210px;
+    top: 78vh;
+    right: 5%;
   }
 }
 
@@ -133,7 +153,9 @@
   flex-wrap: wrap;
   width: 100%;
   justify-content: space-between;
-  padding: 60px 0 0;
+  /* More breathing room top and bottom — was 0 on the bottom, so this
+     section ran straight into the horizontal gallery with no gap. */
+  padding: 110px 0;
   box-sizing: border-box;
 }
 
@@ -148,7 +170,7 @@
 @media (max-width: 768px) {
   .breifWrapper {
     flex-direction: column;
-    padding: 60px 0 0;
+    padding: 70px 0;
   }
 
   .breifWrapper > div {
