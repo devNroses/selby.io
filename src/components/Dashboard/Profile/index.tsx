@@ -1,25 +1,19 @@
-import { Canvas } from '@react-three/fiber';
-import { Environment, Bounds } from '@react-three/drei'
-import { ACESFilmicToneMapping } from 'three'
-import { RotatingText } from '../../HeroPage';
+import { lazy, Suspense } from 'react'
 import styles from './Profile.module.css'
+
+// Same shared chunk the Hero page uses for its rotating wordmark —
+// fetched once, cached, and never bundled into either route's
+// critical-path JS.
+const WordmarkScene = lazy(() =>
+  import('../../Global/WordmarkScene').then((m) => ({ default: m.WordmarkScene }))
+)
 
 export const Profile = () => {
     return (
         <div className={styles.profileWrapper}>
-            <Canvas
-                camera={{ position: [0, 0, 7], fov: 50 }}
-                gl={{ antialias: true, toneMapping: ACESFilmicToneMapping }}
-                frameloop="always"
-            >
-            <Environment
-                files="/THAZERO-WORLD-TEXTURE.hdr"
-                background={false}
-            />
-            <Bounds fit clip observe margin={0.65}>
-                <RotatingText />
-            </Bounds>
-            </Canvas>
+            <Suspense fallback={null}>
+                <WordmarkScene />
+            </Suspense>
             <div className={styles.profileDesc}>
                 <div className={styles.profileContent}>
                     <div className={styles.profileTitle}>
