@@ -4,6 +4,7 @@ import { motion } from "motion/react"
 import { Profile } from './Profile';
 import { SocialPanel } from './Social';
 import { FeaturePanel, type FeatureMedia } from './FeaturePanel';
+import { ComingSoon } from './ComingSoon';
 import styles from './Dashboard.module.css';
 
 interface DashbaordProps {
@@ -102,7 +103,7 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
                 <FeaturePanel images={aboutMedia} interval={8000} showExpand/>
               </motion.div>
               <div className={styles.personalProjects}>
-                UX/UI work coming soon...
+                <ComingSoon />
               </div>
             </motion.div>
             

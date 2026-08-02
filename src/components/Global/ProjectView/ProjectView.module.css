@@ -6,9 +6,9 @@
   display: block;
   max-width: 100%;
   min-height: 100vh;
-  color: #FFFFD6;
+  color: var(--cream);
   position: relative;
-  background: #111;
+  background: var(--ink);
   padding: 1em 0;
   inset: 0;
   box-sizing: border-box;

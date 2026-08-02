@@ -4,8 +4,8 @@
   right: 0;
   bottom: 0;
   display: flex;
-  color: #FFFFD6;
-  background: linear-gradient(174deg, rgba(17, 17, 17, 1) 32%, rgba(68, 82, 75, 1) 82%, rgba(150, 147, 138, 1) 100%);
+  color: var(--cream);
+  background: linear-gradient(174deg, var(--ink) 32%, rgba(68, 82, 75, 1) 82%, rgba(150, 147, 138, 1) 100%);
   backdrop-filter: blur(20px);
   position: fixed;
   padding: 1em;
@@ -125,9 +125,9 @@
   flex-direction: column;
   padding: .5em;
   height: auto;
-  background-color: #FFFFD6;
+  background-color: var(--cream);
   border-radius: 6px;
-  color: #111;
+  color: var(--ink);
   gap: .5em;
   box-sizing: border-box;
   width: 100%;
@@ -170,7 +170,7 @@
 .personalProjects {
   display: flex;
   height: 220px;
-  background-color: #2D2E2E;
+  background-color: var(--ink);
   border-radius: .6rem;
   justify-content: center;
   align-items: center;

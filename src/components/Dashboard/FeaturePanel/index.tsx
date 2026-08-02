@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from "motion/react"
 import { ExpandIcon } from '../../../assets/icons/expandIcon'
+import { INK, ACCENT_LIME } from '../../../theme'
 import styles from './FeaturePanel.module.css'
 
 export interface FeatureMedia {
@@ -95,7 +96,7 @@ export const FeaturePanel = ({ images, showTitle = false, showExpand=false, inte
         animate={{
           scale: hovered ? 1.05 : 1,
           backgroundColor: hovered
-            ? '#e2ffc1'
+            ? ACCENT_LIME
             : 'rgba(255, 255, 255, 0.15)',
         }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
@@ -103,7 +104,7 @@ export const FeaturePanel = ({ images, showTitle = false, showExpand=false, inte
           <ExpandIcon
             width={hovered ? 22 : 18}
             height={hovered ? 22 : 18}
-            stroke={hovered ? '#111' : '#e2ffc1'}
+            stroke={hovered ? INK : ACCENT_LIME}
           />
         </motion.div>
       )}
