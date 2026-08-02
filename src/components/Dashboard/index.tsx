@@ -1,4 +1,5 @@
 import type { RefObject } from 'react';
+import { useEffect } from 'react';
 import { motion } from "motion/react"
 import { Profile } from './Profile';
 import { SocialPanel } from './Social';
@@ -11,6 +12,19 @@ interface DashbaordProps {
 }
 
 export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
+  // Warm the two routes reachable from here (About, a project detail
+  // view) once the browser is idle, so clicking into either doesn't
+  // wait on a fresh chunk fetch.
+  useEffect(() => {
+    const idle = window.requestIdleCallback ?? ((cb: IdleRequestCallback) => setTimeout(() => cb({} as IdleDeadline), 1));
+    const cancel = window.cancelIdleCallback ?? clearTimeout;
+    const id = idle(() => {
+      import('../About');
+      import('../Global/ProjectView');
+    });
+    return () => cancel(id as number);
+  }, []);
+
   const featuredImgs: FeatureMedia[] = [
     {
       label: 'Bron_All_Star_26',
@@ -66,8 +80,6 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
           <motion.div 
             ref={dashboardPropRef} 
             className={styles.dashboard}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.65, ease: 'easeOut'}}
           >
