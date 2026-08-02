@@ -4,6 +4,18 @@
   right: 0;
   bottom: 0;
   display: flex;
+  /* .dashboard is a flex row with a single child (.dashboardContent).
+     Flex containers default align-items to stretch, which was force-
+     stretching .dashboardContent to exactly .dashboard's own height
+     (i.e. the viewport) on every breakpoint — so anything taller than
+     one screen (the mobile stacked layout easily is) got hard-clipped
+     by descendants' overflow: hidden instead of growing and letting
+     this element's own overflow-y: auto scroll to it. Confirmed live:
+     .dashboardContent's scrollHeight was being capped to clientHeight
+     until this changed. Desktop (>=1280px) is unaffected — .dashboardContent
+     sets its own explicit height there, which wins over align-items
+     regardless. */
+  align-items: flex-start;
   color: var(--cream);
   background: linear-gradient(174deg, var(--ink) 32%, rgba(68, 82, 75, 1) 82%, rgba(150, 147, 138, 1) 100%);
   backdrop-filter: blur(20px);
@@ -179,15 +191,14 @@
 
 @media (min-width: 1280px) {
   .aboutPanel {
-    /* Capped rather than growing to fill the column — the quote card
-       reads as a compact intro now (see the .titleSectionPortrait
-       rework in FeaturePanel.module.css), so personalProjects takes
-       over the flex-grow duty below instead of this panel stretching
-       to fill leftover space. */
-    flex: 0 1 auto;
+    /* Splits the column roughly 50/50 with personalProjects for now —
+       the coming-soon placeholder is standing in for real UX/UI case
+       study assets, so neither one should dominate the column until
+       those assets land. flex-basis: 0 means the two share the
+       column's available height evenly regardless of content size. */
+    flex: 1 1 0;
     height: auto;
-    min-height: 200px;
-    max-height: 240px;
+    min-height: 0;
   }
 }
 
@@ -205,11 +216,9 @@
 
 @media (min-width: 1280px) {
   .personalProjects {
-    /* Now absorbs the space aboutPanel no longer grows to fill (see
-       .aboutPanel above), so the column still reaches the bottom of
-       the viewport with no gap. */
+    /* Matches .aboutPanel's 50/50 split above. */
     height: auto;
-    flex: 1 1 auto;
-    min-height: 260px;
+    flex: 1 1 0;
+    min-height: 0;
   }
 }
