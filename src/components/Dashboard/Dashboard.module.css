@@ -173,13 +173,15 @@
 
 @media (min-width: 1280px) {
   .aboutPanel {
-    /* Was a fixed 330px regardless of the column's actual height,
-       leaving a gap below personalProjects on tall viewports. Grows
-       to fill whatever's left instead. */
-    flex: 1 1 auto;
+    /* Capped rather than growing to fill the column — the quote card
+       reads as a compact intro now (see the .titleSectionPortrait
+       rework in FeaturePanel.module.css), so personalProjects takes
+       over the flex-grow duty below instead of this panel stretching
+       to fill leftover space. */
+    flex: 0 1 auto;
     height: auto;
-    min-height: 280px;
-    flex-shrink: 1;
+    min-height: 200px;
+    max-height: 240px;
   }
 }
 
@@ -197,6 +199,11 @@
 
 @media (min-width: 1280px) {
   .personalProjects {
-    height: 260px;
+    /* Now absorbs the space aboutPanel no longer grows to fill (see
+       .aboutPanel above), so the column still reaches the bottom of
+       the viewport with no gap. */
+    height: auto;
+    flex: 1 1 auto;
+    min-height: 260px;
   }
 }
