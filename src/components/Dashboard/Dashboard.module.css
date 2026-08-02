@@ -107,7 +107,13 @@
   gap: .8rem;
   border-radius: .6rem;
   min-width: 0;
-  height: 320px;
+  /* Was a fixed 320px on mobile — the 3D profile visual (250px) plus
+     the intro card and social icons need more than that on a phone,
+     so anything past 320px was getting clipped by .sectionPanel's
+     overflow: hidden above. height: auto lets it size to content;
+     .sectionPanel's own min-height still keeps the column from
+     collapsing. */
+  height: auto;
 }
 
 @media (min-width: 1280px) {
