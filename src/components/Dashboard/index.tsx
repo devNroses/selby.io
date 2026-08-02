@@ -100,7 +100,7 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
               style={{ padding: '.15rem'}}
             >
               <motion.div className={styles.aboutPanel}> 
-                <FeaturePanel images={aboutMedia} interval={8000} showExpand/>
+                <FeaturePanel images={aboutMedia} interval={8000} showExpand quoteFocus/>
               </motion.div>
               <div className={styles.personalProjects}>
                 <ComingSoon />
@@ -111,7 +111,11 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
               className={`panel ${styles.sectionPanel}`}
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.45 } }}
-              style={{ display: 'flex', flexDirection: 'column', background: 'transparent', padding: '.25rem', height: '110%'}}
+              // no inline height override — .sectionPanel's own
+              // height: 100% (see Dashboard.module.css) now fills the
+              // column correctly, so the old height: '110%' fudge-factor
+              // hack (which just overflowed/clipped inconsistently) is gone.
+              style={{ display: 'flex', flexDirection: 'column', background: 'transparent', padding: '.25rem' }}
             >
                <motion.div 
               className={styles.profileSection}

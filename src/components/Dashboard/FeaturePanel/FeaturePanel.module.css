@@ -25,6 +25,37 @@
   display: block;
 }
 
+/* Quote/portrait composite images (the about-panel assets: quote text
+   on the left half, portrait on the right, divider around center) —
+   used via FeaturePanel's `quoteFocus` prop. Mobile/tablet crops in
+   tight on the quote and deliberately excludes the portrait, since
+   there isn't room to show both legibly at that size; desktop shows
+   the fuller composition. */
+.mediaQuoteFocus {
+  /* Force a predictable crop window instead of leaning on object-fit's
+     cover behaviour, which varies with the container's own aspect
+     ratio and can't reliably guarantee the portrait half is excluded.
+     220% width + left-anchored position keeps roughly the left ~45%
+     of the source image (the quote) in frame; the rest is clipped by
+     featureWrapper's overflow: hidden. */
+  width: 220%;
+  max-width: 220%;
+  object-position: 0% 18%;
+}
+
+@media (min-width: 1280px) {
+  .mediaQuoteFocus {
+    /* Desktop columns are wide enough for the full composition. Shift
+       left just enough that the quote's opening words aren't clipped
+       (the previous plain `center` position was cutting off "I don't"
+       at the start of the sentence), while still showing most of the
+       portrait. */
+    width: 100%;
+    max-width: 100%;
+    object-position: 20% 18%;
+  }
+}
+
 .titleSection{
   display: flex;
   flex-direction: column;

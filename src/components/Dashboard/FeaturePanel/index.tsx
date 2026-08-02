@@ -21,6 +21,10 @@ interface FeaturePanelProps {
   interval?: number
   showTitle?: boolean,
   showExpand?: boolean,
+  /** Crops tighter on the media so a quote/portrait composite reads as
+   * "just the quote" on mobile/tablet, where there isn't room to show
+   * both halves legibly. See .mediaQuoteFocus in FeaturePanel.module.css. */
+  quoteFocus?: boolean,
 }
 
 const isVideoSrc = (item: FeatureMedia) =>
@@ -28,8 +32,9 @@ const isVideoSrc = (item: FeatureMedia) =>
   item.src.endsWith('.mp4') ||
   item.src.endsWith('.webm')
 
-const MediaItem = ({ item }: { item: FeatureMedia }) => {
+const MediaItem = ({ item, quoteFocus }: { item: FeatureMedia, quoteFocus?: boolean }) => {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const mediaClassName = quoteFocus ? `${styles.media} ${styles.mediaQuoteFocus}` : styles.media
 
   const handleVideoLoad = () => {
     if (videoRef.current) {
@@ -46,7 +51,7 @@ const MediaItem = ({ item }: { item: FeatureMedia }) => {
         loop
         muted
         playsInline
-        className={styles.media}
+        className={mediaClassName}
         onLoadedMetadata={handleVideoLoad}
       />
     )
@@ -56,12 +61,12 @@ const MediaItem = ({ item }: { item: FeatureMedia }) => {
     <img
       src={item.src}
       alt={item.alt ?? item.label}
-      className={styles.media}
+      className={mediaClassName}
     />
   )
 }
 
-export const FeaturePanel = ({ images, showTitle = false, showExpand=false, interval = 4000 }: FeaturePanelProps) => {
+export const FeaturePanel = ({ images, showTitle = false, showExpand=false, interval = 4000, quoteFocus = false }: FeaturePanelProps) => {
   const [current, setCurrent] = useState(0)
   const [hovered, setHovered] = useState(false)
   const navigate = useNavigate();
@@ -136,7 +141,7 @@ export const FeaturePanel = ({ images, showTitle = false, showExpand=false, inte
             transition: { duration: 1.5, ease: 'easeInOut' }
           }}
         >
-          <MediaItem item={currentItem} />
+          <MediaItem item={currentItem} quoteFocus={quoteFocus} />
         </motion.div>
       </AnimatePresence>
     </motion.div>

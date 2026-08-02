@@ -92,7 +92,12 @@
 
 @media (min-width: 1280px) {
   .panel1 {
-    min-height: 100%;
+    /* was `min-height: 100%` — the more specific
+       `.dashboardContent > *:first-child { min-height: 0 }` rule above
+       always won against it, so this column silently stayed pinned at
+       610px and left a gap below it on any taller viewport. An
+       explicit height isn't out-specificity'd the same way. */
+    height: 100%;
   }
 }
 
@@ -107,7 +112,7 @@
 
 @media (min-width: 1280px) {
   .profileSection {
-    height: auto;
+    height: 100%;
   }
 }
 
@@ -135,8 +140,13 @@
 
 @media (min-width: 1280px) {
   .aboutWrapper {
-    height: 100%;
+    /* Grows to absorb whatever space Profile + SocialPanel don't use,
+       rather than a fixed/percentage height competing with siblings
+       for the same space. */
+    flex: 1 1 auto;
+    height: auto;
     min-height: 240px;
+    justify-content: center;
   }
 }
 
@@ -163,7 +173,13 @@
 
 @media (min-width: 1280px) {
   .aboutPanel {
-    height: 330px;
+    /* Was a fixed 330px regardless of the column's actual height,
+       leaving a gap below personalProjects on tall viewports. Grows
+       to fill whatever's left instead. */
+    flex: 1 1 auto;
+    height: auto;
+    min-height: 280px;
+    flex-shrink: 1;
   }
 }
 
@@ -176,6 +192,7 @@
   align-items: center;
   overflow: hidden;
   flex-shrink: 0;
+  flex-grow: 0;
 }
 
 @media (min-width: 1280px) {
