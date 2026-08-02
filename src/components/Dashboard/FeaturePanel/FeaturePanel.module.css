@@ -52,7 +52,7 @@
   -webkit-mask-image: linear-gradient(
     rgba(0, 0, 0, 0) 8%,
     rgba(0, 0, 0, 0.5) 10%,
-    rgba(0, 0, 0, 0.094) 20%,
+    rgba(0, 0, 0, 0.8) 20%,
     rgba(0, 0, 0, 1) 30%,
     rgb(0, 0, 0)
   );
@@ -88,4 +88,57 @@
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* ----------------------------------------------------------------
+   Portrait/quote card (about-panel): eyebrow label + one bold line,
+   modeled on 363sudbury.com's "Car of the Month" panel (small label
+   -> big single-line value -> done). All rules below are scoped to
+   .*Portrait classes and come after their shared base counterparts
+   above, so they win cleanly on source order instead of relying on
+   an equal-specificity tie-break across media queries.
+   ---------------------------------------------------------------- */
+
+.featureWrapperPortrait {
+  /* Solid fallback behind the blur/mask while the image loads. */
+  background: var(--ink);
+}
+
+/* The portrait images no longer have any text baked into them (the
+   quote moved to real text in .titleSectionPortrait below), so the
+   photo shows at every breakpoint now — no more hiding it below
+   1280px. .media's existing object-fit/position handles the crop. */
+
+.titleSectionPortrait {
+  /* Shorter strip than the shared 200px, with real breathing room
+     around the text instead of the shared card's tight 0/20px. */
+  height: 128px;
+  padding: 22px 26px;
+  justify-content: center;
+  gap: .4em;
+}
+
+.titleSectionPortrait h4 {
+  /* Eyebrow label, not a headline — small, muted, uppercase. */
+  font-size: .68em;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-family: 'Roboto', sans-serif;
+  margin-top: 0;
+  margin-bottom: 0;
+  opacity: .7;
+}
+
+.titleSectionPortrait p {
+  /* The one-line "headline" — this replaces the old multi-sentence
+     description entirely, so it gets the bold display treatment
+     .titleSection h4 used to have. */
+  font-size: 1.4em;
+  font-family: 'HumaneMedium';
+  line-height: 1.2;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

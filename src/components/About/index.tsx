@@ -91,7 +91,7 @@ const chapters: Chapter[] = [
     bioColumns: [
     <>
      A year embedded with the Nike Basketball licensed apparel team, developing color stories for on-court product, including the palette work behind NBA All-Star Weekend warm-ups and shooting shirts.
-    </>, 
+    </>,
     <>
       That work sits on a foundation built across visual design, UX, and engineering, a rare vantage point for translating a color concept into a technical spec, and a technical constraint into a design decision.
     </>],
@@ -111,10 +111,32 @@ function useMediaQuery(query: string) {
   return matches
 }
 
+// Chapter photos are full-bleed and were only ever fetched on first click —
+// on a cold cache that meant a blank hole mid-crossfade until the network
+// request finished, then a sudden pop once it did. Warming all of them in
+// the background as soon as the page mounts means every tab switch after
+// that hits cache and the crossfade below is actually smooth.
+function usePreloadImages(srcs: string[]) {
+  useEffect(() => {
+    const idle = window.requestIdleCallback ?? ((cb: IdleRequestCallback) => setTimeout(() => cb({} as IdleDeadline), 1))
+    const cancel = window.cancelIdleCallback ?? clearTimeout
+    const id = idle(() => {
+      srcs.forEach((src) => {
+        const img = new Image()
+        img.src = src
+      })
+    })
+    return () => cancel(id as number)
+  }, [srcs])
+}
+
+const chapterPhotos = chapters.map((c) => c.photo)
+
 export const AboutPage = () => {
   const [active, setActive] = useState(0)
   const isCompact = useMediaQuery('(max-width: 1024px)')
   const activeChapter = chapters[active]
+  usePreloadImages(chapterPhotos)
 
   return (
     <div className={styles.aboutWrapper}>
@@ -163,7 +185,12 @@ export const AboutPage = () => {
 
             {/* photo crossfades to match the active chapter, both breakpoints */}
             <div className={styles.photoStack}>
-              <AnimatePresence mode="wait">
+              {/* mode="sync" (the default) so the outgoing and incoming
+                  photo overlap and cross-dissolve — mode="wait" was
+                  fading the old one out to a blank hole first and only
+                  then starting the new one in, which read as a stall
+                  followed by a pop once the image had loaded. */}
+              <AnimatePresence>
                 <motion.img
                   key={activeChapter.photo}
                   src={activeChapter.photo}
@@ -171,7 +198,7 @@ export const AboutPage = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.4, ease: 'easeInOut', delay: .25 }}
+                  transition={{ duration: 0.5, ease: 'easeInOut' }}
                 />
               </AnimatePresence>
             </div>

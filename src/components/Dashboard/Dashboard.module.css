@@ -4,8 +4,20 @@
   right: 0;
   bottom: 0;
   display: flex;
-  color: #FFFFD6;
-  background: linear-gradient(174deg, rgba(17, 17, 17, 1) 32%, rgba(68, 82, 75, 1) 82%, rgba(150, 147, 138, 1) 100%);
+  /* .dashboard is a flex row with a single child (.dashboardContent).
+     Flex containers default align-items to stretch, which was force-
+     stretching .dashboardContent to exactly .dashboard's own height
+     (i.e. the viewport) on every breakpoint — so anything taller than
+     one screen (the mobile stacked layout easily is) got hard-clipped
+     by descendants' overflow: hidden instead of growing and letting
+     this element's own overflow-y: auto scroll to it. Confirmed live:
+     .dashboardContent's scrollHeight was being capped to clientHeight
+     until this changed. Desktop (>=1280px) is unaffected — .dashboardContent
+     sets its own explicit height there, which wins over align-items
+     regardless. */
+  align-items: flex-start;
+  color: var(--cream);
+  background: linear-gradient(174deg, var(--ink) 32%, rgba(68, 82, 75, 1) 82%, rgba(150, 147, 138, 1) 100%);
   backdrop-filter: blur(20px);
   position: fixed;
   padding: 1em;
@@ -92,7 +104,12 @@
 
 @media (min-width: 1280px) {
   .panel1 {
-    min-height: 100%;
+    /* was `min-height: 100%` — the more specific
+       `.dashboardContent > *:first-child { min-height: 0 }` rule above
+       always won against it, so this column silently stayed pinned at
+       610px and left a gap below it on any taller viewport. An
+       explicit height isn't out-specificity'd the same way. */
+    height: 100%;
   }
 }
 
@@ -102,12 +119,18 @@
   gap: .8rem;
   border-radius: .6rem;
   min-width: 0;
-  height: 320px;
+  /* Was a fixed 320px on mobile — the 3D profile visual (250px) plus
+     the intro card and social icons need more than that on a phone,
+     so anything past 320px was getting clipped by .sectionPanel's
+     overflow: hidden above. height: auto lets it size to content;
+     .sectionPanel's own min-height still keeps the column from
+     collapsing. */
+  height: auto;
 }
 
 @media (min-width: 1280px) {
   .profileSection {
-    height: auto;
+    height: 100%;
   }
 }
 
@@ -125,9 +148,9 @@
   flex-direction: column;
   padding: .5em;
   height: auto;
-  background-color: #FFFFD6;
+  background-color: var(--cream);
   border-radius: 6px;
-  color: #111;
+  color: var(--ink);
   gap: .5em;
   box-sizing: border-box;
   width: 100%;
@@ -135,8 +158,13 @@
 
 @media (min-width: 1280px) {
   .aboutWrapper {
-    height: 100%;
+    /* Grows to absorb whatever space Profile + SocialPanel don't use,
+       rather than a fixed/percentage height competing with siblings
+       for the same space. */
+    flex: 1 1 auto;
+    height: auto;
     min-height: 240px;
+    justify-content: center;
   }
 }
 
@@ -163,23 +191,34 @@
 
 @media (min-width: 1280px) {
   .aboutPanel {
-    height: 330px;
+    /* Splits the column roughly 50/50 with personalProjects for now —
+       the coming-soon placeholder is standing in for real UX/UI case
+       study assets, so neither one should dominate the column until
+       those assets land. flex-basis: 0 means the two share the
+       column's available height evenly regardless of content size. */
+    flex: 1 1 0;
+    height: auto;
+    min-height: 0;
   }
 }
 
 .personalProjects {
   display: flex;
   height: 220px;
-  background-color: #2D2E2E;
+  background-color: var(--ink);
   border-radius: .6rem;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   flex-shrink: 0;
+  flex-grow: 0;
 }
 
 @media (min-width: 1280px) {
   .personalProjects {
-    height: 260px;
+    /* Matches .aboutPanel's 50/50 split above. */
+    height: auto;
+    flex: 1 1 0;
+    min-height: 0;
   }
 }

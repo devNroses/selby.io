@@ -4,6 +4,7 @@ import { motion } from "motion/react"
 import { Profile } from './Profile';
 import { SocialPanel } from './Social';
 import { FeaturePanel, type FeatureMedia } from './FeaturePanel';
+import { ComingSoon } from './ComingSoon';
 import styles from './Dashboard.module.css';
 
 interface DashbaordProps {
@@ -43,42 +44,52 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
       captionTitle: 'V18 Silver Bullet',
       description: 'Silver Bullet 97 reimagined through Vomero 18 blending tech, texture, and street-ready endurance.'
     }
-  ] 
+  ]
+
+  const aboutQuote = "One system: design, engineering, and color."
 
   const aboutMedia: FeatureMedia[] = [
         {
           label: 'selby_about_red',
           alt: 'Selby about profile - R',
-          src: './imgs/selbyAboutPanel_3.png',
+          src: './imgs/selbyAboutPanel_3.jpg',
           type: 'image',
-          route: '/dashboard/about'
+          route: '/dashboard/about',
+          captionTitle: 'Philosophy',
+          description: aboutQuote,
         },
         {
           label: 'selby_about_green',
           alt: 'Selby about profile - G',
-          src: './imgs/selbyAboutPanel_2.png',
+          src: './imgs/selbyAboutPanel_2.jpg',
           type: 'image',
-          route: '/dashboard/about'
+          route: '/dashboard/about',
+          captionTitle: 'Philosophy',
+          description: aboutQuote,
         },
         {
           label: 'selby_about_blue',
           alt: 'Selby about profile - B',
-          src: './imgs/selbyAboutPanel_1.png',
+          src: './imgs/selbyAboutPanel_1.jpg',
           type: 'image',
-          route: '/dashboard/about'
+          route: '/dashboard/about',
+          captionTitle: 'Philosophy',
+          description: aboutQuote,
         },
         {
           label: 'selby_about_yellow',
           alt: 'Selby about profile - Y',
-          src: './imgs/selbyAboutPanel_4.png',
+          src: './imgs/selbyAboutPanel_4.jpg',
           type: 'image',
-          route: '/dashboard/about'
+          route: '/dashboard/about',
+          captionTitle: 'Philosophy',
+          description: aboutQuote,
         },
       ]
-  
+
   return (
-          <motion.div 
-            ref={dashboardPropRef} 
+          <motion.div
+            ref={dashboardPropRef}
             className={styles.dashboard}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.65, ease: 'easeOut'}}
@@ -98,45 +109,49 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
               animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.35 } }}
               style={{ padding: '.15rem'}}
             >
-              <motion.div className={styles.aboutPanel}> 
-                <FeaturePanel images={aboutMedia} interval={8000} showExpand/>
+              <motion.div className={styles.aboutPanel}>
+                <FeaturePanel images={aboutMedia} interval={8000} showExpand showTitle portraitCard/>
               </motion.div>
               <div className={styles.personalProjects}>
-                UX/UI work coming soon...
+                <ComingSoon />
               </div>
             </motion.div>
-            
+
             <motion.div
               className={`panel ${styles.sectionPanel}`}
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.45 } }}
-              style={{ display: 'flex', flexDirection: 'column', background: 'transparent', padding: '.25rem', height: '110%'}}
+              // no inline height override — .sectionPanel's own
+              // height: 100% (see Dashboard.module.css) now fills the
+              // column correctly, so the old height: '110%' fudge-factor
+              // hack (which just overflowed/clipped inconsistently) is gone.
+              style={{ display: 'flex', flexDirection: 'column', background: 'transparent', padding: '.25rem' }}
             >
-               <motion.div 
+               <motion.div
               className={styles.profileSection}
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.55 } }}
               >
                <Profile />
 
-                <motion.div 
+                <motion.div
                   className={styles.aboutWrapper}
                   initial={{ opacity: 0, y: 25 }}
                   animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.6 } }}
                 >
                   <h3>Introduction</h3>
                   <p>
-                    Raised in North Carolina and shaped by years abroad, my creative perspective 
-                    was built on contrast, culture, and curiosity—starting with sketching sports 
-                    logos and studying sneaker ads. That foundation evolved into a deeper focus 
-                    on visual systems, storytelling, color, and the emotional impact of design. 
-                    Today, I focus on crafting thoughtful, evolving experiences built 
+                    Raised in North Carolina and shaped by years abroad, my creative perspective
+                    was built on contrast, culture, and curiosity—starting with sketching sports
+                    logos and studying sneaker ads. That foundation evolved into a deeper focus
+                    on visual systems, storytelling, color, and the emotional impact of design.
+                    Today, I focus on crafting thoughtful, evolving experiences built
                     with purpose and refined through collaboration.
                   </p>
                 </motion.div>
               <SocialPanel />
               </motion.div>
-            </motion.div> 
+            </motion.div>
           </div>
         </motion.div>
     )

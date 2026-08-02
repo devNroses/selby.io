@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from "motion/react"
 import { ExpandIcon } from '../../../assets/icons/expandIcon'
+import { INK, ACCENT_LIME } from '../../../theme'
 import styles from './FeaturePanel.module.css'
 
 export interface FeatureMedia {
@@ -20,6 +21,14 @@ interface FeaturePanelProps {
   interval?: number
   showTitle?: boolean,
   showExpand?: boolean,
+  /**
+   * For portrait photos that should read as a text-first quote card:
+   * the image is hidden entirely below the 1280px breakpoint — the
+   * title/description (via showTitle) becomes the whole card on
+   * mobile/tablet instead of competing with a photo there's no room
+   * to show well.
+   */
+  portraitCard?: boolean,
 }
 
 const isVideoSrc = (item: FeatureMedia) =>
@@ -27,8 +36,9 @@ const isVideoSrc = (item: FeatureMedia) =>
   item.src.endsWith('.mp4') ||
   item.src.endsWith('.webm')
 
-const MediaItem = ({ item }: { item: FeatureMedia }) => {
+const MediaItem = ({ item, portraitCard }: { item: FeatureMedia, portraitCard?: boolean }) => {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const mediaClassName = portraitCard ? `${styles.media} ${styles.mediaPortrait}` : styles.media
 
   const handleVideoLoad = () => {
     if (videoRef.current) {
@@ -45,7 +55,7 @@ const MediaItem = ({ item }: { item: FeatureMedia }) => {
         loop
         muted
         playsInline
-        className={styles.media}
+        className={mediaClassName}
         onLoadedMetadata={handleVideoLoad}
       />
     )
@@ -55,12 +65,12 @@ const MediaItem = ({ item }: { item: FeatureMedia }) => {
     <img
       src={item.src}
       alt={item.alt ?? item.label}
-      className={styles.media}
+      className={mediaClassName}
     />
   )
 }
 
-export const FeaturePanel = ({ images, showTitle = false, showExpand=false, interval = 4000 }: FeaturePanelProps) => {
+export const FeaturePanel = ({ images, showTitle = false, showExpand=false, interval = 4000, portraitCard = false }: FeaturePanelProps) => {
   const [current, setCurrent] = useState(0)
   const [hovered, setHovered] = useState(false)
   const navigate = useNavigate();
@@ -84,7 +94,7 @@ export const FeaturePanel = ({ images, showTitle = false, showExpand=false, inte
     <motion.div
       initial={{ opacity: 0, y: 25 }}
       animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.6 } }}
-      className={styles.featureWrapper}
+      className={portraitCard ? `${styles.featureWrapper} ${styles.featureWrapperPortrait}` : styles.featureWrapper}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onTap={() => viewProject(currentItem.route as string)}
@@ -95,7 +105,7 @@ export const FeaturePanel = ({ images, showTitle = false, showExpand=false, inte
         animate={{
           scale: hovered ? 1.05 : 1,
           backgroundColor: hovered
-            ? '#e2ffc1'
+            ? ACCENT_LIME
             : 'rgba(255, 255, 255, 0.15)',
         }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
@@ -103,13 +113,13 @@ export const FeaturePanel = ({ images, showTitle = false, showExpand=false, inte
           <ExpandIcon
             width={hovered ? 22 : 18}
             height={hovered ? 22 : 18}
-            stroke={hovered ? '#111' : '#e2ffc1'}
+            stroke={hovered ? INK : ACCENT_LIME}
           />
         </motion.div>
       )}
 
       {showTitle && (
-        <div className={styles.titleSection}>
+        <div className={portraitCard ? `${styles.titleSection} ${styles.titleSectionPortrait}` : styles.titleSection}>
           <h4>{currentItem.captionTitle}</h4>
           <p>{currentItem.description}</p>
         </div>
@@ -135,7 +145,7 @@ export const FeaturePanel = ({ images, showTitle = false, showExpand=false, inte
             transition: { duration: 1.5, ease: 'easeInOut' }
           }}
         >
-          <MediaItem item={currentItem} />
+          <MediaItem item={currentItem} portraitCard={portraitCard} />
         </motion.div>
       </AnimatePresence>
     </motion.div>
