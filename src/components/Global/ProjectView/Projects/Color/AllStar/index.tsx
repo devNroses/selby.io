@@ -7,6 +7,25 @@ import styles from './Allstar.module.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
+// Drives the staggered reveal of the Brief section's text pieces (see
+// the .section motion.div below) — the container just orchestrates
+// timing, each child fades/slides up on its own turn.
+const sectionVariants = {
+    hidden: {},
+    visible: {
+        transition: { staggerChildren: 0.12, delayChildren: 0.1 },
+    },
+}
+
+const itemVariants = {
+    hidden: { opacity: 0, y: 24 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
+    },
+}
+
 export const AllStarProject = () => {
     const { id } = useParams()
     const allstarContainerRef = useRef<HTMLDivElement>(null)
@@ -188,22 +207,24 @@ export const AllStarProject = () => {
                 </div>
             </div>
 
-            {/* was a bare motion.div with no initial/animate at all — it
-                just appeared fully-formed the instant it scrolled into
-                view, the only section on the page with no reveal of its
-                own. whileInView + viewport once:true fades/slides it up
-                the first (and only) time it crosses into frame. */}
+            {/* Was one flat block fade — the whole Brief section moved as a
+                single unit, so the headline, both paragraphs, and all three
+                info labels all landed on screen at the exact same moment.
+                Now each text piece is its own motion element sharing
+                sectionVariants/itemVariants, so `staggerChildren` on the
+                parent cascades the reveal through them in order instead of
+                dumping everything in at once. */}
             <motion.div
                 className={styles.section}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial="hidden"
+                whileInView="visible"
                 viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                variants={sectionVariants}
             >
                 <div className={styles.breifWrapper}>
                     <div className={styles.briefContext}>
-                        <h3>The Brief</h3>
-                        <p>
+                        <motion.h3 variants={itemVariants}>The Brief</motion.h3>
+                        <motion.p variants={itemVariants}>
                             The All-Star Game is where the league’s elite converge,
                             set against the energy of one of the world’s most
                             iconic cities.<br /><br />
@@ -211,28 +232,28 @@ export const AllStarProject = () => {
                             It was about energy you could see, texture you could feel, and a color
                             story rooted in the DNA of LA sun-faded tones, late-night glow,
                             and the contrast of street and spotlight.
-                        </p>
-                        <p>
+                        </motion.p>
+                        <motion.p variants={itemVariants}>
                             <span>My role:</span><br />
                             Tasked with capturing the essence of Los Angeles through color,
                             while complementing the NBA GSA team’s jersey vision and elevating
                             the warm-up, jackets, pants, and shooting shirts, into a more
                             expressive, unified system.
-                        </p>
+                        </motion.p>
                     </div>
                     <div className={styles.briefInfoWrapper}>
-                        <div className={styles.briefInfo}>
+                        <motion.div className={styles.briefInfo} variants={itemVariants}>
                             <h4>Company</h4>
                             <p>Nike</p>
-                        </div>
-                        <div className={styles.briefInfo}>
+                        </motion.div>
+                        <motion.div className={styles.briefInfo} variants={itemVariants}>
                             <h4>Industry</h4>
                             <p>Nike Basketball: NBA License</p>
-                        </div>
-                        <div className={styles.briefInfo}>
+                        </motion.div>
+                        <motion.div className={styles.briefInfo} variants={itemVariants}>
                             <h4>Team Role</h4>
                             <p>Color Design Lead</p>
-                        </div>
+                        </motion.div>
 
                     </div>
                 </div>
