@@ -12,7 +12,6 @@ export const AllStarProject = () => {
     const allstarContainerRef = useRef<HTMLDivElement>(null)
     const allstarIntroRef = useRef<HTMLDivElement>(null)
     const imgRef = useRef<HTMLImageElement>(null)
-    const boxFeatureRef = useRef<HTMLDivElement>(null)
     const boxaRef = useRef<HTMLDivElement>(null)
     const boxbRef = useRef<HTMLDivElement>(null)
     const horizontalSectionRef = useRef<HTMLDivElement>(null)
@@ -23,7 +22,6 @@ export const AllStarProject = () => {
         if(!allstarContainerRef.current ||
             !allstarIntroRef.current ||
             !boxaRef.current ||
-            !boxFeatureRef.current ||
             !boxbRef.current ||
             !horizontalTrackRef.current ||
             !horizontalSectionRef.current ||
@@ -41,33 +39,42 @@ export const AllStarProject = () => {
 
         // set initial states
         gsap.set(introElement.querySelectorAll('h2'), { opacity: 0, y: 40, visibility: 'visible' })
-        gsap.set(imgRef.current, { opacity: 0, visibility: 'visible' })
+        // starts slightly zoomed in so the reveal has some motion to it
+        // instead of a flat opacity pop — settles to scale 1 below.
+        gsap.set(imgRef.current, { opacity: 0, scale: 1.08, visibility: 'visible' })
         gsap.set(boxaRef.current, { opacity: 0, height: 0, y: 380, visibility: 'visible' })
         gsap.set(boxbRef.current, { opacity: 0, height: 0, y: 480, visibility: 'visible' })
 
         ctx.current = gsap.context(() => {
 
-            gsap.to(introElement.querySelectorAll('h2'), {
-                opacity: 1,
-                y: 10,
-                duration: 0.65,
-                delay: .85,
-                stagger: 0.35,
-                ease: "circ.out",
-            })
+            // One timeline instead of two independently-delayed tweens —
+            // the headline settles in, then the hero image cross-dissolves
+            // in on its heels (overlapping via the negative offset) rather
+            // than popping in nearly 2.5s later on its own. Reads as one
+            // choreographed beat instead of two coincidentally-timed ones.
+            gsap.timeline({ delay: 0.3 })
+                .to(introElement.querySelectorAll('h2'), {
+                    opacity: 1,
+                    y: 10,
+                    duration: 0.9,
+                    ease: "circ.out",
+                })
+                .to(imgRef.current, {
+                    opacity: 1,
+                    scale: 1,
+                    duration: 1.1,
+                    ease: "power2.out",
+                }, "-=0.55")
 
-            gsap.to(imgRef.current, {
-                opacity: 1,
-                duration: 0.85,
-                delay: 2.5,
-                ease: "circ.inOut",
-            })
-
+            // Scroll-linked reveals: dropped `delay`/long `duration` and
+            // `toggleActions` here — both are dead weight once `scrub` is
+            // set. `toggleActions` has no effect under scrub, and `delay`
+            // just eats the first chunk of the scroll range as a dead zone
+            // before anything visibly moves. Scroll position should map
+            // straight to progress with nothing hidden behind it.
             gsap.to(boxaRef.current, {
                 opacity: 1,
                 height: 400,
-                delay: .95,
-                duration: 6.5,
                 y: 350,
                 ease: "power2.out",
                 scrollTrigger: {
@@ -75,15 +82,12 @@ export const AllStarProject = () => {
                     start: "top top",
                     end: "bottom center",
                     scrub: true,
-                    toggleActions: "restart pause reverse pause",
                 }
             })
 
             gsap.to(boxbRef.current, {
                 opacity: 1,
                 height: 320,
-                delay: 1.05,
-                duration: 6.5,
                 y: 220,
                 ease: "power2.out",
                 scrollTrigger: {
@@ -92,17 +96,11 @@ export const AllStarProject = () => {
                     end: "top top",
                     endTrigger: boxbRef.current,
                     scrub: true,
-                    toggleActions: "restart pause reverse pause",
                 }
             })
 
-            // horizontal scroll — inside context, no setTimeout
-            console.log('section:', section.offsetWidth, section.offsetHeight)
-            console.log('track:', track.scrollWidth, track.scrollHeight)
-            console.log('panels:', track.children.length)
-            
            if (!isMobile) {
-                gsap.to(track, {
+                const horizontalTween = gsap.to(track, {
                     x: () => -(track.scrollWidth - section.offsetWidth),
                     ease: "none",
                     scrollTrigger: {
@@ -115,6 +113,33 @@ export const AllStarProject = () => {
                     anticipatePin: 1,
                     invalidateOnRefresh: true,
                     }
+                })
+
+                // The gallery boxes used to just sit there fully visible
+                // for the entire horizontal pan — nothing marked the
+                // moment a piece actually arrived in frame. Now each one
+                // settles in (fade + slight scale-up) as it crosses into
+                // view. `containerAnimation` remaps the horizontal pan
+                // into this trigger's coordinate space, so "left"/"right"
+                // below behave the way "top"/"bottom" would for an
+                // ordinary vertical reveal.
+                const panels = gsap.utils.toArray<HTMLElement>(
+                    track.querySelectorAll('[class*="boxlrg"]')
+                )
+                gsap.set(panels, { opacity: 0, scale: 0.94 })
+                panels.forEach((panel) => {
+                    gsap.to(panel, {
+                        opacity: 1,
+                        scale: 1,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: panel,
+                            containerAnimation: horizontalTween,
+                            start: "left 90%",
+                            end: "left 55%",
+                            scrub: true,
+                        }
+                    })
                 })
             }
         }, allstarContainerRef.current)
@@ -144,7 +169,7 @@ export const AllStarProject = () => {
                 className={styles.allstarIntro}
             >
                 <h2>Court Hues</h2>
-                <div ref={boxFeatureRef} className={styles.boxa1}>
+                <div className={styles.boxa1}>
                     <img
                         ref={imgRef}
                         src="/portfolioImg/allStar/allstarIntroBg.jpg"
@@ -165,7 +190,7 @@ export const AllStarProject = () => {
                         <h3>The Brief</h3>
                         <p>
                             The All-Star Game is where the league’s elite converge,
-                            set against the energy of one of the world’s most 
+                            set against the energy of one of the world’s most
                             iconic cities.<br /><br />
                             This wasn’t about standard issue warmups.
                             It was about energy you could see, texture you could feel, and a color
@@ -193,7 +218,7 @@ export const AllStarProject = () => {
                             <h4>Team Role</h4>
                             <p>Color Design Lead</p>
                         </div>
-                        
+
                     </div>
                 </div>
             </motion.div>
@@ -206,8 +231,8 @@ export const AllStarProject = () => {
                                  <img src="/portfolioImg/allStar/allstarMoodboard.png" alt="Color moodboard for All Star concept"/>
                             </div>
                             <div className={styles.boxlrg}>
-                                 <img 
-                                    src="/portfolioImg/allStar/swatches.png" 
+                                 <img
+                                    src="/portfolioImg/allStar/swatches.png"
                                     alt="Explored swatches for shirt and merch"
                                     style={{ objectPosition: 'center center' }}
                                 />
@@ -219,6 +244,7 @@ export const AllStarProject = () => {
                                 loop
                                 muted
                                 playsInline
+                                onLoadedData={(e) => { e.currentTarget.style.opacity = '1' }}
                                 />
                             </div>
                         </div>
@@ -234,6 +260,7 @@ export const AllStarProject = () => {
                                 muted
                                 controls
                                 playsInline
+                                onLoadedData={(e) => { e.currentTarget.style.opacity = '1' }}
                                 />
                             </div>
                             <div className={styles.boxlrg}>
@@ -248,6 +275,7 @@ export const AllStarProject = () => {
                                 loop
                                 muted
                                 playsInline
+                                onLoadedData={(e) => { e.currentTarget.style.opacity = '1' }}
                                 />
                             </div>
                             <div className={styles.boxlrg}>
@@ -262,6 +290,7 @@ export const AllStarProject = () => {
                                 loop
                                 muted
                                 playsInline
+                                onLoadedData={(e) => { e.currentTarget.style.opacity = '1' }}
                                 />
                             </div>
                             <div className={styles.boxlrg}>
@@ -274,6 +303,7 @@ export const AllStarProject = () => {
                                 loop
                                 muted
                                 playsInline
+                                onLoadedData={(e) => { e.currentTarget.style.opacity = '1' }}
                                 />
                             </div>
                         </div>

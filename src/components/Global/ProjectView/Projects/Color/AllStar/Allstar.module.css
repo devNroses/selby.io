@@ -315,6 +315,16 @@
   display: block;
 }
 
+.boxlrg video {
+  /* Faded in via onLoadedData in AllStar/index.tsx instead of showing
+     immediately — autoplaying <video> renders a black frame the instant
+     it mounts, before it actually has a decoded frame to paint, which
+     read as a flash/pop once the horizontal-scroll reveal above it was
+     already easing the box in. */
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
 .media {
   width: 100%;
   height: 100%;
