@@ -26,6 +26,23 @@ const itemVariants = {
     },
 }
 
+// Gallery videos start at opacity: 0 (see .boxlrg video in
+// Allstar.module.css) so they fade in once they actually have a
+// frame to show, instead of a black box popping in. But relying on
+// `loadeddata` alone meant that whenever it *didn't* fire — a codec
+// Chrome can't decode, a stalled/slow network request, whatever —
+// the box stayed invisible forever, i.e. blank space where a video
+// should be. This adds an `error` listener (show it anyway rather
+// than hide a failure) and a hard 2.5s fallback timer so the box is
+// guaranteed to become visible no matter what happens.
+const revealVideo = (el: HTMLVideoElement | null) => {
+    if (!el) return
+    const show = () => { el.style.opacity = '1' }
+    const timer = setTimeout(show, 2500)
+    el.addEventListener('loadeddata', () => { clearTimeout(timer); show() }, { once: true })
+    el.addEventListener('error', () => { clearTimeout(timer); show() }, { once: true })
+}
+
 export const AllStarProject = () => {
     const { id } = useParams()
     const allstarContainerRef = useRef<HTMLDivElement>(null)
@@ -275,12 +292,12 @@ export const AllStarProject = () => {
                             </div>
                             <div className={`${styles.boxlrg} ${styles.boxlrgWide}`} style={{maxWidth: '400px'}}>
                                 <video
-                                src={'/portfolioImg/allStar/allstarStripes_26.mov'}
+                                src={'/portfolioImg/allStar/allstarStripes_26.mp4'}
                                 autoPlay
                                 loop
                                 muted
                                 playsInline
-                                onLoadedData={(e) => { e.currentTarget.style.opacity = '1' }}
+                                ref={revealVideo}
                                 />
                             </div>
                         </div>
@@ -296,7 +313,7 @@ export const AllStarProject = () => {
                                 muted
                                 controls
                                 playsInline
-                                onLoadedData={(e) => { e.currentTarget.style.opacity = '1' }}
+                                ref={revealVideo}
                                 />
                             </div>
                             <div className={styles.boxlrg}>
@@ -306,12 +323,12 @@ export const AllStarProject = () => {
                         <div className={styles.horizontalPanel}>
                             <div className={`${styles.boxlrg} ${styles.boxlrgWide}`}>
                                 <video
-                                src={'/portfolioImg/allStar/AntManAllStar.mov'}
+                                src={'/portfolioImg/allStar/AntManAllStar.mp4'}
                                 autoPlay
                                 loop
                                 muted
                                 playsInline
-                                onLoadedData={(e) => { e.currentTarget.style.opacity = '1' }}
+                                ref={revealVideo}
                                 />
                             </div>
                             <div className={styles.boxlrg}>
@@ -321,12 +338,12 @@ export const AllStarProject = () => {
                         <div className={styles.horizontalPanel}>
                             <div className={styles.boxlrg}>
                                  <video
-                                src={'/portfolioImg/allStar/kdBronIntros.mov'}
+                                src={'/portfolioImg/allStar/kdBronIntros.mp4'}
                                 autoPlay
                                 loop
                                 muted
                                 playsInline
-                                onLoadedData={(e) => { e.currentTarget.style.opacity = '1' }}
+                                ref={revealVideo}
                                 />
                             </div>
                             <div className={styles.boxlrg}>
@@ -334,12 +351,12 @@ export const AllStarProject = () => {
                             </div>
                             <div className={styles.boxlrg}>
                                  <video
-                                src={'/portfolioImg/allStar/wambawambaclip.mov'}
+                                src={'/portfolioImg/allStar/wambawambaclip.mp4'}
                                 autoPlay
                                 loop
                                 muted
                                 playsInline
-                                onLoadedData={(e) => { e.currentTarget.style.opacity = '1' }}
+                                ref={revealVideo}
                                 />
                             </div>
                         </div>
