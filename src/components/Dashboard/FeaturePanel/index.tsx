@@ -21,10 +21,14 @@ interface FeaturePanelProps {
   interval?: number
   showTitle?: boolean,
   showExpand?: boolean,
-  /** Crops tighter on the media so a quote/portrait composite reads as
-   * "just the quote" on mobile/tablet, where there isn't room to show
-   * both halves legibly. See .mediaQuoteFocus in FeaturePanel.module.css. */
-  quoteFocus?: boolean,
+  /**
+   * For portrait photos that should read as a text-first quote card:
+   * the image is hidden entirely below the 1280px breakpoint — the
+   * title/description (via showTitle) becomes the whole card on
+   * mobile/tablet instead of competing with a photo there's no room
+   * to show well.
+   */
+  portraitCard?: boolean,
 }
 
 const isVideoSrc = (item: FeatureMedia) =>
@@ -32,9 +36,9 @@ const isVideoSrc = (item: FeatureMedia) =>
   item.src.endsWith('.mp4') ||
   item.src.endsWith('.webm')
 
-const MediaItem = ({ item, quoteFocus }: { item: FeatureMedia, quoteFocus?: boolean }) => {
+const MediaItem = ({ item, portraitCard }: { item: FeatureMedia, portraitCard?: boolean }) => {
   const videoRef = useRef<HTMLVideoElement>(null)
-  const mediaClassName = quoteFocus ? `${styles.media} ${styles.mediaQuoteFocus}` : styles.media
+  const mediaClassName = portraitCard ? `${styles.media} ${styles.mediaPortrait}` : styles.media
 
   const handleVideoLoad = () => {
     if (videoRef.current) {
@@ -66,7 +70,7 @@ const MediaItem = ({ item, quoteFocus }: { item: FeatureMedia, quoteFocus?: bool
   )
 }
 
-export const FeaturePanel = ({ images, showTitle = false, showExpand=false, interval = 4000, quoteFocus = false }: FeaturePanelProps) => {
+export const FeaturePanel = ({ images, showTitle = false, showExpand=false, interval = 4000, portraitCard = false }: FeaturePanelProps) => {
   const [current, setCurrent] = useState(0)
   const [hovered, setHovered] = useState(false)
   const navigate = useNavigate();
@@ -90,7 +94,7 @@ export const FeaturePanel = ({ images, showTitle = false, showExpand=false, inte
     <motion.div
       initial={{ opacity: 0, y: 25 }}
       animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.6 } }}
-      className={styles.featureWrapper}
+      className={portraitCard ? `${styles.featureWrapper} ${styles.featureWrapperPortrait}` : styles.featureWrapper}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onTap={() => viewProject(currentItem.route as string)}
@@ -115,7 +119,7 @@ export const FeaturePanel = ({ images, showTitle = false, showExpand=false, inte
       )}
 
       {showTitle && (
-        <div className={styles.titleSection}>
+        <div className={portraitCard ? `${styles.titleSection} ${styles.titleSectionPortrait}` : styles.titleSection}>
           <h4>{currentItem.captionTitle}</h4>
           <p>{currentItem.description}</p>
         </div>
@@ -141,7 +145,7 @@ export const FeaturePanel = ({ images, showTitle = false, showExpand=false, inte
             transition: { duration: 1.5, ease: 'easeInOut' }
           }}
         >
-          <MediaItem item={currentItem} quoteFocus={quoteFocus} />
+          <MediaItem item={currentItem} portraitCard={portraitCard} />
         </motion.div>
       </AnimatePresence>
     </motion.div>
