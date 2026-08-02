@@ -53,23 +53,28 @@
 }
 
 @font-face {
-  font-family: 'HumaneBold';
-  src: local("HumaneBold"), url('./fonts/Humane-Bold.ttf') format('trueType');
+  font-family: 'ThunderBold';
+  src: local("ThunderBold"), url('./fonts/Thunder-BoldLC.otf') format('opentype');
 }
 
 @font-face {
-  font-family: 'HumaneRegular';
-  src: local("HumaneRegular"), url('./fonts/Humane-Regular.ttf') format('trueType');
+  font-family: 'ThunderRegular';
+  src: local("ThunderRegular"), url('./fonts/Thunder-LC.otf') format('opentype');
 }
 
 @font-face {
-  font-family: 'HumaneMedium';
-  src: local("HumaneMedium"), url('./fonts/Humane-Medium.ttf') format('trueType');
+  font-family: 'ThunderMedium';
+  src: local("ThunderMedium"), url('./fonts/Thunder-MediumLC.otf') format('opentype');
 }
 
 @font-face {
-  font-family: 'HumaneSemiBold';
-  src: local("HumaneSemiBold"), url('./fonts/Humane-SemiBold.ttf') format('trueType');
+  font-family: 'ThunderSemiBold';
+  src: local("ThunderSemiBold"), url('./fonts/Thunder-SemiBoldLC.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'ThunderExtraBold';
+  src: local("ThunderExtraBold"), url('./fonts/Thunder-ExtraBoldLC.otf') format('opentype');
 }
 
 

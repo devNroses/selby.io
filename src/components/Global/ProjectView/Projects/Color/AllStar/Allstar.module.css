@@ -29,7 +29,7 @@
 .allstarIntro h2 {
   z-index: 0;
   color: white;
-  font-family: 'HumaneMedium';
+  font-family: 'ThunderMedium';
   font-size: clamp(20rem, 15vw, 15em);
   letter-spacing: 0.1em;
   text-align: center;

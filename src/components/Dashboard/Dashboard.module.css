@@ -158,24 +158,23 @@
 
 @media (min-width: 1280px) {
   .aboutWrapper {
-    /* Grows to absorb whatever space Profile + SocialPanel don't use,
-       rather than a fixed/percentage height competing with siblings
-       for the same space. */
     flex: 1 1 auto;
     height: auto;
     min-height: 240px;
-    justify-content: center;
+    justify-content: flex-start;
+    padding: 1.35em;
   }
 }
 
 .aboutWrapper h3 {
-  font-size: 1em;
+  font-size: 1.98em;
+  font-family: ThunderSemiBold, var(--sans);
   padding-bottom: 0;
-  margin: 0;
+  margin: 0.2em 0 0;
 }
 
 .aboutWrapper p {
-  font-size: .8em;
+  font-size: .9em;
   line-height: 1.25;
   padding-bottom: 0;
 }

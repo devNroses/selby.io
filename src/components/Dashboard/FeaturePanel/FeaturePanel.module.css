@@ -61,10 +61,10 @@
 }
 
 .titleSection h4{
-  font-size: 2.5em;
+  font-size: 1.5em;
   margin-top: 78px;
   margin-bottom: 8px;
-  font-family: 'HumaneMedium';
+  font-family: 'ThunderBold';
 }
 .titleSection p{
   font-size: .85em;
@@ -135,7 +135,7 @@
      description entirely, so it gets the bold display treatment
      .titleSection h4 used to have. */
   font-size: 1.4em;
-  font-family: 'HumaneMedium';
+  font-family: 'ThunderMedium';
   line-height: 1.2;
   width: 100%;
   white-space: nowrap;
