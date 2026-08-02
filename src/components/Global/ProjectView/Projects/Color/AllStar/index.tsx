@@ -52,10 +52,10 @@ export const AllStarProject = () => {
         ctx.current = gsap.context(() => {
 
             // One timeline instead of two independently-delayed tweens —
-            // the headline settles in, then the hero image cross-dissolves
-            // in on its heels (overlapping via the negative offset) rather
-            // than popping in nearly 2.5s later on its own. Reads as one
-            // choreographed beat instead of two coincidentally-timed ones.
+            // the headline fully settles first, then the image animates in
+            // on top of it after a short beat (sequential, "+=0.15" — no
+            // overlap), rather than popping in nearly 2.5s later on its
+            // own or cross-dissolving in at the same time as the text.
             gsap.timeline({ delay: 0.3 })
                 .to(introElement.querySelectorAll('h2'), {
                     opacity: 1,
@@ -68,7 +68,7 @@ export const AllStarProject = () => {
                     scale: 1,
                     duration: 1.1,
                     ease: "power2.out",
-                }, "-=0.55")
+                }, "+=0.15")
 
             // Scroll-linked reveals: dropped `delay`/long `duration` and
             // `toggleActions` here — both are dead weight once `scrub` is
