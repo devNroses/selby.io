@@ -143,7 +143,7 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
                   <h3>Introduction</h3>
                   <p>
                     Raised in North Carolina and shaped by years abroad, my creative perspective 
-                    was built on contrast, culture, and curiosity—starting with sketching sports 
+                    was built on contrast, culture, and curiosity starting with sketching sports 
                     logos and studying sneaker ads. That foundation evolved into a deeper focus 
                     on visual systems, storytelling, color, and the emotional impact of design. 
                     Today, I focus on crafting thoughtful, evolving experiences built 
