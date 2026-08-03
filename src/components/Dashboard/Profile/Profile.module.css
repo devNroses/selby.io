@@ -68,7 +68,7 @@
     gap: 1.5em;
   }
   .profileTitle p{
-    font-size: clamp(1.5rem, 2vw, 2em);
+    font-size: clamp(1rem, 2vw, 2em);
   }
 }
 

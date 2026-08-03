@@ -23,7 +23,7 @@
   z-index: 0;
   color: white;
   font-family: 'ThunderMedium', var(--sans);
-  font-size: clamp(10rem, 15vw, 15em);
+  font-size: clamp(6rem, 10vw, 15em);
   text-align: center;
   text-transform: uppercase;
   transition: all 0.5s ease-in-out;
@@ -34,14 +34,14 @@
 
 @media (max-width: 830px) {
   .allstarIntro h2 {
-    font-size: clamp(5rem, 15vw, 15em);
+    font-size: clamp(5rem, 10vw, 15em);
     letter-spacing: 0.14em;
   }
 }
 
 @media (max-width: 550px) {
   .allstarIntro h2 {
-    font-size: clamp(4rem, 15vw, 15em);
+    font-size: clamp(2.5rem, 8vw, 4em);
     letter-spacing: 0.14em;
   }
 }

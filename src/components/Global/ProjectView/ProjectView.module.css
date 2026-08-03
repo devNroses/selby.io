@@ -13,3 +13,14 @@
   inset: 0;
   box-sizing: border-box;
 }
+
+/* Same reasoning as Dashboard/About — below 640px NavPill docks as a
+   solid, full-width, opaque bar, so reserve room above it. Safe to add
+   directly here since .pageSection's own solid --ink background
+   already covers this whole box, so the padding area matches instead
+   of exposing a different parent color. */
+@media (max-width: 640px) {
+  .pageSection {
+    padding-bottom: calc(1em + 96px);
+  }
+}
