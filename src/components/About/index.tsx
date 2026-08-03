@@ -1,5 +1,6 @@
 import { useEffect, useState, type CSSProperties, type ReactNode } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
+import { NavPill } from '../Global/NavPill'
 // import { GithubIcon } from '../../assets/icons/githubIcon'
 // import { InstagramIcon } from '../../assets/icons/instagramIcon'
 // import { LinkedInIcon } from '../../assets/icons/linkedIn'
@@ -91,7 +92,7 @@ const chapters: Chapter[] = [
     bioColumns: [
     <>
      A year embedded with the Nike Basketball licensed apparel team, developing color stories for on-court product, including the palette work behind NBA All-Star Weekend warm-ups and shooting shirts.
-    </>,
+    </>, 
     <>
       That work sits on a foundation built across visual design, UX, and engineering, a rare vantage point for translating a color concept into a technical spec, and a technical constraint into a design decision.
     </>],
@@ -111,11 +112,6 @@ function useMediaQuery(query: string) {
   return matches
 }
 
-// Chapter photos are full-bleed and were only ever fetched on first click —
-// on a cold cache that meant a blank hole mid-crossfade until the network
-// request finished, then a sudden pop once it did. Warming all of them in
-// the background as soon as the page mounts means every tab switch after
-// that hits cache and the crossfade below is actually smooth.
 function usePreloadImages(srcs: string[]) {
   useEffect(() => {
     const idle = window.requestIdleCallback ?? ((cb: IdleRequestCallback) => setTimeout(() => cb({} as IdleDeadline), 1))
@@ -182,14 +178,7 @@ export const AboutPage = () => {
                 ))
               )}
             </div>
-
-            {/* photo crossfades to match the active chapter, both breakpoints */}
             <div className={styles.photoStack}>
-              {/* mode="sync" (the default) so the outgoing and incoming
-                  photo overlap and cross-dissolve — mode="wait" was
-                  fading the old one out to a blank hole first and only
-                  then starting the new one in, which read as a stall
-                  followed by a pop once the image had loaded. */}
               <AnimatePresence>
                 <motion.img
                   key={activeChapter.photo}
@@ -203,7 +192,6 @@ export const AboutPage = () => {
               </AnimatePresence>
             </div>
 
-            {/* compact-only index strip; desktop relies on the three visible tabs instead */}
             {isCompact && (
               <nav className={styles.indexStrip} aria-label="Chapter index">
                 {chapters.map((chapter, i) => (
@@ -219,9 +207,6 @@ export const AboutPage = () => {
               </nav>
             )}
           </div>
-
-          {/* persistent panel: background/text color cross-fade lives here and never unmounts,
-              so the color transition is independent of the content-swap animation nested inside it */}
           <motion.div
             className={styles.tabContent}
             role="tabpanel"
@@ -268,13 +253,12 @@ export const AboutPage = () => {
               </AnimatePresence>
             </div>
           </motion.div>
-
-          {/* sighted users get the crossfade + label swap as their cue; this covers screen readers */}
           <span className={styles.srOnly} role="status" aria-live="polite">
             Showing chapter: {activeChapter.label}
           </span>
         </div>
       </div>
+      <NavPill />
     </div>
   )
 }

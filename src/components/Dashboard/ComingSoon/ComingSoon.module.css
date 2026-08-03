@@ -32,7 +32,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-family: 'HumaneBold', var(--sans);
+  font-family: 'ThunderBold', var(--sans);
   font-size: clamp(3.5rem, 14vw, 7rem);
   line-height: 1;
   letter-spacing: 0.02em;

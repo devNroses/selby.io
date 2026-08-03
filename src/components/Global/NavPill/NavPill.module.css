@@ -1,0 +1,114 @@
+/* Centered via left:0/right:0 + margin-inline:auto rather than
+   left:50% + transform:translateX(-50%) — this element also has
+   framer-motion animating its y/opacity, and motion writes its own
+   inline `transform` (composed only from the motion values it knows
+   about) straight onto the element. That inline style silently wins
+   over any transform declared here in the stylesheet, so the CSS-only
+   translateX(-50%) was getting clobbered the moment motion's y
+   animation kicked in — the pill rendered flush against the center
+   line instead of straddling it. Auto-margin centering doesn't touch
+   `transform` at all, so it can't be stepped on. */
+.pill {
+  position: fixed;
+  left: 0;
+  right: 0;
+  width: max-content;
+  margin-inline: auto;
+  bottom: max(28px, env(safe-area-inset-bottom));
+  z-index: 60;
+
+  display: flex;
+  align-items: center;
+  gap: .85em;
+
+  padding: 6px 6px 6px 24px;
+  border: 1px solid var(--ink-soft);
+  border-radius: 999px;
+  background: rgba(17, 17, 17, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+
+  cursor: pointer;
+  appearance: none;
+  font: inherit;
+}
+
+.pill:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.label {
+  color: var(--cream);
+  font-size: .95em;
+  font-weight: 500;
+  letter-spacing: .01em;
+  white-space: nowrap;
+}
+
+.iconChip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: var(--accent-lime);
+}
+
+/* Mobile: matches 363sudbury.com's actual mobile treatment (checked
+   live) — not a floating dark pill at all, but a solid lime bar
+   docked flush across the full width of the bottom edge. Reserving
+   page padding for a floating pill here just read as a flat black
+   gap under the content; docking the bar removes the need for that
+   padding entirely, since the bar has nothing behind it to overlap —
+   it *is* the bottom edge. */
+@media (max-width: 640px) {
+  .pill {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    margin-inline: 0;
+    justify-content: space-between;
+    gap: 1em;
+
+    padding: 20px 28px;
+    /* Only the bottom edge needs the home-indicator safe area — the
+       bar is already flush, so this just keeps its content clear of
+       the notch/gesture-bar area instead of nudging the whole bar up. */
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+
+    border: none;
+    border-radius: 0;
+    background: var(--accent-lime);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.25);
+  }
+
+  .pill:hover {
+    border-color: transparent;
+  }
+
+  .label {
+    color: #111111;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .iconChip {
+    /* The whole bar is lime now, so the icon chip's own lime square
+       would be invisible against it — drop the chip treatment and
+       let the icon sit directly on the bar, same as the reference. */
+    width: auto;
+    height: auto;
+    background: none;
+  }
+
+  .iconChip svg {
+    width: 20px;
+    height: 20px;
+  }
+}

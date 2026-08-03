@@ -9,17 +9,10 @@
 .allstarIntro {
   display: flex;
   flex-direction: column;
-  position: relative; /* anchors boxa1/boxa/boxb below via top/left instead
-                          of the old align-self + negative-margin hacks */
+  position: relative; 
   margin: 0;
   padding: 0 40px;
   width: 100%;
-  /* Was a flat 100vh with everything centered in it — the headline's
-     display-font glyphs render far taller than its line-box (a ~360px
-     font size on a ~26px line box), so anything placed "below" it in
-     the layout still visually collided with it, and boxa/boxb had no
-     room to sit clear of both the headline and the viewport edge.
-     Taller + top-aligned gives the reveal somewhere to land. */
   min-height: 170vh;
   padding-top: 24vh;
   justify-content: flex-start;
@@ -29,9 +22,8 @@
 .allstarIntro h2 {
   z-index: 0;
   color: white;
-  font-family: 'HumaneMedium';
-  font-size: clamp(20rem, 15vw, 15em);
-  letter-spacing: 0.1em;
+  font-family: 'ThunderMedium', var(--sans);
+  font-size: clamp(6rem, 10vw, 15em);
   text-align: center;
   text-transform: uppercase;
   transition: all 0.5s ease-in-out;
@@ -42,14 +34,14 @@
 
 @media (max-width: 830px) {
   .allstarIntro h2 {
-    font-size: clamp(10rem, 15vw, 15em);
+    font-size: clamp(5rem, 10vw, 15em);
     letter-spacing: 0.14em;
   }
 }
 
 @media (max-width: 550px) {
   .allstarIntro h2 {
-    font-size: clamp(6rem, 15vw, 15em);
+    font-size: clamp(2.5rem, 8vw, 4em);
     letter-spacing: 0.14em;
   }
 }
