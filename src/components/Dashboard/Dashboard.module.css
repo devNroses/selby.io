@@ -47,7 +47,7 @@
     grid-template-columns: 1.45fr 1.45fr 1fr;
     grid-template-rows: 1fr;
     align-items: stretch;
-    height: 100%;
+    height: 92%;
   }
 }
 
@@ -157,7 +157,7 @@
 }
 
 .aboutWrapper p {
-  font-size: .95em;
+  font-size: .85em;
   line-height: 1.25;
   padding-bottom: 0;
 }
