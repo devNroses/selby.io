@@ -39,11 +39,12 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
     },
     {
       label: 'Vomero18',
-      alt: 'Vomero 18 Silver Bullet Concept',
+      alt: 'Vomero 18 Silver Line Concept',
       src: './portfolioImg/features/vomero18_silverBullet.jpg',
       type: 'image',
-      captionTitle: 'V18 Silver Bullet',
-      description: 'Silver Bullet 97 reimagined through Vomero 18 blending tech, texture, and street-ready endurance.'
+      captionTitle: 'V18 Silver Line',
+      description: 'Silver Line Vomero blending tech, texture, culture and street-ready endurance.',
+      route: '/dashboard/project/vomero'
     }
   ] 
 
@@ -122,10 +123,6 @@ export const Dashboard = ({ dashboardPropRef }:DashbaordProps ) => {
               className={`panel ${styles.sectionPanel}`}
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.45 } }}
-              // no inline height override — .sectionPanel's own
-              // height: 100% (see Dashboard.module.css) now fills the
-              // column correctly, so the old height: '110%' fudge-factor
-              // hack (which just overflowed/clipped inconsistently) is gone.
               style={{ display: 'flex', flexDirection: 'column', background: 'transparent', padding: '.25rem' }}
             >
                <motion.div 
