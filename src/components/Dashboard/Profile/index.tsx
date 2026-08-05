@@ -1,4 +1,5 @@
 import { lazy, Suspense } from 'react'
+import { ErrorBoundary } from '../../Global/ErrorBoundary'
 import styles from './Profile.module.css'
 
 // Same shared chunk the Hero page uses for its rotating wordmark —
@@ -11,9 +12,17 @@ const WordmarkScene = lazy(() =>
 export const Profile = () => {
     return (
         <div className={styles.profileWrapper}>
-            <Suspense fallback={null}>
-                <WordmarkScene />
-            </Suspense>
+            {/* A genuinely failed asset fetch (bad network, not just
+               slow) throws past Suspense's "still loading" handling —
+               catch it here so a flaky connection loses the animated
+               logo, not more of the page than that. profileWrapper's
+               own gradient background already reads fine as an empty
+               state underneath. */}
+            <ErrorBoundary>
+                <Suspense fallback={null}>
+                    <WordmarkScene />
+                </Suspense>
+            </ErrorBoundary>
             <div className={styles.profileDesc}>
                 <div className={styles.profileContent}>
                     <div className={styles.profileTitle}>

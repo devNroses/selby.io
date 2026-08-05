@@ -1,8 +1,15 @@
-import { useEffect, useRef } from 'react'
+import { Suspense, useEffect, useRef } from 'react'
 import { Canvas, useThree, useFrame } from '@react-three/fiber'
-import { Environment, Center, Bounds } from '@react-three/drei'
+import { Environment, useEnvironment, Center, Bounds } from '@react-three/drei'
 import { ACESFilmicToneMapping, Group } from 'three'
 import { SelbyText } from '../Logo'
+
+const HDR_PATH = '/THAZERO-WORLD-TEXTURE.hdr'
+
+// Mirrors Logo's useGLTF.preload() — kicks the HDR fetch off the moment
+// this chunk evaluates, rather than waiting for <Environment> to mount
+// and request it.
+useEnvironment.preload({ files: HDR_PATH })
 
 // Shared behind a single dynamic import() so the whole three.js /
 // @react-three/fiber / @react-three/drei / three-stdlib graph loads as
@@ -64,7 +71,17 @@ export const WordmarkScene = ({ responsive = false }: WordmarkSceneProps) => (
     frameloop="always"
   >
     {responsive && <ResponsiveCamera />}
-    <Environment files="/THAZERO-WORLD-TEXTURE.hdr" background={false} />
+    {/* Own inner Suspense boundary, separate from the outer one this
+       whole scene is already loaded behind (see Profile/HeroPage) — on
+       a slow/flaky connection the HDR lighting map can stall well after
+       the model itself (preloaded above) is ready. Without this, that
+       stall blocks the *entire* outer Suspense (fallback: null), so the
+       whole canvas — model included — sits blank indefinitely. Splitting
+       it out means the rotating wordmark still shows up, just without
+       the environment-map sheen until it finishes loading. */}
+    <Suspense fallback={null}>
+      <Environment files={HDR_PATH} background={false} />
+    </Suspense>
     <Bounds fit clip observe margin={0.65}>
       <RotatingText />
     </Bounds>
