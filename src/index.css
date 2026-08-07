@@ -122,6 +122,15 @@ body, html, #root {
   height: auto;
 }
 
+/* overflow-x: hidden here (rather than the equivalent-looking overflow-x:
+   clip) used to break position: sticky for every descendant on the page --
+   per the CSS overflow spec, setting overflow-x to anything other than
+   visible/clip forces the *other* axis (overflow-y) to a computed value of
+   auto if it isn't already non-visible, which turns html/body into a
+   scroll container. Several sticky elements deep in the tree (Vomero's
+   process section) were silently just scrolling with the page instead of
+   sticking, and this was the actual root cause -- clip prevents the same
+   horizontal-scrollbar issue without triggering that auto-pairing rule. */
 body, html {
-  overflow-x: hidden;
+  overflow-x: clip;
 }

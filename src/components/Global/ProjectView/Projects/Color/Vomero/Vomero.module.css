@@ -6,13 +6,6 @@
 .hero {
   position: relative;
   width: 100%;
-  /* dvh accounts for mobile browser chrome (address bar) collapsing/
-     expanding during scroll -- plain 100vh is measured against the
-     *largest* possible viewport, so on mobile it can cause the pinned
-     hero to visibly jump or clip as the chrome shows/hides mid-scroll.
-     The 100vh line stays first as a fallback for browsers that don't
-     support dvh -- they'll just ignore the second, invalid-to-them
-     declaration and keep the first. */
   height: 100vh;
   height: 100dvh;
   overflow: hidden;
@@ -28,13 +21,6 @@
   display: block;
 }
 
-/* Opacity is driven entirely by GSAP (see index.tsx) — this gradient is
-   just the shape of the darkening: heavier at the bottom where the Brief
-   text sits, lighter through the middle so the image itself still reads
-   while dimmed. The 70% stop pulls the darkening in earlier (rather than
-   only ramping up in the last 30%), and the bottom stop is darker than
-   before -- the Brief copy was blending into the photo at initial load
-   because that region wasn't dark enough on its own. */
 .heroScrim {
   position: absolute;
   inset: 0;
@@ -47,10 +33,6 @@
   );
 }
 
-/* The initial-load focal point — centered on screen, separate from the
-   bottom-left Brief block below. Fades in on mount, then dissolves out
-   as the scroll-scrub reveal takes over (see index.tsx), so it never
-   sits on top of the Brief copy once that's fully visible. */
 .centerTitleWrap {
   position: absolute;
   inset: 0;
@@ -103,12 +85,6 @@
   margin: 0;
 }
 
-/* Mirrors theperformancelab.ca's "OUR PROCESS" section (checked live):
-   a sticky left column (heading + product imagery) that stays in view
-   while a right column of content scrolls past it. Plain CSS sticky --
-   no GSAP pin here, since there's nothing scrub-driven tied to it, and
-   sticky sidesteps the pin-height/mobile-jump complexity already dealt
-   with on the hero above. */
 .process {
   width: 100%;
   background: var(--ink);
@@ -121,7 +97,6 @@
   gap: clamp(2rem, 5vw, 5rem);
   max-width: 1400px;
   margin: 0 auto;
-  align-items: start;
 }
 
 .processSticky {
@@ -130,6 +105,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  height: fit-content;
 }
 
 .processHeading {
@@ -154,34 +130,46 @@
 .stickyShoes {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2.5rem;
   margin-top: 0.5rem;
 }
 
 .shoeImg {
   width: 100%;
+  aspect-ratio: 2.2 / 1;
   height: auto;
+  object-fit: cover;
+  object-position: center;
   display: block;
+  border-radius: 4px;
 }
 
 .processRight {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(3rem, 6vw, 6rem);
+  position: relative;
+  min-height: calc(6 * 60vh);
 }
 
-/* Initial GSAP state (opacity: 0, translateX) is set inline via
-   gsap.fromTo in useLayoutEffect, which runs before paint -- no CSS
-   default needed here to avoid a flash of the unanimated state. */
-.revealItem {
-  width: 100%;
+.stackSticky {
+  position: sticky;
+  top: clamp(88px, 12vh, 140px);
+  width: 420px;
+  aspect-ratio: 3 / 4;
+  margin-left: auto;
+  margin-right: clamp(1rem, 4vw, 3rem);
 }
 
-.revealImg {
+.stackItem {
+  position: absolute;
+  inset: 0;
+}
+
+.stackImg {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   display: block;
-  border-radius: 4px;
+  border-radius: 6px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
 }
 
 @media (max-width: 768px) {
@@ -194,24 +182,25 @@
     font-size: 0.9rem;
   }
 
-  /* Single column on mobile/tablet -- sticky only makes sense next to
-     a taller sibling column, so it's turned off here and the shoes
-     just sit in normal flow above the reveal images. */
   .processGrid {
     grid-template-columns: 1fr;
   }
 
   .processSticky {
     position: static;
+    height: auto;
+  }
+
+  .processRight {
+    min-height: calc(6 * 45vh);
+  }
+
+  .stackSticky {
+    width: 260px;
+    margin: 0 auto;
   }
 }
 
-/* Matches NavPill's own mobile breakpoint (see NavPill.module.css) --
-   below 640px the pill becomes a full-width, opaque, fixed bottom bar
-   (~96px tall) portaled to document.body, sitting on top of everything.
-   Without this, the Brief text -- anchored to the bottom of a pinned
-   100dvh hero -- would sit directly underneath it, same clipping issue
-   already fixed on Dashboard/About/ProjectView. */
 @media (max-width: 640px) {
   .heroContent {
     padding-bottom: calc(10vw + 96px);

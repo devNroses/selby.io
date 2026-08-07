@@ -5,11 +5,8 @@ import styles from './Vomero.module.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// The right-column images are placeholder/stand-in content (per user
-// confirmation) — not real Vomero production photography. Swap these
-// out for real process shots whenever they're ready; nothing else in
-// the reveal logic below needs to change.
 const PROCESS_IMAGES = [
+    { src: '/portfolioImg/vomero/process/process-7.jpg', alt: '' },
     { src: '/portfolioImg/vomero/process/process-1.jpg', alt: '' },
     { src: '/portfolioImg/vomero/process/process-2.jpg', alt: '' },
     { src: '/portfolioImg/vomero/process/process-3.jpg', alt: '' },
@@ -18,38 +15,14 @@ const PROCESS_IMAGES = [
     { src: '/portfolioImg/vomero/process/process-6.gif', alt: '' },
 ]
 
-// Mirrors about.nike.com/en/magazine's article hero (checked live): the
-// cover image starts dim under a dark scrim, the whole section pins in
-// place while you scroll, the scrim fades off and the brief text rises
-// into position, then it releases into normal content. Modeled on the
-// same gsap.context/ScrollTrigger pattern AllStar already uses.
-//
-// The title is its own separate layer, centered on screen — it's the
-// initial-load focal point (like AllStar's giant centered intro h2),
-// not part of the bottom-left Brief block. It fades in on mount, then
-// rises up and out as the scroll-scrub reveal takes over below, timed
-// to the same 0-1 progress as the Brief block's entrance so the two
-// motions read as a single handoff (title exits up, Brief rises into
-// place) rather than two unrelated animations.
-//
-// The process section below mirrors theperformancelab.ca's "OUR
-// PROCESS / How elite performance actually gets built" section
-// (checked live): a sticky left column (heading + product imagery)
-// stays in place while a right column of content scrolls past it.
-// That's plain CSS `position: sticky`, not a GSAP pin — sticky is the
-// right tool here since there's no scrub-driven reveal tied to it, and
-// it sidesteps all the pin-height/mobile-jump issues already dealt
-// with on the hero above. Each right-column image gets its own
-// ScrollTrigger that slides it in from the right as it enters the
-// viewport (toggleActions so it reverses if you scroll back up past
-// it, rather than a one-shot play).
 export const Vomero = () => {
     const containerRef = useRef<HTMLDivElement>(null)
     const heroRef = useRef<HTMLDivElement>(null)
     const titleRef = useRef<HTMLHeadingElement>(null)
     const scrimRef = useRef<HTMLDivElement>(null)
     const contentRef = useRef<HTMLDivElement>(null)
-    const revealRefs = useRef<(HTMLDivElement | null)[]>([])
+    const processRightRef = useRef<HTMLDivElement>(null)
+    const stackRefs = useRef<(HTMLDivElement | null)[]>([])
     const ctx = useRef<gsap.Context | null>(null)
 
     useLayoutEffect(() => {
@@ -58,7 +31,8 @@ export const Vomero = () => {
             !heroRef.current ||
             !titleRef.current ||
             !scrimRef.current ||
-            !contentRef.current
+            !contentRef.current ||
+            !processRightRef.current
         ) return
 
         gsap.set(titleRef.current, { opacity: 0, y: 24, visibility: 'visible' })
@@ -66,8 +40,6 @@ export const Vomero = () => {
         gsap.set(contentRef.current, { opacity: 0, y: 32 })
 
         ctx.current = gsap.context(() => {
-            // Initial-load entrance for the centered title — plays once
-            // on mount, independent of scroll.
             gsap.to(titleRef.current, {
                 opacity: 1,
                 y: 0,
@@ -80,52 +52,46 @@ export const Vomero = () => {
                 scrollTrigger: {
                     trigger: heroRef.current,
                     start: 'top top',
-                    // Pin for a full extra viewport of scroll distance —
-                    // this is the "sticky until the next section" part.
-                    // Bump this if the reveal should take longer to play out.
                     end: '+=100%',
-                    // A numeric scrub (rather than `true`) adds a short lerp
-                    // lag between scroll position and animation progress.
-                    // `scrub: true` maps 1:1 to raw scroll delta, so on a
-                    // mouse wheel (coarse, discrete deltas) the animation
-                    // visibly jumps in chunks each tick — trackpads feel
-                    // smoother only because their deltas are finer-grained.
-                    // 0.5s of smoothing makes both input types feel
-                    // continuous instead of stepped.
                     scrub: 0.5,
                     pin: true,
                     anticipatePin: 1,
                     invalidateOnRefresh: true,
                 },
             })
-                // Title rises further and exits up while the Brief block
-                // (below) rises into place over the same span, so it reads
-                // as one continuous handoff instead of an unrelated fade.
+                
                 .to(titleRef.current, { opacity: 0, y: -72, ease: 'none' }, 0)
-                .to(scrimRef.current, { opacity: 0.88, ease: 'none' }, 0)
+                .to(scrimRef.current, { opacity: 0.90, ease: 'none' }, 0)
                 .to(contentRef.current, { opacity: 1, y: 0, ease: 'none' }, 0)
 
-            // Right-column reveals — each image slides in from the right
-            // and fades up independently as it crosses into view. Not
-            // pinned, not scrubbed: this is a plain one-shot-per-item
-            // scroll reveal, the same pattern used for basic editorial
-            // "content enters as you scroll" sections.
-            revealRefs.current.forEach((el) => {
-                if (!el) return
-                gsap.fromTo(
+            const stacks = stackRefs.current.filter(
+                (el): el is HTMLDivElement => el !== null,
+            )
+            gsap.set(stacks, { opacity: 0 })
+
+            const stackTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: processRightRef.current,
+                    start: 'top center',
+                    end: 'bottom bottom',
+                    scrub: 0.5,
+                },
+            })
+
+            stacks.forEach((el, i) => {
+                const fanRotation = (i % 2 === 0 ? 1 : -1) * (i * 1.5)
+                stackTl.fromTo(
                     el,
-                    { opacity: 0, x: 72 },
+                    { opacity: 0, x: 140, y: i * 6 },
                     {
                         opacity: 1,
-                        x: 0,
-                        duration: 0.8,
-                        ease: 'power2.out',
-                        scrollTrigger: {
-                            trigger: el,
-                            start: 'top 85%',
-                            toggleActions: 'play none none reverse',
-                        },
+                        x: i * 10,
+                        y: i * 10,
+                        rotate: fanRotation,
+                        ease: 'none',
+                        duration: 1,
                     },
+                    i,
                 )
             })
         }, containerRef.current)
@@ -177,39 +143,42 @@ export const Vomero = () => {
                     <div className={styles.processSticky}>
                         <p className={styles.eyebrow}>The Process</p>
                         <h2 className={styles.processHeading}>
-                            How the Silver Line Pack comes together
+                            Exploration Digital Archieve
                         </h2>
                         <p className={styles.processIntro}>
-                            Every pack starts from the same foundation — the Vomero last,
-                            its ZoomX geometry, its support structure. From there the two
-                            colorways diverge: one chasing the flash and velocity of the
-                            machine, the other honoring the workforce that keeps it running.
-                            Same source material, two different stories.
+                            Built on the Vomero's ZoomX geometry and support structure, 
+                            the Silver Line Pack carries the DNA of the Air Max 97 "Silver Bullet" 
+                            into two distinct cultural narratives. One colorway chases the flash and 
+                            velocity of the machine, street iconic, head-turning,the other honors the 
+                            workforce that keeps the system moving. Same foundation, two stories, one culture.
                         </p>
                         <div className={styles.stickyShoes}>
                             <img
                                 className={styles.shoeImg}
-                                src="/portfolioImg/vomero/process/process/pack-1.png"
+                                src="/portfolioImg/vomero/process/pack-1.png"
                                 alt="Vomero Silver Line Pack — Silver Bullet colorway"
                             />
                             <img
                                 className={styles.shoeImg}
-                                src="/portfolioImg/vomero/process/process/pack-2.png"
+                                src="/portfolioImg/vomero/process/pack-2.png"
                                 alt="Vomero Silver Line Pack — Conductor colorway"
                             />
                         </div>
                     </div>
 
-                    <div className={styles.processRight}>
-                        {PROCESS_IMAGES.map((img, i) => (
-                            <div
-                                key={img.src}
-                                ref={(el) => { revealRefs.current[i] = el }}
-                                className={styles.revealItem}
-                            >
-                                <img className={styles.revealImg} src={img.src} alt={img.alt} />
-                            </div>
-                        ))}
+                    <div ref={processRightRef} className={styles.processRight}>
+                        <div className={styles.stackSticky}>
+                            {PROCESS_IMAGES.map((img, i) => (
+                                <div
+                                    key={img.src}
+                                    ref={(el) => { stackRefs.current[i] = el }}
+                                    className={styles.stackItem}
+                                    style={{ zIndex: i + 1 }}
+                                >
+                                    <img className={styles.stackImg} src={img.src} alt={img.alt} />
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </section>
