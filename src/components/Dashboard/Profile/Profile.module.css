@@ -42,7 +42,7 @@
 .profileTitle p {
   font-family: ThunderRegular, var(--sans);
   text-transform: uppercase;
-  font-size: clamp(.75rem, 1vw, 2em);
+  font-size: clamp(.75rem, 1.25vw, 2em);
   letter-spacing: .08em;
   padding: 0;
   margin: 0;
