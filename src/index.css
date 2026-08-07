@@ -72,6 +72,38 @@
   src: local("HumaneSemiBold"), url('./fonts/Humane-SemiBold.ttf') format('trueType');
 }
 
+/* These five were referenced all over the codebase (About, Dashboard,
+   FeaturePanel, ComingSoon) as 'ThunderMedium' / 'ThunderSemiBold' /
+   'ThunderBold' / ThunderRegular, but none of them ever had an actual
+   @font-face rule registered anywhere -- every one of those elements
+   has been silently falling back to the plain sans-serif fallback
+   this whole time. The .otf files were already sitting in src/fonts/,
+   just never wired up. */
+@font-face {
+  font-family: 'ThunderRegular';
+  src: local("ThunderRegular"), url('./fonts/Thunder-LC.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'ThunderMedium';
+  src: local("ThunderMedium"), url('./fonts/Thunder-MediumLC.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'ThunderSemiBold';
+  src: local("ThunderSemiBold"), url('./fonts/Thunder-SemiBoldLC.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'ThunderBold';
+  src: local("ThunderBold"), url('./fonts/Thunder-BoldLC.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'ThunderExtraBold';
+  src: local("ThunderExtraBold"), url('./fonts/Thunder-ExtraBoldLC.otf') format('opentype');
+}
+
 
 * {
   box-sizing: border-box;
@@ -90,6 +122,15 @@ body, html, #root {
   height: auto;
 }
 
+/* overflow-x: hidden here (rather than the equivalent-looking overflow-x:
+   clip) used to break position: sticky for every descendant on the page --
+   per the CSS overflow spec, setting overflow-x to anything other than
+   visible/clip forces the *other* axis (overflow-y) to a computed value of
+   auto if it isn't already non-visible, which turns html/body into a
+   scroll container. Several sticky elements deep in the tree (Vomero's
+   process section) were silently just scrolling with the page instead of
+   sticking, and this was the actual root cause -- clip prevents the same
+   horizontal-scrollbar issue without triggering that auto-pairing rule. */
 body, html {
-  overflow-x: hidden;
+  overflow-x: clip;
 }

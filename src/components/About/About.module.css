@@ -17,7 +17,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   width: 100%;
-  height: 100%; /* fix: was min-height: 100vh, mismatched .contentContainer at the 640px breakpoint */
+  height: 100%; 
   position: absolute;
   inset: 0;
 }
@@ -26,12 +26,12 @@
   position: relative;
   display: flex;
   height: 100%;
-  justify-content: center; /* centers the fixed-width photoStack in the leftover row space */
+  justify-content: center; 
 }
 
 .photoStack {
   position: relative;
-  flex: none; /* stop it stretching full-bleed — was overriding the explicit width below */
+  flex: none; 
   width: 380px;
   overflow: hidden;
   margin-left:20px;
@@ -48,7 +48,7 @@
 
 .tabsContainer {
   display: flex;
-  flex: none; /* fixed width so it doesn't expand into the space photoStack no longer claims */
+  flex: none; 
   width: 220px;
   height: 100%;
   flex-direction: row;
@@ -58,7 +58,7 @@
   display: flex;
   background-color: transparent;
   border: 1px solid white;
-  border-bottom: 3px solid transparent; /* accent underline lives here, transparent until active */
+  border-bottom: 3px solid transparent; 
   flex: 1;
   min-width: 80px;
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
@@ -81,10 +81,9 @@
   border-bottom-color: var(--tab-accent, white);
 }
 
-/* persistent color panel — background/text color animate here via framer motion's `animate` prop;
-   this element never unmounts, so the color cross-fade is independent of the content swap nested inside it */
+
 .tabContent {
-  grid-column: 2 / -1; /* was implicitly just column 2 — spans through the last column regardless of column count */
+  grid-column: 2 / -1; 
   display: flex;
   align-items: center;
   height: 100%;
@@ -92,7 +91,7 @@
 }
 
 .tabContentInner {
-  max-width: 640px; /* two-column body needs real width; per-paragraph measure is constrained below instead */
+  max-width: 640px; 
   width: 100%;
 }
 
@@ -134,7 +133,7 @@
 
 .bodyColumns p {
   margin: 0;
-  max-width: 32ch; /* readability constraint lives on the paragraph, not the filling panel */
+  max-width: 32ch; 
 }
 
 .indexStrip {
@@ -152,7 +151,7 @@
   color: white;
   font-size: 0.9rem;
   opacity: 0.5;
-  padding: 0.5em; /* real tap target, not just the glyph */
+  padding: 0.5em;
   cursor: pointer;
 }
 
@@ -194,25 +193,25 @@
   }
 
   .photoStack {
-    flex: 1; /* was fixed at 380px for the desktop 3-region composition — here it should fill the row */
+    flex: 1;
     width: auto;
     margin-left: 0;
   }
 
   .mediaRow {
-    justify-content: stretch; /* centering a fixed-width box no longer applies once photoStack fills the row */
+    justify-content: stretch; 
   }
 
   .tabContent {
     grid-column: unset;
-    align-items: flex-start; /* was center — that's what pushed the headline into the middle of the empty box */
+    align-items: flex-start; 
     height: auto;
     min-height: 40vh;
     padding: 2em 1.5em;
   }
 
   .bodyColumns {
-    grid-template-columns: 1fr; /* two columns don't fit a narrow viewport */
+    grid-template-columns: 1fr; 
   }
 }
 
@@ -221,17 +220,6 @@
     min-height: 60vh;
   }
 
-  /* Reserve room above the docked mobile NavPill bar (see
-     Global/NavPill — solid, full-width, flush to the bottom edge at
-     this breakpoint) so the last bit of bio copy doesn't end up
-     hidden behind it. This lives on .tabContent itself, the element
-     whose background actually animates to match the active chapter's
-     color, rather than on the outer .aboutWrapper — that wrapper's
-     background is a static #111 that doesn't track the chapter color,
-     so padding added there previously showed up as a flat black gap
-     mismatched against whichever colored panel was active. Padding
-     here instead lets the real panel color extend down to meet the
-     bar, so there's no seam. */
   .tabContent {
     padding-bottom: calc(2em + 96px);
   }

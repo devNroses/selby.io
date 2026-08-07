@@ -2,9 +2,6 @@ import { lazy, Suspense } from "react";
 import { useLocation, Routes, Route } from "react-router-dom";
 import { AnimatePresence } from "motion/react";
 
-// Each route's code (and whatever it pulls in — three.js for Hero/Dashboard,
-// the AllStar project assets for ProjectView, etc.) only loads when that
-// route is actually visited, instead of all shipping in the initial bundle.
 const Hero = lazy(() => import("../HeroPage").then((m) => ({ default: m.Hero })));
 const Dashboard = lazy(() => import("../Dashboard").then((m) => ({ default: m.Dashboard })));
 const AboutPage = lazy(() => import("../About").then((m) => ({ default: m.AboutPage })));
